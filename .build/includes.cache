@@ -1,0 +1,267 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\nicola\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\cores\\esp32"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\nicola\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\variants\\esp32"
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\EIPLogger.ino.cpp",
+    "Include": "Wire.h",
+    "Includepath": "C:\\Users\\nicola\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\Wire\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\EIPLogger.ino.cpp",
+    "Include": "Sodaq_SHT2x.h",
+    "Includepath": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\Sodaq_SHT2x\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\EIPLogger.ino.cpp",
+    "Include": "uRTCLib.h",
+    "Includepath": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\uRTCLib\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\EIPLogger.ino.cpp",
+    "Include": "uEEPROMLib.h",
+    "Includepath": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\uEEPROMLib\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\EIPLogger.ino.cpp",
+    "Include": "epd_driver.h",
+    "Includepath": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\EIPLogger.ino.cpp",
+    "Include": "iAQCoreTwoWire.h",
+    "Includepath": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\iAQ-CoreMI\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\EIPLogger.ino.cpp",
+    "Include": "SparkFun_AS3935.h",
+    "Includepath": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\SparkFun_AS3935_Lightning_Detector_Arduino_Library\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\EIPLogger.ino.cpp",
+    "Include": "SPI.h",
+    "Includepath": "C:\\Users\\nicola\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\SPI\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\EIPLogger.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\src\\Button.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\src\\DataStore.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\src\\Display.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\src\\GraphDisplay.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\src\\HumidityDisplay.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\src\\ModeManager.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\src\\Peripherals.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\src\\PowerManager.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\src\\Status.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\src\\StatusDisplay.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\src\\TemperatureDisplay.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "c:\\Users\\nicola\\git\\EIPLogger\\.build\\sketch\\src\\TimeDisplay.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\Wire\\src\\Wire.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\Sodaq_SHT2x\\src\\Sodaq_SHT2x.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\uRTCLib\\src\\uRTCLib.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\uEEPROMLib\\src\\uEEPROMLib.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\ed097oc4.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\epd_driver.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\font.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\i2s_data_bus.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\rmt_pulse.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\touch.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\adler32.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\compress.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\crc32.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\deflate.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\gzclose.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\gzlib.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\gzread.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\gzwrite.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\infback.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\inffast.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\inflate.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\inftrees.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\trees.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\uncompr.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\LilyGo-EPD47\\src\\zlib\\zutil.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\iAQ-CoreMI\\src\\iAQCoreI2C.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\iAQ-CoreMI\\src\\iAQCoreMI.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\iAQ-CoreMI\\src\\iAQCoreTwoWire.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\SparkFun_AS3935_Lightning_Detector_Arduino_Library\\src\\SparkFun_AS3935.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\nicola\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\SPI\\src\\SPI.cpp",
+    "Include": "",
+    "Includepath": null
+  }
+]

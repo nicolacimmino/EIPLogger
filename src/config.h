@@ -33,4 +33,9 @@
 #define POWER_SAVE_TIMEOUT_MS 20000
 #define RECORD_DATA_INTERVAL_MS 300000 // 5 minutes
 #define SAMPLE_DATA_INTERVAL_MS 5000   // 5 seconds
+
+#define LIGHTNING_INT 0x08
+#define DISTURBER_INT 0x04
+#define NOISE_INT 0x01
+
 #endif

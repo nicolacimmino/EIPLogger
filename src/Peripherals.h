@@ -25,6 +25,7 @@ public:
     static SparkFun_AS3935 *lightning;
 
     static void setup();
+    static void loop();
 };
 
 #endif

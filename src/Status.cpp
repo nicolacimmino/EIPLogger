@@ -4,6 +4,10 @@ unsigned long Status::lastTimeSync = 0;
 long Status::batteryVoltage = 0;
 bool Status::abortLoopRequested = false;
 bool Status::timeSyncRequsted = true;
+int Status::thunderStrikes = 0;
+int Status::thunderDistance = 0;
+int Status::thunderEnergy = 0;
+int Status::thunderInterferers = 0;
 
 void Status::abortLoop()
 {

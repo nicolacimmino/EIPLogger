@@ -23,6 +23,10 @@ public:
     static uint8_t getBatteryLevel();
     static long getBatteryVoltage();
     static int getFreeRamBytes();
+    static int thunderStrikes;
+    static int thunderDistance;
+    static int thunderEnergy;
+    static int thunderInterferers;
 };
 
 #endif

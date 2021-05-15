@@ -62,14 +62,21 @@ void setup()
     Peripherals::buttonB->registerOnLongPressCallback(onButtonBLongPress);
 
     ModeManager::setup();
+    epd_poweron();
     ModeManager::currentDisplay->clearDisplay();
+    epd_poweroff();
+
+    
+   //Peripherals::rtc->set(0, 52, 12, 6, 15, 5, 21);
+
 }
 
 void loop()
 {
     PowerManager::loop();
     DataStore::loop();
-    Peripherals::buttonA->loop();
+    Peripherals::loop();
+    Peripherals::buttonA->loop(); // TODO: move to Peripherals::loop
     Peripherals::buttonB->loop();
     ModeManager::currentDisplay->loop();
 

@@ -13,9 +13,9 @@ void Peripherals::setup()
     //iAQ-Core can operate at a maximum of 100kHz clock speed
     Wire.setClock(80000L);
     Wire.begin(PIN_SDA, PIN_SCL);
-    
+
     epd_init();
-    
+
     Peripherals::sht2x = new SHT2xClass();
     Peripherals::iaq = new iAQCoreTwoWire(&Wire);
     Peripherals::lightning = new SparkFun_AS3935(AS3935_ADDR);
@@ -30,4 +30,27 @@ void Peripherals::setup()
     Peripherals::lightning->resetSettings();
     Peripherals::lightning->setIndoorOutdoor(0x12); // Indoor
     Peripherals::lightning->spikeRejection(2);
+}
+
+void Peripherals::loop()
+{
+    uint8_t intVal = Peripherals::lightning->readInterruptReg();
+    if (intVal)
+    {
+        if (intVal == DISTURBER_INT)
+        {
+            Status::thunderInterferers++;
+        }
+        else if (intVal == LIGHTNING_INT)
+        {
+            Status::thunderStrikes++;
+            Status::thunderEnergy = Peripherals::lightning->lightningEnergy();
+            Status::thunderDistance = Peripherals::lightning->distanceToStorm();
+        }
+
+        while (Peripherals::lightning->readInterruptReg())
+        {
+            delay(1);
+        }
+    }
 }

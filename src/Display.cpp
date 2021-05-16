@@ -20,9 +20,7 @@ void Display::clearDisplay(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
     };
 
     epd_poweron();
-    //epd_clear_area(area);
-    epd_clear_area_cycles(area, 4, 50);
-
+    epd_clear_area_cycles(area, 8, 50);
     epd_push_pixels(area, 150, 1);
 
     epd_poweroff();

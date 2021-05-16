@@ -56,42 +56,42 @@ uint8_t DataStore::getStoredValue(uint16_t ix, uint8_t offset)
 
 void DataStore::loop()
 {
-    if (DataStore::lastSampleTime != 0 && millis() - DataStore::lastSampleTime < SAMPLE_DATA_INTERVAL_MS)
-    {
-        return;
-    }
-    DataStore::lastSampleTime = millis();
+    // if (DataStore::lastSampleTime != 0 && millis() - DataStore::lastSampleTime < SAMPLE_DATA_INTERVAL_MS)
+    // {
+    //     return;
+    // }
+    // DataStore::lastSampleTime = millis();
 
-    // TODO: move to power manager
-    bool restoreLevel = false;
-    if (PowerManager::level > PS_LEVEL_1)
-    {
-        PowerManager::enterL1();
-        restoreLevel = true;
-    }
+    // // TODO: move to power manager
+    // bool restoreLevel = false;
+    // if (PowerManager::level > PS_LEVEL_1)
+    // {
+    //     PowerManager::enterL1();
+    //     restoreLevel = true;
+    // }
 
-    if (DataStore::temperature == DATA_STORE_VALUE_NOT_INITIALIZED)
-    {
-        DataStore::temperature = SHT2x.GetTemperature();
-        DataStore::humidity = round(SHT2x.GetHumidity());
-    }
-    else
-    {
+    // if (DataStore::temperature == DATA_STORE_VALUE_NOT_INITIALIZED)
+    // {
+    //     DataStore::temperature = SHT2x.GetTemperature();
+    //     DataStore::humidity = round(SHT2x.GetHumidity());
+    // }
+    // else
+    // {
 
-        DataStore::temperature = (DataStore::temperature * 0.9) + (SHT2x.GetTemperature() * 0.1);
-        DataStore::humidity = round((DataStore::humidity * 0.9) + (SHT2x.GetHumidity() * 0.1));
-    }
+    //     DataStore::temperature = (DataStore::temperature * 0.9) + (SHT2x.GetTemperature() * 0.1);
+    //     DataStore::humidity = round((DataStore::humidity * 0.9) + (SHT2x.GetHumidity() * 0.1));
+    // }
 
-    if (millis() - DataStore::lastRecordTime > RECORD_DATA_INTERVAL_MS)
-    {
-        DataStore::lastRecordTime = millis();
-        DataStore::recordData();
-    }
+    // if (millis() - DataStore::lastRecordTime > RECORD_DATA_INTERVAL_MS)
+    // {
+    //     DataStore::lastRecordTime = millis();
+    //     DataStore::recordData();
+    // }
 
-    if (restoreLevel)
-    {
-        PowerManager::restoreLevel();
-    }
+    // if (restoreLevel)
+    // {
+    //     PowerManager::restoreLevel();
+    // }
 }
 
 void DataStore::recordData()

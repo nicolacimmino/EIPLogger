@@ -6,6 +6,7 @@
 #include "DataStore.h"
 #include "fonts/sevenSeg_70.h"
 #include "fonts/firasans.h"
+#include "drivers/SHT2x.h" // TODO: could get it in Perihperals somehow even though it's just a static instance
 
 #define TIME_MODE_TIME 0
 #define TIME_MODE_DATE 1

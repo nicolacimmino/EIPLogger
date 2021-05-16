@@ -2,13 +2,13 @@
 #define __TEMPERATURE_PERIPHERALS_H__
 
 #include <Arduino.h>
-#include <Sodaq_SHT2x.h>
 #include <uRTCLib.h>
 #include <uEEPROMLib.h>
 #include <epd_driver.h>
 #include <iAQCoreTwoWire.h>
 #include "SparkFun_AS3935.h"
 #include "fonts/firasans.h"
+#include "drivers/SHT2x.h"
 #include "config.h"
 #include "Button.h"
 
@@ -21,11 +21,10 @@ public:
     static Button *buttonA;
     static Button *buttonB;
     static Button *buttonC;
-    static SHT2xClass *sht2x;
     static iAQCoreTwoWire *iaq;
     static SparkFun_AS3935 *lightning;
     static uint8_t *framebuffer;
-    
+
     static void setup();
     static void loop();
 };

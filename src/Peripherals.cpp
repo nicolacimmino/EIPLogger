@@ -5,7 +5,6 @@ uEEPROMLib *Peripherals::eeprom = NULL;
 Button *Peripherals::buttonA = NULL;
 Button *Peripherals::buttonB = NULL;
 Button *Peripherals::buttonC = NULL;
-SHT2xClass *Peripherals::sht2x = NULL;
 iAQCoreTwoWire *Peripherals::iaq = NULL;
 SparkFun_AS3935 *Peripherals::lightning = NULL;
 uint8_t *Peripherals::framebuffer = NULL;
@@ -23,7 +22,6 @@ void Peripherals::setup()
     Wire.setClock(80000L);
     Wire.begin(PIN_SDA, PIN_SCL);
 
-    Peripherals::sht2x = new SHT2xClass();
     Peripherals::iaq = new iAQCoreTwoWire(&Wire);
     Peripherals::lightning = new SparkFun_AS3935(AS3935_ADDR);
     Peripherals::buttonA = new Button(PIN_BUTTON_A);
@@ -65,4 +63,6 @@ void Peripherals::loop()
             delay(1);
         }
     }
+
+    SHT2x::loop();
 }

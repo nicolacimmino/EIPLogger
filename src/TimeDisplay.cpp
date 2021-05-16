@@ -42,20 +42,33 @@ void TimeDisplay::displayTime()
 
     this->printValue(buffer, 0, 120, EPD_WIDTH, 120, (GFXfont *)&sevenSeg70);
 
-    sprintf(buffer, "Temp: %0.2f", Peripherals::sht2x->GetTemperature());
+    if (SHT2x::idDataValid())
+    {
+        sprintf(buffer, "Temp: %0.2f C", SHT2x::temperature);
 
-    this->printValue(buffer, 0, 210, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
+        this->printValue(buffer, 0, 210, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
 
-    sprintf(buffer, "Humidity: %i", Peripherals::sht2x->GetHumidity());
+        sprintf(buffer, "Humidity: %d %%RH", (int)SHT2x::humidity);
 
-    this->printValue(buffer, EPD_WIDTH / 2, 210, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
+        this->printValue(buffer, EPD_WIDTH / 2, 210, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
+    }
+    else
+    {
+        sprintf(buffer, "Temp: ---");
+
+        this->printValue(buffer, 0, 210, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
+
+        sprintf(buffer, "Humidity: ---");
+
+        this->printValue(buffer, EPD_WIDTH / 2, 210, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
+    }
 
     if (Peripherals::iaq->hasValue())
     {
-        snprintf(buffer, 128, "CO2: %i", Peripherals::iaq->getCO2());
+        snprintf(buffer, 128, "CO2: %i ppm", Peripherals::iaq->getCO2());
         this->printValue(buffer, 0, 300, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
 
-        snprintf(buffer, 128, "TVOC: %i", Peripherals::iaq->getTVOC());
+        snprintf(buffer, 128, "TVOC: %i ppb", Peripherals::iaq->getTVOC());
         this->printValue(buffer, EPD_WIDTH / 2, 300, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
     }
     else
@@ -73,7 +86,7 @@ void TimeDisplay::displayTime()
     snprintf(buffer, 128, "STK: %i", Status::thunderStrikes);
     this->printValue(buffer, EPD_WIDTH / 2, 390, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
 
-    snprintf(buffer, 128, "DST: %i", Status::thunderDistance);
+    snprintf(buffer, 128, "DST: %i km", Status::thunderDistance);
     this->printValue(buffer, 0, 480, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
 
     snprintf(buffer, 128, "ENE: %i", Status::thunderEnergy);
@@ -83,7 +96,7 @@ void TimeDisplay::displayTime()
     {
         this->clearDisplay();
     }
-    
+
     this->displayFramebuffer();
 
     this->dirty = true;

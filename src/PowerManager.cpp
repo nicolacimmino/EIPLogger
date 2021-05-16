@@ -12,7 +12,7 @@ void PowerManager::enterL0()
 
     // digitalWrite(PIN_PWR_AUX_DEVS, HIGH);
     // delay(PS_BUS_GUARD_TIME_MS);
-    
+
     level = PS_LEVEL_0;
 }
 
@@ -23,8 +23,8 @@ void PowerManager::enterL1()
     // digitalWrite(PIN_PWR_AUX_DEVS, HIGH);
     // delay(PS_BUS_GUARD_TIME_MS);
 
-//    level = PS_LEVEL_1;
-  level = PS_LEVEL_0;
+    //    level = PS_LEVEL_1;
+    level = PS_LEVEL_0;
     //
 }
 
@@ -35,8 +35,16 @@ void PowerManager::enterL2()
     //digitalWrite(PIN_PWR_AUX_DEVS, LOW);
 
     //level = PS_LEVEL_2;
-      level = PS_LEVEL_0;
+    level = PS_LEVEL_0;
     //
+}
+
+void PowerManager::enterPOFF()
+{
+    ModeManager::currentDisplay->powerDown();
+    epd_poweroff_all();          
+    esp_sleep_enable_ext1_wakeup(POWER_MANAGER_WAKEUP_PINS, ESP_EXT1_WAKEUP_ALL_LOW);
+    esp_deep_sleep_start();
 }
 
 void PowerManager::loop()

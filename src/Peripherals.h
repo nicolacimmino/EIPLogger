@@ -20,6 +20,7 @@ public:
     static uEEPROMLib *eeprom;
     static Button *buttonA;
     static Button *buttonB;
+    static Button *buttonC;
     static SHT2xClass *sht2x;
     static iAQCoreTwoWire *iaq;
     static SparkFun_AS3935 *lightning;

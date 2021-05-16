@@ -23,6 +23,7 @@ public:
     virtual void onBLongPress() = 0;
     void onDataStoreChange();
     void onDisplayAwaken();
+    void powerDown();
 };
 
 #endif

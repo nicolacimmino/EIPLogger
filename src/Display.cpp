@@ -63,3 +63,9 @@ void Display::printValue(char *buffer, int x, int y, int width, int height, cons
 
     epd_poweroff();
 }
+
+void Display::powerDown()
+{
+    this->clearDisplay();
+    this->printValue("Power down", 0, EPD_HEIGHT / 2, EPD_WIDTH, EPD_HEIGHT, (GFXfont *)&FiraSans, true);
+}

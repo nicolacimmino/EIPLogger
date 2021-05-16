@@ -33,8 +33,6 @@ void TimeDisplay::displayTime()
 
     Peripherals::rtc->refresh();
 
-    Serial.println(Peripherals::rtc->second());
-
     if (lastMinute == Peripherals::rtc->minute())
     {
         return;

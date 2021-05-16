@@ -15,37 +15,45 @@ void onButtonPress()
 
 void onButtonAClick()
 {
-    if (PowerManager::level == PS_LEVEL_0)
-    {
-        ModeManager::changeMode();
-    }
+    Serial.println("A");
+    // if (PowerManager::level == PS_LEVEL_0)
+    // {
+    //     ModeManager::changeMode();
+    // }
 
-    onButtonPress();
+    // onButtonPress();
 }
 
 void onButtonBClick()
 {
-    if (PowerManager::level == PS_LEVEL_0)
-    {
-        ModeManager::currentDisplay->onBClick();
-    }
+    Serial.println("B");
+    // if (PowerManager::level == PS_LEVEL_0)
+    // {
+    //     ModeManager::currentDisplay->onBClick();
+    // }
 
-    onButtonPress();
+    // onButtonPress();
 }
 
-void onButtonBLongPress()
+void onButtonCClick()
 {
-    if (PowerManager::level == PS_LEVEL_0)
-    {
-        ModeManager::currentDisplay->onBLongPress();
-    }
+    Serial.println("C");
+    // if (PowerManager::level == PS_LEVEL_0)
+    // {
+    //     ModeManager::currentDisplay->onBClick();
+    // }
 
-    onButtonPress();
+    // onButtonPress();
+}
+
+void onButtonALongPress()
+{
+    PowerManager::enterPOFF();
 }
 
 void setup()
 {
-    Serial.begin(9600);
+    Serial.begin(115200);
 
     Peripherals::setup();
 
@@ -58,17 +66,16 @@ void setup()
     // attachInterrupt(digitalPinToInterrupt(PIN_BUTTON_B), buttonPressedISR, FALLING);
 
     Peripherals::buttonA->registerOnClickCallback(onButtonAClick);
+    Peripherals::buttonA->registerOnLongPressCallback(onButtonALongPress);
     Peripherals::buttonB->registerOnClickCallback(onButtonBClick);
-    Peripherals::buttonB->registerOnLongPressCallback(onButtonBLongPress);
+    Peripherals::buttonC->registerOnClickCallback(onButtonCClick);
 
     ModeManager::setup();
     epd_poweron();
     ModeManager::currentDisplay->clearDisplay();
     epd_poweroff();
 
-    
-   //Peripherals::rtc->set(0, 52, 12, 6, 15, 5, 21);
-
+    //Peripherals::rtc->set(0, 52, 12, 6, 15, 5, 21);
 }
 
 void loop()
@@ -76,8 +83,6 @@ void loop()
     PowerManager::loop();
     DataStore::loop();
     Peripherals::loop();
-    Peripherals::buttonA->loop(); // TODO: move to Peripherals::loop
-    Peripherals::buttonB->loop();
     ModeManager::currentDisplay->loop();
 
     if (Status::shouldAbortLoop())
@@ -86,6 +91,4 @@ void loop()
 
         return;
     }
-
-    delay(5000);
 }

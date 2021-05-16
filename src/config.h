@@ -19,11 +19,14 @@
 #define TEMPERATURE_NOT_SET 0xFF
 
 #define AS3935_ADDR 0x01
-#define RTC_ADDR 0x68 
+#define RTC_ADDR 0x68
 #define EEPROM_ADDR 0x57
 
-#define PIN_BUTTON_A 34
-#define PIN_BUTTON_B 35
+#define PIN_BUTTON_A 39
+#define PIN_BUTTON_B 34
+#define PIN_BUTTON_C 35
+
+#define POWER_MANAGER_WAKEUP_PINS GPIO_SEL_39
 
 #define PIN_SDA 14
 #define PIN_SCL 15

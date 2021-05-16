@@ -31,6 +31,7 @@ public:
     static void enterL0();
     static void enterL1();
     static void enterL2();
+    static void enterPOFF();
     static void loop();
     static void onUserInteratcion();
     static void restoreLevel();

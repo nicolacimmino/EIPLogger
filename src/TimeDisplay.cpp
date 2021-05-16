@@ -42,13 +42,13 @@ void TimeDisplay::displayTime()
 
     this->printValue(buffer, 0, 120, EPD_WIDTH, 120, (GFXfont *)&sevenSeg70);
 
-    if (SHT2x::idDataValid())
+    if (Peripherals::sht2x->idDataValid())
     {
-        sprintf(buffer, "Temp: %0.2f C", SHT2x::temperature);
+        sprintf(buffer, "Temp: %0.2f C", Peripherals::sht2x->temperature);
 
         this->printValue(buffer, 0, 210, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
 
-        sprintf(buffer, "Humidity: %d %%RH", (int)SHT2x::humidity);
+        sprintf(buffer, "Humidity: %d %%RH", Peripherals::sht2x->humidity);
 
         this->printValue(buffer, EPD_WIDTH / 2, 210, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
     }

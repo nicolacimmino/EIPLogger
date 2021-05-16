@@ -1,5 +1,6 @@
 #include "Peripherals.h"
 
+SHT2x *Peripherals::sht2x = NULL;
 uRTCLib *Peripherals::rtc = NULL;
 uEEPROMLib *Peripherals::eeprom = NULL;
 Button *Peripherals::buttonA = NULL;
@@ -22,6 +23,7 @@ void Peripherals::setup()
     Wire.setClock(80000L);
     Wire.begin(PIN_SDA, PIN_SCL);
 
+    Peripherals::sht2x = new SHT2x();
     Peripherals::iaq = new iAQCoreTwoWire(&Wire);
     Peripherals::lightning = new SparkFun_AS3935(AS3935_ADDR);
     Peripherals::buttonA = new Button(PIN_BUTTON_A);
@@ -64,5 +66,5 @@ void Peripherals::loop()
         }
     }
 
-    SHT2x::loop();
+    Peripherals::sht2x->loop();
 }

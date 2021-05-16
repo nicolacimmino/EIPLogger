@@ -11,14 +11,14 @@
 class SHT2x
 {
 private:
-    static uint16_t read(uint8_t command);
-    static bool validData;
+    uint16_t read(uint8_t command);
+    bool validData = false;
 
 public:
-    static float temperature;
-    static float humidity;
-    static void loop();
-    static bool idDataValid();
+    float temperature;
+    uint8_t humidity;
+    void loop();
+    bool idDataValid();
 };
 
 #endif

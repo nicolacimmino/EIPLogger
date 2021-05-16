@@ -7,6 +7,7 @@
 #include <epd_driver.h>
 #include <iAQCoreTwoWire.h>
 #include "SparkFun_AS3935.h"
+#include "drivers/SHT2x.h"
 #include "fonts/firasans.h"
 #include "drivers/SHT2x.h"
 #include "config.h"
@@ -16,6 +17,7 @@ class Peripherals
 {
 
 public:
+    static SHT2x *sht2x;
     static uRTCLib *rtc;
     static uEEPROMLib *eeprom;
     static Button *buttonA;

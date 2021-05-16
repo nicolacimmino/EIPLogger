@@ -20,7 +20,11 @@ void Display::clearDisplay(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
     };
 
     epd_poweron();
-    epd_clear_area(area);
+    //epd_clear_area(area);
+    epd_clear_area_cycles(area, 4, 50);
+
+    epd_push_pixels(area, 150, 1);
+
     epd_poweroff();
 }
 
@@ -57,15 +61,23 @@ void Display::printValue(char *buffer, int x, int y, int width, int height, cons
 
     x0 = x0 + (width - w) / 2;
 
-    epd_poweron();
+   // epd_poweron();
 
-    write_mode(font, buffer, &x0, &y0, NULL, BLACK_ON_WHITE, NULL);
+    write_mode(font, buffer, &x0, &y0, Peripherals::framebuffer, BLACK_ON_WHITE, NULL);
 
-    epd_poweroff();
+   // epd_poweroff();
+}
+
+void Display::displayFramebuffer()
+{
+     epd_draw_grayscale_image(epd_full_screen(), Peripherals::framebuffer);
+     epd_draw_grayscale_image(epd_full_screen(), Peripherals::framebuffer);
+    memset(Peripherals::framebuffer, 0xFF, EPD_WIDTH * EPD_HEIGHT / 2);
 }
 
 void Display::powerDown()
 {
     this->clearDisplay();
     this->printValue("Power down", 0, EPD_HEIGHT / 2, EPD_WIDTH, EPD_HEIGHT, (GFXfont *)&FiraSans, true);
+    this->displayFramebuffer();    
 }

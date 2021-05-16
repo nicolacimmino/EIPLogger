@@ -38,8 +38,6 @@ void TimeDisplay::displayTime()
         return;
     }
 
-    this->clearDisplay();
-
     sprintf(buffer, "%02i-%02i-%02i %02i:%02i", Peripherals::rtc->day(), Peripherals::rtc->month(), Peripherals::rtc->year(), Peripherals::rtc->hour(), Peripherals::rtc->minute());
 
     this->printValue(buffer, 0, 120, EPD_WIDTH, 120, (GFXfont *)&sevenSeg70);
@@ -80,6 +78,15 @@ void TimeDisplay::displayTime()
 
     snprintf(buffer, 128, "ENE: %i", Status::thunderEnergy);
     this->printValue(buffer, EPD_WIDTH / 2, 480, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
+
+    if (this->dirty)
+    {
+        this->clearDisplay();
+    }
+    
+    this->displayFramebuffer();
+
+    this->dirty = true;
 
     lastMinute = Peripherals::rtc->minute();
 }

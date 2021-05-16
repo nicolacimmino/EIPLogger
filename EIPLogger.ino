@@ -54,7 +54,7 @@ void onButtonALongPress()
 void setup()
 {
     Serial.begin(115200);
-
+    
     Peripherals::setup();
 
     if (Peripherals::buttonA->isPressed() && Peripherals::buttonB->isPressed())

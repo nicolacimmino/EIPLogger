@@ -24,7 +24,8 @@ public:
     static SHT2xClass *sht2x;
     static iAQCoreTwoWire *iaq;
     static SparkFun_AS3935 *lightning;
-
+    static uint8_t *framebuffer;
+    
     static void setup();
     static void loop();
 };

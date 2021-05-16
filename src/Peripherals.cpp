@@ -8,9 +8,13 @@ Button *Peripherals::buttonC = NULL;
 SHT2xClass *Peripherals::sht2x = NULL;
 iAQCoreTwoWire *Peripherals::iaq = NULL;
 SparkFun_AS3935 *Peripherals::lightning = NULL;
+uint8_t *Peripherals::framebuffer = NULL;
 
 void Peripherals::setup()
 {
+    framebuffer = (uint8_t *)ps_calloc(sizeof(uint8_t), EPD_WIDTH * EPD_HEIGHT / 2);
+    memset(Peripherals::framebuffer, 0xFF, EPD_WIDTH * EPD_HEIGHT / 2);
+
     epd_init();
 
     delay(500);

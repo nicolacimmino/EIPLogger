@@ -91,15 +91,8 @@ void TimeDisplay::displayTime()
 
     snprintf(buffer, 128, "ENE: %i", Status::thunderEnergy);
     this->printValue(buffer, EPD_WIDTH / 2, 480, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
-
-    if (this->dirty)
-    {
-        this->clearDisplay();
-    }
-
+   
     this->displayFramebuffer();
-
-    this->dirty = true;
 
     lastMinute = Peripherals::rtc->minute();
 }

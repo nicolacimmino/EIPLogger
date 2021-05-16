@@ -15,9 +15,9 @@ private:
 protected:
     void plotBatterLevel();
     bool replotNeeded = true;
-    void printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font, bool clearField = false);
+    void printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font);
     void displayFramebuffer();
-    bool dirty = false;
+
 public:
     void clearDisplay(uint16_t x = 0, uint16_t y = 0, uint16_t width = EPD_WIDTH, uint16_t height = EPD_HEIGHT);
     virtual void loop() = 0;

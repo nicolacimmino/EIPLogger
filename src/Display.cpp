@@ -18,12 +18,8 @@ void Display::clearDisplay(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
         .width = width,
         .height = height,
     };
-
-    epd_poweron();
-    epd_clear_area_cycles(area, 8, 50);
-    epd_push_pixels(area, 150, 1);
-
-    epd_poweroff();
+    epd_clear_area_cycles(area, 10, 5);    
+    epd_push_pixels(area, 500, 1);    
 }
 
 void Display::plotBatterLevel()
@@ -41,13 +37,8 @@ void Display::onBLongPress()
     return;
 }
 
-void Display::printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font, bool clearField)
-{
-    if (clearField)
-    {
-        this->clearDisplay(x, y - height, width, height);
-    }
-
+void Display::printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font)
+{    
     int x0 = x;
     int y0 = y;
     int x1;
@@ -59,23 +50,24 @@ void Display::printValue(char *buffer, int x, int y, int width, int height, cons
 
     x0 = x0 + (width - w) / 2;
 
-   // epd_poweron();
-
     write_mode(font, buffer, &x0, &y0, Peripherals::framebuffer, BLACK_ON_WHITE, NULL);
-
-   // epd_poweroff();
 }
 
 void Display::displayFramebuffer()
 {
-     epd_draw_grayscale_image(epd_full_screen(), Peripherals::framebuffer);
-     epd_draw_grayscale_image(epd_full_screen(), Peripherals::framebuffer);
+    epd_poweron();
+    delay(100);
+
+    this->clearDisplay();    
+    epd_draw_grayscale_image(epd_full_screen(), Peripherals::framebuffer);
+    
+    epd_poweroff();
+
     memset(Peripherals::framebuffer, 0xFF, EPD_WIDTH * EPD_HEIGHT / 2);
 }
 
 void Display::powerDown()
 {
-    this->clearDisplay();
-    this->printValue("Power down", 0, EPD_HEIGHT / 2, EPD_WIDTH, EPD_HEIGHT, (GFXfont *)&FiraSans, true);
-    this->displayFramebuffer();    
+    this->printValue("Power down", 0, EPD_HEIGHT / 2, EPD_WIDTH, EPD_HEIGHT, (GFXfont *)&FiraSans);
+    this->displayFramebuffer();
 }

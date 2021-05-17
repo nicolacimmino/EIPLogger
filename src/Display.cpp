@@ -10,18 +10,6 @@ void Display::onDisplayAwaken()
     this->replotNeeded = true;
 }
 
-void Display::clearDisplay(uint16_t x, uint16_t y, uint16_t width, uint16_t height)
-{
-    Rect_t area = {
-        .x = x,
-        .y = y,
-        .width = width,
-        .height = height,
-    };
-    epd_clear_area_cycles(area, 10, 5);    
-    epd_push_pixels(area, 500, 1);    
-}
-
 void Display::plotBatterLevel()
 {
     // uint8_t batteryLevel = Status::getBatteryLevel();
@@ -38,7 +26,7 @@ void Display::onBLongPress()
 }
 
 void Display::printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font)
-{    
+{
     int x0 = x;
     int y0 = y;
     int x1;
@@ -56,11 +44,12 @@ void Display::printValue(char *buffer, int x, int y, int width, int height, cons
 void Display::displayFramebuffer()
 {
     epd_poweron();
-    delay(100);
 
-    this->clearDisplay();    
+    epd_clear_area_cycles(epd_full_screen(), 10, 50);
+    //epd_push_pixels(epd_full_screen(), 500, 1);
+
     epd_draw_grayscale_image(epd_full_screen(), Peripherals::framebuffer);
-    
+
     epd_poweroff();
 
     memset(Peripherals::framebuffer, 0xFF, EPD_WIDTH * EPD_HEIGHT / 2);

@@ -54,13 +54,16 @@ void onButtonALongPress()
 void setup()
 {
     Serial.begin(115200);
-    
-    Peripherals::setup();
 
-    if (Peripherals::buttonA->isPressed() && Peripherals::buttonB->isPressed())
+    if (esp_sleep_get_wakeup_cause() != ESP_SLEEP_WAKEUP_TIMER)
     {
-        DataStore::wipeStoredData();
+        Peripherals::setup();
     }
+
+    // if (Peripherals::buttonA->isPressed() && Peripherals::buttonB->isPressed())
+    // {
+    //     DataStore::wipeStoredData();
+    // }
 
     // attachInterrupt(digitalPinToInterrupt(PIN_BUTTON_A), buttonPressedISR, FALLING);
     // attachInterrupt(digitalPinToInterrupt(PIN_BUTTON_B), buttonPressedISR, FALLING);
@@ -71,9 +74,9 @@ void setup()
     Peripherals::buttonC->registerOnClickCallback(onButtonCClick);
 
     ModeManager::setup();
-    epd_poweron();
-    ModeManager::currentDisplay->clearDisplay();
-    epd_poweroff();
+    // epd_poweron();
+    // ModeManager::currentDisplay->clearDisplay();
+    // epd_poweroff();
 
     //Peripherals::rtc->set(0, 52, 12, 6, 15, 5, 21);
 }
@@ -91,4 +94,8 @@ void loop()
 
         return;
     }
+
+    esp_sleep_enable_ext1_wakeup(POWER_MANAGER_WAKEUP_PINS, ESP_EXT1_WAKEUP_ALL_LOW);
+    esp_sleep_enable_timer_wakeup(60 * 1000000); // 60s
+    esp_light_sleep_start();
 }

@@ -18,8 +18,7 @@ protected:
     void printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font);
     void displayFramebuffer();
 
-public:
-    void clearDisplay(uint16_t x = 0, uint16_t y = 0, uint16_t width = EPD_WIDTH, uint16_t height = EPD_HEIGHT);
+public:    
     virtual void loop() = 0;
     virtual void onBClick() = 0;
     virtual void onBLongPress() = 0;

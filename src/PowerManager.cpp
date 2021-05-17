@@ -42,7 +42,8 @@ void PowerManager::enterL2()
 void PowerManager::enterPOFF()
 {
     ModeManager::currentDisplay->powerDown();
-    epd_poweroff_all();          
+    epd_poweroff_all();
+    esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
     esp_sleep_enable_ext1_wakeup(POWER_MANAGER_WAKEUP_PINS, ESP_EXT1_WAKEUP_ALL_LOW);
     esp_deep_sleep_start();
 }

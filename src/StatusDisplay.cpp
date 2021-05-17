@@ -22,6 +22,6 @@ void StatusDisplay::loop()
 
 void StatusDisplay::displayStatus()
 {
-    this->clearDisplay();
+    //this->clearDisplay();
    
 }

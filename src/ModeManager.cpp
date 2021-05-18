@@ -20,14 +20,8 @@ void ModeManager::enterMode()
     {
     case 0:
         currentDisplay = new TimeDisplay();
-        break;
+        break;   
     case 1:
-       // currentDisplay = new TemperatureDisplay();
-        break;
-    case 2:
-       // currentDisplay = new HumidityDisplay();
-        break;
-    case 3:
         currentDisplay = new StatusDisplay();
         break;
     }

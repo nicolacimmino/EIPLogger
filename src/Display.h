@@ -17,7 +17,7 @@ protected:
     bool replotNeeded = true;
     void printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font);
     void displayFramebuffer();
-
+    unsigned long lastRefreshTime = 64000;
 public:    
     virtual void loop() = 0;
     virtual void onBClick() = 0;

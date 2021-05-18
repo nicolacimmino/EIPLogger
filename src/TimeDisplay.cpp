@@ -29,14 +29,12 @@ void TimeDisplay::loop()
 void TimeDisplay::displayTime()
 {
     char buffer[32];
-    static uint8_t lastMinute = 255;
 
-    Peripherals::rtc->refresh();
-
-    if (lastMinute == Peripherals::rtc->minute())
-    {
+    if(millis() - this->lastRefreshTime < 60000) {
         return;
     }
+
+    Peripherals::rtc->refresh();
 
     sprintf(buffer, "%02i-%02i-%02i %02i:%02i", Peripherals::rtc->day(), Peripherals::rtc->month(), Peripherals::rtc->year(), Peripherals::rtc->hour(), Peripherals::rtc->minute());
 
@@ -94,5 +92,5 @@ void TimeDisplay::displayTime()
    
     this->displayFramebuffer();
 
-    lastMinute = Peripherals::rtc->minute();
+    this->lastRefreshTime = millis();
 }

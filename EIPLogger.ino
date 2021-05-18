@@ -30,7 +30,7 @@ void onButtonBClick()
     Serial.println("B");
     // if (PowerManager::level == PS_LEVEL_0)
     // {
-    //     ModeManager::currentDisplay->onBClick();
+    ModeManager::currentDisplay->onBClick();
     // }
 
     // onButtonPress();

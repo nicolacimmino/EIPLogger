@@ -30,7 +30,8 @@ void TimeDisplay::displayTime()
 {
     char buffer[32];
 
-    if(millis() - this->lastRefreshTime < 60000) {
+    if (millis() - this->lastRefreshTime < 60000)
+    {
         return;
     }
 
@@ -87,9 +88,17 @@ void TimeDisplay::displayTime()
     snprintf(buffer, 128, "DST: %i km", Status::thunderDistance);
     this->printValue(buffer, 0, 480, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
 
-    snprintf(buffer, 128, "ENE: %i", Status::thunderEnergy);
+    if (Status::barometricPressure > 0)
+    {
+        snprintf(buffer, 128, "Baro: %i hPa", Status::barometricPressure);
+    }
+    else
+    {
+        snprintf(buffer, 128, "Baro: ---", Status::barometricPressure);
+    }
+
     this->printValue(buffer, EPD_WIDTH / 2, 480, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
-   
+
     this->displayFramebuffer();
 
     this->lastRefreshTime = millis();

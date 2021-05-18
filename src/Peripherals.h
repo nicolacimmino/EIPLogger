@@ -6,7 +6,8 @@
 #include <uEEPROMLib.h>
 #include <epd_driver.h>
 #include <iAQCoreTwoWire.h>
-#include "SparkFun_AS3935.h"
+#include <SparkFun_AS3935.h>
+#include <BMP280_DEV.h>
 #include "drivers/SHT2x.h"
 #include "fonts/firasans.h"
 #include "drivers/SHT2x.h"
@@ -25,6 +26,7 @@ public:
     static Button *buttonC;
     static iAQCoreTwoWire *iaq;
     static SparkFun_AS3935 *lightning;
+    static BMP280_DEV *bmp280;
     static uint8_t *framebuffer;
 
     static void setup();

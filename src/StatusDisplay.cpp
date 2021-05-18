@@ -2,7 +2,7 @@
 
 void StatusDisplay::onBClick()
 {
-    return;
+//    this->runI2CScan();
 }
 
 void StatusDisplay::onBLongPress()
@@ -19,14 +19,35 @@ void StatusDisplay::loop()
         return;
     }
 
-    sprintf(buffer, "STATUS");
-    this->printValue(buffer, EPD_WIDTH / 2, 480, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
+    sprintf(buffer, "I2C Bus");
+    this->printValue(buffer, 0, 90, EPD_WIDTH, 90, (GFXfont *)&FiraSans);
 
     this->displayFramebuffer();
 
     this->lastRefreshTime = millis();
+
+    this->runI2CScan();
 }
 
-void StatusDisplay::displayStatus()
+void StatusDisplay::runI2CScan()
 {
+    int x = 0, y = 200;
+    char buffer[32];
+
+    for (byte addr = 1; addr <= 127; addr++)
+    {
+        Wire.beginTransmission(addr);
+Serial.println(addr);        
+        if (Wire.endTransmission() == 0)
+        {            
+            snprintf(buffer, 32, "ADD: %02x", addr);
+            epd_poweron();
+            writeln((GFXfont *)&FiraSans, buffer, &x, &y, NULL);
+            epd_poweroff();
+
+            x = 0;
+            y += 50;
+        }
+        delay(200);
+    }
 }

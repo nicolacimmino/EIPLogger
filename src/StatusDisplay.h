@@ -7,7 +7,7 @@
 class StatusDisplay : public Display
 {
 private:
-    void displayStatus();
+    void runI2CScan();
 
 public:
     void loop();

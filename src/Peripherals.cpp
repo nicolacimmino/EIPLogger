@@ -8,11 +8,12 @@ Button *Peripherals::buttonB = NULL;
 Button *Peripherals::buttonC = NULL;
 iAQCoreTwoWire *Peripherals::iaq = NULL;
 SparkFun_AS3935 *Peripherals::lightning = NULL;
+BMP280_DEV *Peripherals::bmp280 = NULL;
 uint8_t *Peripherals::framebuffer = NULL;
 
 void Peripherals::setup()
 {
-    framebuffer = (uint8_t *)ps_calloc(sizeof(uint8_t), EPD_WIDTH * EPD_HEIGHT / 2);
+    Peripherals::framebuffer = (uint8_t *)ps_calloc(sizeof(uint8_t), EPD_WIDTH * EPD_HEIGHT / 2);
     memset(Peripherals::framebuffer, 0xFF, EPD_WIDTH * EPD_HEIGHT / 2);
 
     epd_init();
@@ -31,13 +32,18 @@ void Peripherals::setup()
     Peripherals::buttonC = new Button(PIN_BUTTON_C);
     Peripherals::rtc = new uRTCLib(RTC_ADDR);
     Peripherals::eeprom = new uEEPROMLib(EEPROM_ADDR);
-
-    Peripherals::iaq->begin();
-
+    Peripherals::bmp280 = new BMP280_DEV();
+    
     Peripherals::lightning->begin();
     Peripherals::lightning->resetSettings();
     Peripherals::lightning->setIndoorOutdoor(0x12); // Indoor
     Peripherals::lightning->spikeRejection(2);
+
+    Peripherals::bmp280->begin();
+    Peripherals::bmp280->setTimeStandby(TIME_STANDBY_2000MS);
+    Peripherals::bmp280->startNormalConversion();
+
+    Peripherals::iaq->begin();
 }
 
 void Peripherals::loop()
@@ -64,6 +70,11 @@ void Peripherals::loop()
         {
             delay(1);
         }
+    }
+
+    float pressure;
+    if(Peripherals::bmp280->getPressure(pressure)) {
+        Status::barometricPressure = pressure;
     }
 
     Peripherals::sht2x->loop();

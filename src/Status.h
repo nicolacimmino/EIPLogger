@@ -27,6 +27,7 @@ public:
     static int thunderDistance;
     static int thunderEnergy;
     static int thunderInterferers;
+    static int barometricPressure;
 };
 
 #endif

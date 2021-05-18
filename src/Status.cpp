@@ -8,6 +8,7 @@ int Status::thunderStrikes = 0;
 int Status::thunderDistance = 0;
 int Status::thunderEnergy = 0;
 int Status::thunderInterferers = 0;
+int Status::barometricPressure = 0;
 
 void Status::abortLoop()
 {

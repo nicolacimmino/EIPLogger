@@ -19,8 +19,12 @@
 #define TEMPERATURE_NOT_SET 0xFF
 
 #define AS3935_ADDR 0x01
-#define RTC_ADDR 0x68
+#define SHT2x_ADDR 0x40
+#define IAQ_ADDR 0x5A
 #define EEPROM_ADDR 0x57
+#define RTC_ADDR 0x68
+#define BMP280_ADDR 0x76
+
 
 #define PIN_BUTTON_A 39
 #define PIN_BUTTON_B 34

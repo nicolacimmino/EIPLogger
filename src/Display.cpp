@@ -45,7 +45,8 @@ void Display::displayFramebuffer()
 {
     epd_poweron();
 
-    epd_clear_area_cycles(epd_full_screen(), 10, 50);
+    epd_clear();
+    //epd_clear_area_cycles(epd_full_screen(), 10, 50);
     //epd_push_pixels(epd_full_screen(), 500, 1);
 
     epd_draw_grayscale_image(epd_full_screen(), Peripherals::framebuffer);

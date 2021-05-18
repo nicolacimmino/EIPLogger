@@ -48,7 +48,8 @@ void onButtonCClick()
 
 void onButtonALongPress()
 {
-    PowerManager::enterPOFF();
+    ModeManager::currentDisplay->powerDown();
+    PowerManager::enterL3();
 }
 
 void setup()
@@ -95,7 +96,5 @@ void loop()
         return;
     }
 
-    esp_sleep_enable_ext1_wakeup(POWER_MANAGER_WAKEUP_PINS, ESP_EXT1_WAKEUP_ALL_LOW);
-    esp_sleep_enable_timer_wakeup(60 * 1000000); // 60s
-    esp_light_sleep_start();
+    PowerManager::enterL2();    
 }

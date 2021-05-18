@@ -33,11 +33,11 @@ void StatusDisplay::runI2CScan()
 {
     int x = 0, y = 200;
     char buffer[32];
-
+    
     for (byte addr = 1; addr <= 127; addr++)
     {
         Wire.beginTransmission(addr);
-Serial.println(addr);        
+
         if (Wire.endTransmission() == 0)
         {            
             snprintf(buffer, 32, "ADD: %02x", addr);

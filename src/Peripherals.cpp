@@ -21,7 +21,7 @@ void Peripherals::setup()
     delay(500);
 
     //iAQ-Core can operate at a maximum of 100kHz clock speed
-    Wire.setClock(80000L);
+    Wire.setClock(70000L);
     Wire.begin(PIN_SDA, PIN_SCL);
 
     Peripherals::sht2x = new SHT2x();
@@ -39,7 +39,7 @@ void Peripherals::setup()
     Peripherals::lightning->setIndoorOutdoor(0x12); // Indoor
     Peripherals::lightning->spikeRejection(2);
 
-    Peripherals::bmp280->begin();
+    Peripherals::bmp280->begin(BMP280_ADDR);
     Peripherals::bmp280->setTimeStandby(TIME_STANDBY_2000MS);
     Peripherals::bmp280->startNormalConversion();
 

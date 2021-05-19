@@ -28,7 +28,7 @@ void TimeDisplay::loop()
 
 void TimeDisplay::displayTime()
 {
-    char buffer[32];
+    char buffer[128];
 
     if (millis() - this->lastRefreshTime < 60000)
     {
@@ -62,7 +62,8 @@ void TimeDisplay::displayTime()
         this->printValue(buffer, EPD_WIDTH / 2, 210, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);
     }
 
-    if (Peripherals::iaq->hasValue())
+    Wire.setClock(80000L);
+    if (Peripherals::iaq->hasValue() && Peripherals::iaq->isValid())
     {
         snprintf(buffer, 128, "CO2: %i ppm", Peripherals::iaq->getCO2());
         this->printValue(buffer, 0, 300, EPD_WIDTH / 2, 90, (GFXfont *)&FiraSans);

@@ -6,7 +6,7 @@ uEEPROMLib *Peripherals::eeprom = NULL;
 Button *Peripherals::buttonA = NULL;
 Button *Peripherals::buttonB = NULL;
 Button *Peripherals::buttonC = NULL;
-iAQCoreTwoWire *Peripherals::iaq = NULL;
+iAQCoreI2C *Peripherals::iaq = NULL;
 SparkFun_AS3935 *Peripherals::lightning = NULL;
 BMP280_DEV *Peripherals::bmp280 = NULL;
 uint8_t *Peripherals::framebuffer = NULL;
@@ -20,12 +20,13 @@ void Peripherals::setup()
 
     delay(500);
 
-    //iAQ-Core can operate at a maximum of 100kHz clock speed
-    Wire.setClock(70000L);
+    //iAQ-Core can operate at a maximum of 100kHz clock speed    
     Wire.begin(PIN_SDA, PIN_SCL);
-
+    Wire.setClock(80000L);
+    //Wire.setClockStretchLimit(1000); 
+   
     Peripherals::sht2x = new SHT2x();
-    Peripherals::iaq = new iAQCoreTwoWire(&Wire);
+    Peripherals::iaq = new iAQCoreI2C();
     Peripherals::lightning = new SparkFun_AS3935(AS3935_ADDR);
     Peripherals::buttonA = new Button(PIN_BUTTON_A);
     Peripherals::buttonB = new Button(PIN_BUTTON_B);
@@ -43,7 +44,9 @@ void Peripherals::setup()
     Peripherals::bmp280->setTimeStandby(TIME_STANDBY_2000MS);
     Peripherals::bmp280->startNormalConversion();
 
-    Peripherals::iaq->begin();
+    if(!Peripherals::iaq->begin()) {
+        Serial.println("IAQ ERROR!");
+    }
 }
 
 void Peripherals::loop()

@@ -2,7 +2,7 @@
 
 void StatusDisplay::onBClick()
 {
-//    this->runI2CScan();
+    //    this->runI2CScan();
 }
 
 void StatusDisplay::onBLongPress()
@@ -19,7 +19,7 @@ void StatusDisplay::loop()
         return;
     }
 
-    sprintf(buffer, "I2C Bus");
+    sprintf(buffer, "Status");
     this->printValue(buffer, 0, 90, EPD_WIDTH, 90, (GFXfont *)&FiraSans);
 
     this->displayFramebuffer();
@@ -32,22 +32,23 @@ void StatusDisplay::loop()
 void StatusDisplay::runI2CScan()
 {
     int x = 0, y = 200;
-    char buffer[32];
-    
-    for (byte addr = 1; addr <= 127; addr++)
+    char buffer[64];
+
+    uint8_t addresses[] = {AS3935_ADDR, SHT2x_ADDR, IAQ_ADDR, EEPROM_ADDR, RTC_ADDR, BMP280_ADDR};
+
+    for (uint8_t ix = 0; ix < sizeof(addresses); ix++)
     {
-        Wire.beginTransmission(addr);
+        Wire.beginTransmission(addresses[ix]);
 
-        if (Wire.endTransmission() == 0)
-        {            
-            snprintf(buffer, 32, "ADD: %02x", addr);
-            epd_poweron();
-            writeln((GFXfont *)&FiraSans, buffer, &x, &y, NULL);
-            epd_poweroff();
+        snprintf(buffer, 64, " I2C 0x%02x...........[%s]", addresses[ix], Wire.endTransmission() == 0 ? "OK" : "FAIL");
 
-            x = 0;
-            y += 50;
-        }
+        epd_poweron();
+        writeln((GFXfont *)&FiraSans, buffer, &x, &y, NULL);
+        epd_poweroff();
+
+        x = 0;
+        y += 50;
+
         delay(200);
     }
 }

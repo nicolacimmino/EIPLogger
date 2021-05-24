@@ -23,7 +23,6 @@ void Peripherals::setup()
     //iAQ-Core can operate at a maximum of 100kHz clock speed    
     Wire.begin(PIN_SDA, PIN_SCL);
     Wire.setClock(80000L);
-    //Wire.setClockStretchLimit(1000); 
    
     Peripherals::sht2x = new SHT2x();
     Peripherals::iaq = new iAQCoreI2C();

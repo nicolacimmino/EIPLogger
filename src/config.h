@@ -52,4 +52,9 @@
 #define DISTURBER_INT 0x04
 #define NOISE_INT 0x01
 
+#define SMALL_TIME_SCREEN_FONT sevenSeg25
+#define BIG_TIME_SCREEN_FONT sevenSeg70
+#define SMALL_STATUS_SCREEN_FONT mono15
+#define BIG_POWER_DOWN_SCREEN_FONT sevenSeg70
+
 #endif

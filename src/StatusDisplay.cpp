@@ -65,11 +65,16 @@ void StatusDisplay::runI2CScan()
         snprintf(buffer, 64, " WiFi...............[%d/10]", attempts);
 
         this->printValue(buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&FiraSans, false, true);
-        
+
         delay(3000);
     }
 
     snprintf(buffer, 64, " WiFi...............[%s]    ", Peripherals::isWiFiConnected() ? "OK" : "FAIL");
+
+    this->printValue(buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&FiraSans, false, true);
+    y += 50;
+
+    snprintf(buffer, 64, " Ping...............[%s]    ", Ping.ping("www.google.com") ? "OK" : "FAIL");
 
     this->printValue(buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&FiraSans, false, true);
 

@@ -18,7 +18,8 @@ void PowerManager::enterL1()
 
 void PowerManager::enterL2()
 {
-    esp_sleep_enable_ext1_wakeup(POWER_MANAGER_WAKEUP_PINS, ESP_EXT1_WAKEUP_ALL_LOW);
+    esp_sleep_enable_ext0_wakeup((gpio_num_t)PIN_BUTTON_B, 0);
+    esp_sleep_enable_ext1_wakeup(PIN_BUTTON_A_SEL, ESP_EXT1_WAKEUP_ALL_LOW);
     esp_sleep_enable_timer_wakeup(60 * 1000000); // 60s
     esp_light_sleep_start();    
 }
@@ -27,7 +28,7 @@ void PowerManager::enterL3()
 {    
     epd_poweroff_all();
     esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
-    esp_sleep_enable_ext1_wakeup(POWER_MANAGER_WAKEUP_PINS, ESP_EXT1_WAKEUP_ALL_LOW);
+    esp_sleep_enable_ext1_wakeup(PIN_BUTTON_A_SEL, ESP_EXT1_WAKEUP_ALL_LOW);
     esp_deep_sleep_start();
 }
 

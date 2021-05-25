@@ -2,7 +2,7 @@
 
 void StatusDisplay::onBClick()
 {
-    //    this->runI2CScan();
+    this->runI2CScan();
 }
 
 void StatusDisplay::onBLongPress()
@@ -19,11 +19,6 @@ void StatusDisplay::loop()
         return;
     }
 
-    sprintf(buffer, "Status");
-    this->printValue(buffer, 0, 90, EPD_WIDTH, 90, (GFXfont *)&FiraSans);
-
-    this->displayFramebuffer();
-
     this->lastRefreshTime = millis();
 
     this->runI2CScan();
@@ -35,6 +30,11 @@ void StatusDisplay::runI2CScan()
     char buffer[64];
 
     uint8_t addresses[] = {AS3935_ADDR, SHT2x_ADDR, IAQ_ADDR, EEPROM_ADDR, RTC_ADDR, BMP280_ADDR};
+
+    sprintf(buffer, "Status");
+    this->printValue(buffer, 0, 90, EPD_WIDTH, 90, (GFXfont *)&FiraSans);
+
+    this->displayFramebuffer();
 
     for (uint8_t ix = 0; ix < sizeof(addresses); ix++)
     {

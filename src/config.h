@@ -2,6 +2,14 @@
 #ifndef __TEMPERATURE_LOGGER_CONFIG_H__
 #define __TEMPERATURE_LOGGER_CONFIG_H__
 
+//#define DIAGNOSTIC_ENABLE
+
+#ifdef DIAGNOSTIC_ENABLE
+#define DIAGNOSTIC(S) Serial.printf("%d,%s\n", millis(),S); delay(100);
+#else
+#define DIAGNOSTIC(S) // do nothing
+#endif
+
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 #define PLOT_Y_MAX_C 30.0
@@ -24,7 +32,6 @@
 #define EEPROM_ADDR 0x57
 #define RTC_ADDR 0x68
 #define BMP280_ADDR 0x76
-
 
 #define PIN_BUTTON_A 39
 #define PIN_BUTTON_B 34

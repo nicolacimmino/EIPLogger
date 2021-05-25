@@ -15,50 +15,43 @@ void onButtonPress()
 
 void onButtonAClick()
 {
+    DIAGNOSTIC("BTN,A");
+    
     ModeManager::changeMode();
     onButtonPress();
-
-    Serial.println("A");
-    // if (PowerManager::level == PS_LEVEL_0)
-    // {
-    //     ModeManager::changeMode();
-    // }
 }
 
 void onButtonBClick()
 {
-    Serial.println("B");
-    // if (PowerManager::level == PS_LEVEL_0)
-    // {
-    ModeManager::currentDisplay->onBClick();
-    // }
+    DIAGNOSTIC("BTN,B");
 
-    // onButtonPress();
+    ModeManager::currentDisplay->onBClick();
+    onButtonPress();
 }
 
 void onButtonCClick()
 {
-    Serial.println("C");
-    // if (PowerManager::level == PS_LEVEL_0)
-    // {
-    //     ModeManager::currentDisplay->onBClick();
-    // }
+    DIAGNOSTIC("BTN,C");
 
-    // onButtonPress();
+    onButtonPress();
 }
 
 void onButtonALongPress()
 {
+    DIAGNOSTIC("BTN,AL");
+
     ModeManager::currentDisplay->powerDown();
     PowerManager::enterL3();
 }
 
 void setup()
 {
-    Serial.begin(115200);
-
     if (esp_sleep_get_wakeup_cause() != ESP_SLEEP_WAKEUP_TIMER)
     {
+        delay(500);
+
+        Serial.begin(115200);
+
         Peripherals::setup();
         ModeManager::setup();
 
@@ -68,6 +61,7 @@ void setup()
         Peripherals::buttonC->registerOnClickCallback(onButtonCClick);
     }
 
+    PowerManager::enterL1();
     //Peripherals::rtc->set(0, 52, 12, 6, 15, 5, 21);
 }
 
@@ -86,4 +80,6 @@ void loop()
     }
 
     PowerManager::enterL2();
+
+    PowerManager::enterL1();
 }

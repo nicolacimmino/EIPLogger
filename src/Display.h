@@ -8,6 +8,7 @@
 #include "ui.h"
 #include "Peripherals.h"
 #include "fonts/sevenSeg_70.h"
+#include "fonts/mono15.h"
 
 class Display
 {

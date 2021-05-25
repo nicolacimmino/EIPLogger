@@ -10,7 +10,6 @@
 #include <BMP280_DEV.h>
 #include <WiFi.h>
 #include "drivers/SHT2x.h"
-#include "fonts/firasans.h"
 #include "drivers/SHT2x.h"
 #include "config.h"
 #include "Button.h"

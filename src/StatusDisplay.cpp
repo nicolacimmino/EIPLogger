@@ -26,13 +26,13 @@ void StatusDisplay::loop()
 
 void StatusDisplay::runI2CScan()
 {
-    int y = 180;
+    int y = 160;
     char buffer[64];
 
     uint8_t addresses[] = {AS3935_ADDR, SHT2x_ADDR, IAQ_ADDR, EEPROM_ADDR, RTC_ADDR, BMP280_ADDR};
 
     sprintf(buffer, "Status");
-    this->printValue(buffer, 0, 90, EPD_WIDTH, 90, (GFXfont *)&FiraSans, true);
+    this->printValue(buffer, 0, 90, EPD_WIDTH / 2, 90, (GFXfont *)&mono15, true);
 
     this->displayFramebuffer();
 
@@ -42,7 +42,7 @@ void StatusDisplay::runI2CScan()
 
         snprintf(buffer, 64, " I2C 0x%02x...........[%s]", addresses[ix], Wire.endTransmission() == 0 ? "OK" : "FAIL");
 
-        this->printValue(buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&FiraSans, false, true);
+        this->printValue(buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&mono15, false, true);
 
         y += 50;
 
@@ -64,19 +64,19 @@ void StatusDisplay::runI2CScan()
 
         snprintf(buffer, 64, " WiFi...............[%d/10]", attempts);
 
-        this->printValue(buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&FiraSans, false, true);
+        this->printValue(buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&mono15, false, true);
 
         delay(3000);
     }
 
     snprintf(buffer, 64, " WiFi...............[%s]    ", Peripherals::isWiFiConnected() ? "OK" : "FAIL");
 
-    this->printValue(buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&FiraSans, false, true);
+    this->printValue(buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&mono15, false, true);
     y += 50;
 
     snprintf(buffer, 64, " Ping...............[%s]    ", Ping.ping("www.google.com") ? "OK" : "FAIL");
 
-    this->printValue(buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&FiraSans, false, true);
+    this->printValue(buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&mono15, false, true);
 
     PowerManager::enterL1();
 }

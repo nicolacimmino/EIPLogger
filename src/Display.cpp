@@ -84,6 +84,6 @@ void Display::displayFramebuffer()
 
 void Display::powerDown()
 {
-    this->printValue("Power down", 0, EPD_HEIGHT / 2, EPD_WIDTH, EPD_HEIGHT, (GFXfont *)&FiraSans, true, false);
+    this->printValue("Power down", 0, EPD_HEIGHT / 2, EPD_WIDTH, EPD_HEIGHT, (GFXfont *)&mono15, true, false);
     this->displayFramebuffer();
 }

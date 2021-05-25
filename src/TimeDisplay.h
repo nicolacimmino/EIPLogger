@@ -4,8 +4,6 @@
 
 #include "Display.h"
 #include "DataStore.h"
-#include "fonts/sevenSeg_70.h"
-#include "fonts/firasans.h"
 
 #define TIME_MODE_TIME 0
 #define TIME_MODE_DATE 1

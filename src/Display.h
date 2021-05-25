@@ -15,7 +15,7 @@ private:
 protected:
     void plotBatterLevel();
     bool replotNeeded = true;
-    void printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font);
+    void printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font, bool center, bool skipFrameBuffer = false);
     void displayFramebuffer();
     unsigned long lastRefreshTime = 0;
 public:    

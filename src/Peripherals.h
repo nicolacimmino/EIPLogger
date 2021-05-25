@@ -8,15 +8,16 @@
 #include <iAQCoreI2C.h>
 #include <SparkFun_AS3935.h>
 #include <BMP280_DEV.h>
+#include <WiFi.h>
 #include "drivers/SHT2x.h"
 #include "fonts/firasans.h"
 #include "drivers/SHT2x.h"
 #include "config.h"
 #include "Button.h"
+#include "secrets.h"
 
 class Peripherals
 {
-
 public:
     static SHT2x *sht2x;
     static uRTCLib *rtc;
@@ -31,6 +32,9 @@ public:
 
     static void setup();
     static void loop();
+    static void connectWiFi();
+    static bool isWiFiConnected();
+    static void disconnectWiFi();
 };
 
 #endif

@@ -2,7 +2,7 @@
 #ifndef __TEMPERATURE_LOGGER_CONFIG_H__
 #define __TEMPERATURE_LOGGER_CONFIG_H__
 
-//#define DIAGNOSTIC_ENABLE
+#define DIAGNOSTIC_ENABLE
 
 #ifdef DIAGNOSTIC_ENABLE
 #define DIAGNOSTIC(S) Serial.printf("%d,%s\n", millis(),S); delay(100);

@@ -5,13 +5,15 @@
 #include "config.h"
 #include "Peripherals.h"
 
-// L0   Fully operational (display ON, perhipherals on)
-// L1   Background activity (display OFF, perhipherals on)
-// L2   Low power (display OFF, perhipherals off)
+// L0   Fully operational (as L1 but also WiFi connected)
+// L1   Operational (main loop running, display refresh)
+// L2   Sleep (button interrupt wakeup, timer wakeup) 
+// L3   Power off (button interrupt wakeup)
 
 #define PS_LEVEL_0 0
 #define PS_LEVEL_1 1
 #define PS_LEVEL_2 2
+#define PS_LEVEL_3 3
 
 // Some I2C devices can interfere with the bus
 // for a short time during power up. This is a

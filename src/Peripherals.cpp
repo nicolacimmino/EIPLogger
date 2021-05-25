@@ -48,6 +48,21 @@ void Peripherals::setup()
     }
 }
 
+void Peripherals::connectWiFi()
+{
+     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+}
+
+bool Peripherals::isWiFiConnected()
+{
+    return WiFi.status() == WL_CONNECTED;
+}
+
+void Peripherals::disconnectWiFi()
+{
+    WiFi.disconnect();
+}
+
 void Peripherals::loop()
 {
     Peripherals::buttonA->loop();

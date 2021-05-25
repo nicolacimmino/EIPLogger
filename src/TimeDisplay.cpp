@@ -2,8 +2,7 @@
 
 void TimeDisplay::onBClick()
 {
-    // this->mode = (this->mode + 1) % TIME_MODES_COUNT;
-    // this->lastModeChangeTime = millis();
+    this->lastRefreshTime = 0;
 }
 
 void TimeDisplay::onBLongPress()
@@ -30,7 +29,7 @@ void TimeDisplay::displayTime()
 {
     char buffer[128];
 
-    if (millis() - this->lastRefreshTime < 60000)
+    if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
     {
         return;
     }

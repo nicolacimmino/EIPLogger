@@ -14,7 +14,7 @@ void StatusDisplay::loop()
 {
     char buffer[32];
 
-    if (millis() - this->lastRefreshTime < 60000)
+    if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
     {
         return;
     }

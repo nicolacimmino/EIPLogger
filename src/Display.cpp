@@ -50,7 +50,7 @@ void Display::printValue(char *buffer, int x, int y, int width, int height, cons
     get_text_bounds(font, buffer, &x, &y, &x1, &y1, &w, &h, NULL);
 
     if (center)
-    {        
+    {
         x0 = x0 + (width - w) / 2;
     }
 
@@ -74,7 +74,7 @@ void Display::displayFramebuffer()
     epd_poweron();
 
     epd_clear();
-    
+
     epd_draw_grayscale_image(epd_full_screen(), Peripherals::framebuffer);
 
     epd_poweroff();
@@ -84,6 +84,5 @@ void Display::displayFramebuffer()
 
 void Display::powerDown()
 {
-    this->printValue("Power down", 0, EPD_HEIGHT / 2, EPD_WIDTH, EPD_HEIGHT, (GFXfont *)&BIG_POWER_DOWN_SCREEN_FONT, true, false);
-    this->displayFramebuffer();
+    this->printValue("Power down", 0, EPD_HEIGHT / 2, EPD_WIDTH, EPD_HEIGHT, (GFXfont *)&BIG_POWER_DOWN_SCREEN_FONT, true, true);
 }

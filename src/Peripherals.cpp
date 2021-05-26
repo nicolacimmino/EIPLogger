@@ -10,18 +10,23 @@ iAQCoreI2C *Peripherals::iaq = NULL;
 SparkFun_AS3935 *Peripherals::lightning = NULL;
 BMP280_DEV *Peripherals::bmp280 = NULL;
 uint8_t *Peripherals::framebuffer = NULL;
+char *Peripherals::buffer = NULL;
 
 void Peripherals::setup()
 {
     Peripherals::framebuffer = (uint8_t *)ps_calloc(sizeof(uint8_t), EPD_WIDTH * EPD_HEIGHT / 2);
     memset(Peripherals::framebuffer, 0xFF, EPD_WIDTH * EPD_HEIGHT / 2);
 
+    Peripherals::buffer = (char *)ps_calloc(sizeof(char), TEXT_BUFFER_SIZE);
+    memset(Peripherals::buffer, 0, TEXT_BUFFER_SIZE);
+
     epd_init();
 
     delay(500);
+    
+    Wire.begin(PIN_SDA, PIN_SCL);
 
     //iAQ-Core can operate at a maximum of 100kHz clock speed    
-    Wire.begin(PIN_SDA, PIN_SCL);
     Wire.setClock(80000L);
    
     Peripherals::sht2x = new SHT2x();

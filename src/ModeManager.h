@@ -5,10 +5,7 @@
 #include "config.h"
 #include "Display.h"
 #include "TimeDisplay.h"
-// #include "TemperatureDisplay.h"
-// #include "HumidityDisplay.h"
 #include "StatusDisplay.h"
-
 
 class ModeManager
 {

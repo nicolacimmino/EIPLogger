@@ -57,4 +57,6 @@
 #define SMALL_STATUS_SCREEN_FONT mono15
 #define BIG_POWER_DOWN_SCREEN_FONT sevenSeg70
 
+#define TEXT_BUFFER_SIZE 64
+
 #endif

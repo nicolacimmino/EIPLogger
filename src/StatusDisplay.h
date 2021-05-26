@@ -3,7 +3,6 @@
 #define __TEMPERATURE_LOGGER_STATUS_DISPLAY_H__
 
 #include "Display.h"
-#include <ESP32Ping.h>
 
 class StatusDisplay : public Display
 {

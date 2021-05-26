@@ -3,7 +3,7 @@
 #define __TEMPERATURE_LOGGER_TIME_DISPLAY_H__
 
 #include "Display.h"
-#include "DataStore.h"
+//#include "DataStore.h"
 
 #define TIME_MODE_TIME 0
 #define TIME_MODE_DATE 1

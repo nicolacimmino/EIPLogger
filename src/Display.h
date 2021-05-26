@@ -15,17 +15,13 @@ class Display
 {
 private:
 protected:
-    void plotBatterLevel();
-    bool replotNeeded = true;
     void printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font, bool center, bool skipFrameBuffer = false);
     void displayFramebuffer();
     unsigned long lastRefreshTime = 0;
 public:    
     virtual void loop() = 0;
     virtual void onBClick() = 0;
-    virtual void onBLongPress() = 0;
-    void onDataStoreChange();
-    void onDisplayAwaken();
+    virtual void onBLongPress() = 0;    
     void powerDown();
 };
 

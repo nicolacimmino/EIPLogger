@@ -4,7 +4,6 @@
 #include "src/Button.h"
 #include "src/Peripherals.h"
 #include "src/ModeManager.h"
-#include "src/DataStore.h"
 
 void onButtonPress()
 {
@@ -68,7 +67,6 @@ void setup()
 void loop()
 {
     PowerManager::loop();
-    DataStore::loop();
     Peripherals::loop();
     ModeManager::currentDisplay->loop();
 

@@ -7,6 +7,8 @@
 class MainDisplay : public Display
 {
 private:
+    uint16_t getAreaX(uint8_t areaNumber);
+    uint16_t getAreaY(uint8_t areaNumber);
 
 public:
     void loop();

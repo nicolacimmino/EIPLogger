@@ -19,7 +19,7 @@ void ModeManager::enterMode()
     switch (mode)
     {
     case 0:
-        currentDisplay = new TimeDisplay();
+        currentDisplay = new MainDisplay();
         break;   
     case 1:
         currentDisplay = new StatusDisplay();

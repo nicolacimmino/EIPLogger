@@ -28,6 +28,8 @@ public:
     static int thunderEnergy;
     static int thunderInterferers;
     static int barometricPressure;
+    static int co2;
+    static int tvoc;
 };
 
 #endif

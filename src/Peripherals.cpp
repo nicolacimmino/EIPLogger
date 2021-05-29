@@ -23,12 +23,12 @@ void Peripherals::setup()
     epd_init();
 
     delay(500);
-    
+
     Wire.begin(PIN_SDA, PIN_SCL);
 
-    //iAQ-Core can operate at a maximum of 100kHz clock speed    
+    //iAQ-Core can operate at a maximum of 100kHz clock speed
     Wire.setClock(80000L);
-   
+
     Peripherals::sht2x = new SHT2x();
     Peripherals::iaq = new iAQCoreI2C();
     Peripherals::lightning = new SparkFun_AS3935(AS3935_ADDR);
@@ -38,7 +38,7 @@ void Peripherals::setup()
     Peripherals::rtc = new uRTCLib(RTC_ADDR);
     Peripherals::eeprom = new uEEPROMLib(EEPROM_ADDR);
     Peripherals::bmp280 = new BMP280_DEV();
-    
+
     Peripherals::lightning->begin();
     Peripherals::lightning->resetSettings();
     Peripherals::lightning->setIndoorOutdoor(0x12); // Indoor
@@ -48,14 +48,15 @@ void Peripherals::setup()
     Peripherals::bmp280->setTimeStandby(TIME_STANDBY_2000MS);
     Peripherals::bmp280->startNormalConversion();
 
-    if(!Peripherals::iaq->begin()) {
+    if (!Peripherals::iaq->begin())
+    {
         Serial.println("IAQ ERROR!");
     }
 }
 
 void Peripherals::connectWiFi()
 {
-     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 }
 
 bool Peripherals::isWiFiConnected()
@@ -95,9 +96,24 @@ void Peripherals::loop()
     }
 
     float pressure;
-    if(Peripherals::bmp280->getPressure(pressure)) {
+    if (Peripherals::bmp280->getPressure(pressure))
+    {
         Status::barometricPressure = pressure;
     }
-
+   
     Peripherals::sht2x->loop();
+
+    Peripherals::rtc->refresh();
+
+    Wire.setClock(80000L);
+    if (Peripherals::iaq->hasValue() && Peripherals::iaq->isValid())
+    {
+        Status::co2 = Peripherals::iaq->getCO2();
+        Status::tvoc = Peripherals::iaq->getTVOC();
+    }
+    else
+    {
+        Status::co2 = NO_VALUE;
+        Status::tvoc = NO_VALUE;
+    }
 }

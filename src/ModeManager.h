@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include "config.h"
 #include "Display.h"
-#include "TimeDisplay.h"
+#include "MainDisplay.h"
 #include "StatusDisplay.h"
 
 class ModeManager

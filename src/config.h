@@ -5,26 +5,12 @@
 #define DIAGNOSTIC_ENABLE
 
 #ifdef DIAGNOSTIC_ENABLE
-#define DIAGNOSTIC(S) Serial.printf("%d,%s\n", millis(),S); delay(100);
+#define DIAGNOSTIC(S)                      \
+    Serial.printf("%d,%s\n", millis(), S); \
+    delay(100);
 #else
 #define DIAGNOSTIC(S) // do nothing
 #endif
-
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
-#define PLOT_Y_MAX_C 30.0
-#define PLOT_Y_MIN_C 15.0
-#define PLOT_Y_TOP 16
-#define PLOT_Y_BOTTOM (SCREEN_HEIGHT - 5)
-#define PLOT_Y_PIXELS (PLOT_Y_BOTTOM - PLOT_Y_TOP)
-#define PLOT_X_LEFT 16
-#define PLOT_X_RIGHT (SCREEN_WIDTH - 4)
-#define PLOT_X_PIXELS (PLOT_X_RIGHT - PLOT_X_LEFT)
-#define LOG_LENGTH_POINTS PLOT_X_PIXELS
-#define LOG_ENTRY_BYTES 2
-#define EEPROM_LOG_BASE 10
-#define EEPROM_LOG_PTR 0
-#define TEMPERATURE_NOT_SET 0xFF
 
 #define AS3935_ADDR 0x01
 #define SHT2x_ADDR 0x40
@@ -42,11 +28,7 @@
 #define PIN_SDA 14
 #define PIN_SCL 15
 
-#define PIN_PWR_AUX_DEVS 9
 #define DISPLAY_MODES 2
-#define POWER_SAVE_TIMEOUT_MS 20000
-#define RECORD_DATA_INTERVAL_MS 300000 // 5 minutes
-#define SAMPLE_DATA_INTERVAL_MS 5000   // 5 seconds
 
 #define LIGHTNING_INT 0x08
 #define DISTURBER_INT 0x04
@@ -56,6 +38,10 @@
 #define BIG_TIME_SCREEN_FONT sevenSeg70
 #define SMALL_STATUS_SCREEN_FONT mono15
 #define BIG_POWER_DOWN_SCREEN_FONT sevenSeg70
+
+#define MAIN_DISPLAY_SMALL_FONT sevenSeg15
+#define MAIN_DISPLAY_MID_FONT sevenSeg25
+#define MAIN_DISPLAY_LARGE_FONT sevenSeg60
 
 #define TEXT_BUFFER_SIZE 64
 

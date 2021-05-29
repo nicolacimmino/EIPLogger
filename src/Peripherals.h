@@ -14,6 +14,8 @@
 #include "Button.h"
 #include "secrets.h"
 
+#define NO_VALUE -9999
+
 class Peripherals
 {
 public:
@@ -23,9 +25,7 @@ public:
     static Button *buttonA;
     static Button *buttonB;
     static Button *buttonC;
-    static iAQCoreI2C *iaq;
     static SparkFun_AS3935 *lightning;
-    static BMP280_DEV *bmp280;
     static uint8_t *framebuffer;
     static char *buffer;
 
@@ -34,6 +34,10 @@ public:
     static void connectWiFi();
     static bool isWiFiConnected();
     static void disconnectWiFi();
+
+private:
+    static iAQCoreI2C *iaq;
+    static BMP280_DEV *bmp280;
 };
 
 #endif

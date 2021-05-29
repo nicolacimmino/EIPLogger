@@ -84,7 +84,7 @@ void Display::printVHLValue(char *label, uint16_t x, uint16_t y, uint8_t options
 
     if (value != NO_VALUE)
     {
-        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%0.0f", value);
+        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%d", (int)floor(value));
     }
     else
     {

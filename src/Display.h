@@ -7,12 +7,8 @@
 #include "Status.h"
 #include "ui.h"
 #include "Peripherals.h"
-#include "fonts/sevenSeg_70.h"
 #include "fonts/sevenSeg_60.h"
 #include "fonts/sevenSeg_25.h"
-#include "fonts/sevenSeg_15.h"
-// #include "fonts/naturalMono15.h"
-// #include "fonts/naturalMono45.h"
 #include "fonts/mono15.h"
 
 #define DIS_NONE 0

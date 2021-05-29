@@ -19,7 +19,9 @@ void StatusDisplay::loop()
 
     this->lastRefreshTime = millis();
 
-    this->runI2CScan();
+    this->printValue("Press B to scan I2C bus.", 0, 90, EPD_WIDTH / 2, 90, (GFXfont *)&SMALL_STATUS_SCREEN_FONT, true);
+
+    this->displayFramebuffer();
 }
 
 void StatusDisplay::runI2CScan()

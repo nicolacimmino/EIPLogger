@@ -20,8 +20,7 @@ void MainDisplay::loop()
 
     // Top bar
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%02i-%02i-%02i %02i:%02i", Peripherals::rtc->day(), Peripherals::rtc->month(), Peripherals::rtc->year(), Peripherals::rtc->hour(), Peripherals::rtc->minute());
-    this->printValue(Peripherals::buffer, 0, 0, EPD_WIDTH, 50, (GFXfont *)&MAIN_DISPLAY_SMALL_FONT);
-    epd_draw_hline(0, 50, EPD_WIDTH, 0, Peripherals::framebuffer);
+    this->printValue(Peripherals::buffer, 10, 0, EPD_WIDTH, 50, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
 
     this->printVHLValue("Temperature", this->getAreaX(0), this->getAreaY(0), DIS_NONE, Peripherals::sht2x->temperature, "C", 21.3, 29.6);
     this->printVHLValue("Humidity", this->getAreaX(2), this->getAreaY(2), DIS_NO_DECIMAL, Peripherals::sht2x->humidity, "%RH", 45, 85);
@@ -31,6 +30,11 @@ void MainDisplay::loop()
     this->printVHLValue("Barometer", this->getAreaX(5), this->getAreaY(5), DIS_NO_DECIMAL | DIS_LARGE_VALUE, Status::barometricPressure, "HPa", 940, 1007);
 
     this->showIcon(this->getAreaX(4), this->getAreaY(4) + 50, thunder_width, thunder_height, (uint8_t *)thunder_data);
+
+    epd_draw_hline(0, 70, EPD_WIDTH, 0, Peripherals::framebuffer);
+    epd_draw_hline(0, 220, EPD_WIDTH, 0, Peripherals::framebuffer);
+    epd_draw_hline(0, 370, EPD_WIDTH, 0, Peripherals::framebuffer);
+    epd_draw_vline(430, 70, EPD_HEIGHT - 50, 0, Peripherals::framebuffer);
 
     this->displayFramebuffer();
 }

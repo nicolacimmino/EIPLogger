@@ -30,6 +30,8 @@ public:
     static int barometricPressure;
     static int co2;
     static int tvoc;
+    static float temperature;
+    static int humidity;
 };
 
 #endif

@@ -11,6 +11,8 @@ int Status::thunderInterferers = 0;
 int Status::barometricPressure = 0;
 int Status::co2 = 0;
 int Status::tvoc = 0;
+float Status::temperature = 0;
+int Status::humidity = 0;
 
 void Status::abortLoop()
 {

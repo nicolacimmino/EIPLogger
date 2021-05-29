@@ -19,7 +19,6 @@
 class Peripherals
 {
 public:
-    static SHT2x *sht2x;
     static uRTCLib *rtc;
     static uEEPROMLib *eeprom;
     static Button *buttonA;
@@ -38,6 +37,7 @@ public:
 private:
     static iAQCoreI2C *iaq;
     static BMP280_DEV *bmp280;
+    static SHT2x *sht2x;
 };
 
 #endif

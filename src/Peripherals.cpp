@@ -100,8 +100,10 @@ void Peripherals::loop()
     {
         Status::barometricPressure = pressure;
     }
-   
+
     Peripherals::sht2x->loop();
+    Status::temperature = sht2x->temperature;
+    Status::humidity = sht2x->humidity;
 
     Peripherals::rtc->refresh();
 

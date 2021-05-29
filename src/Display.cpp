@@ -40,6 +40,11 @@ void Display::printValue(char *buffer, int x, int y, int width, int height, cons
         x0 += (width - w);
     }
 
+    if (options & DIS_VCENTER)
+    {
+        y0 -= (height - h) / 2;
+    }
+
     if (options & DIS_DIRECT_PRINT)
     {
         epd_poweron();
@@ -69,7 +74,8 @@ void Display::displayFramebuffer()
 
 void Display::powerDown()
 {
-    this->printValue("Power down", 0, EPD_HEIGHT / 2, EPD_WIDTH, EPD_HEIGHT, (GFXfont *)&BIG_POWER_DOWN_SCREEN_FONT, DIS_CENTER | DIS_DIRECT_PRINT);
+    this->printValue("Power down", 0, 0, EPD_WIDTH, EPD_HEIGHT, (GFXfont *)&BIG_POWER_DOWN_SCREEN_FONT, DIS_CENTER | DIS_VCENTER);
+    this->displayFramebuffer();
 }
 
 void Display::printLabelledValue(char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, char *v1Label, float v1, char *v2Label, float v2, char *v3Label, float v3)

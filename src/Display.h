@@ -17,6 +17,7 @@
 #define DIS_CENTER 4
 #define DIS_DIRECT_PRINT 8
 #define DIS_RIGHT 16
+#define DIS_VCENTER 32
 
 class Display
 {
@@ -33,7 +34,7 @@ protected:
                             char *v1Label = NULL, float v1 = 0,
                             char *v2Label = NULL, float v2 = 0,
                             char *v3Label = NULL, float v3 = 0);
-                            
+
     void showIcon(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t *data);
 
 public:

@@ -72,7 +72,7 @@ void Display::powerDown()
     this->printValue("Power down", 0, EPD_HEIGHT / 2, EPD_WIDTH, EPD_HEIGHT, (GFXfont *)&BIG_POWER_DOWN_SCREEN_FONT, DIS_CENTER | DIS_DIRECT_PRINT);
 }
 
-void Display::printVHLValue(char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, float low, float high)
+void Display::printLabelledValue(char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, char *v1Label, float v1, char *v2Label, float v2, char *v3Label, float v3)
 {
     uint16_t midSectionOffset = 115;
     if (options & DIS_LARGE_VALUE)
@@ -100,11 +100,23 @@ void Display::printVHLValue(char *label, uint16_t x, uint16_t y, uint8_t options
 
     this->printValue(unit, x + midSectionOffset, y + 50, 105, 55, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT);
 
-    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "H:%0.0f" : "H:%0.1f", high);
-    this->printValue(Peripherals::buffer, x + midSectionOffset + 95, y + 56, 215, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
+    if (v1Label != NULL)
+    {
+        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s:%0.0f" : "%s:%0.1f", v1Label, v1);
+        this->printValue(Peripherals::buffer, x + midSectionOffset + 95, y + 36, 215, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
+    }
 
-    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "L:%0.0f" : "L:%0.1f", low);
-    this->printValue(Peripherals::buffer, x + midSectionOffset + 95, y + 100, 215, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
+    if (v2Label != NULL)
+    {
+        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s:%0.0f" : "%s:%0.1f", v2Label, v2);
+        this->printValue(Peripherals::buffer, x + midSectionOffset + 95, y + 80, 215, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
+    }
+
+    if (v3Label != NULL)
+    {
+        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s:%0.0f" : "%s:%0.1f", v3Label, v3);
+        this->printValue(Peripherals::buffer, x + midSectionOffset + 95, y + 124, 215, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
+    }
 }
 
 void Display::showIcon(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t *data)

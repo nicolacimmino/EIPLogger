@@ -24,6 +24,10 @@ public:
     static uint8_t getBatteryLevel();
     static long getBatteryVoltage();
     static int getFreeRamBytes();
+    static uint8_t getIAQI();
+    static uint8_t getCO2QI();
+    static uint8_t getTVOCQI();
+    static uint8_t getClimateQI();
     static int thunderStrikes;
     static int thunderDistance;
     static int thunderEnergy;
@@ -32,7 +36,7 @@ public:
     static MinMaxVal<int> *co2;
     static MinMaxVal<int> *tvoc;
     static MinMaxVal<int> *humidity;
-    static MinMaxVal<float> *temperature;    
+    static MinMaxVal<float> *temperature;
 };
 
 #endif

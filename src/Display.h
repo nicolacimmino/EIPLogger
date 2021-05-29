@@ -25,7 +25,15 @@ protected:
     void printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font, uint8_t options = DIS_NONE);
     void displayFramebuffer();
     unsigned long lastRefreshTime = 0;
-    void printVHLValue(char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, float low, float high);
+    
+    void printLabelledValue(char *label,
+                            uint16_t x, uint16_t y,
+                            uint8_t options,
+                            float value, char *unit,
+                            char *v1Label = NULL, float v1 = 0,
+                            char *v2Label = NULL, float v2 = 0,
+                            char *v3Label = NULL, float v3 = 0);
+                            
     void showIcon(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t *data);
 
 public:

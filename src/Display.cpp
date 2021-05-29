@@ -98,7 +98,7 @@ void Display::printVHLValue(char *label, uint16_t x, uint16_t y, uint8_t options
         this->printValue(Peripherals::buffer, x + 115, y + 100, 105, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
     }
 
-    this->printValue(unit, x + midSectionOffset, y + 56, 105, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
+    this->printValue(unit, x + midSectionOffset, y + 50, 105, 55, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT);
 
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "H:%0.0f" : "H:%0.1f", high);
     this->printValue(Peripherals::buffer, x + midSectionOffset + 95, y + 56, 215, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT);

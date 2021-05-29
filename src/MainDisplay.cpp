@@ -30,6 +30,8 @@ void MainDisplay::loop()
     this->printVHLValue("TVOC", this->getAreaX(3), this->getAreaY(3), DIS_NO_DECIMAL | DIS_LARGE_VALUE, Status::tvoc, "ppb", 100, 640);
     this->printVHLValue("Barometer", this->getAreaX(5), this->getAreaY(5), DIS_NO_DECIMAL | DIS_LARGE_VALUE, Status::barometricPressure, "HPa", 940, 1007);
 
+    this->showIcon(this->getAreaX(4), this->getAreaY(4) + 50, thunder_width, thunder_height, (uint8_t *)thunder_data);
+
     this->displayFramebuffer();
 }
 

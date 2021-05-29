@@ -30,6 +30,7 @@ protected:
     void displayFramebuffer();
     unsigned long lastRefreshTime = 0;
     void printVHLValue(char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, float low, float high);
+    void showIcon(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t *data);
 
 public:
     virtual void loop() = 0;

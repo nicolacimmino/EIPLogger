@@ -3,6 +3,7 @@
 #define __MAIN_DISPLAY_H__
 
 #include "Display.h"
+#include "icons/thunder.h"
 
 class MainDisplay : public Display
 {

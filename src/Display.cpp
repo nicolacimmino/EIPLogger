@@ -79,7 +79,7 @@ void Display::printVHLValue(char *label, uint16_t x, uint16_t y, uint8_t options
     {
         midSectionOffset = 230;
     }
-    
+
     this->printValue(label, x, y + 20, midSectionOffset + 310, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT);
 
     if (value != NO_VALUE)
@@ -105,4 +105,16 @@ void Display::printVHLValue(char *label, uint16_t x, uint16_t y, uint8_t options
 
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "L:%0.0f" : "L:%0.1f", low);
     this->printValue(Peripherals::buffer, x + midSectionOffset + 95, y + 100, 215, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
+}
+
+void Display::showIcon(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t *data)
+{
+    Rect_t area = {
+        .x = x,
+        .y = y,
+        .width = width,
+        .height = height,
+    };
+
+    epd_copy_to_framebuffer(area, data, Peripherals::framebuffer);
 }

@@ -18,12 +18,14 @@
 #define DIS_NONE 0
 #define DIS_NO_DECIMAL 1
 #define DIS_LARGE_VALUE 2
+#define DIS_CENTER 4
+#define DIS_DIRECT_PRINT 8
 
 class Display
 {
 private:
 protected:
-    void printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font, bool center, bool skipFrameBuffer = false);
+    void printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font, uint8_t options = DIS_NONE);
     void displayFramebuffer();
     unsigned long lastRefreshTime = 0;
     void printVHLValue(uint16_t x, uint16_t y, uint8_t options, float value, char *unit, float low, float high);

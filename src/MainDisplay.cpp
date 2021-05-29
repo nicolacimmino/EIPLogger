@@ -33,7 +33,7 @@ void MainDisplay::loop()
 
     // Top bar
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%02i-%02i-%02i %02i:%02i", Peripherals::rtc->day(), Peripherals::rtc->month(), Peripherals::rtc->year(), Peripherals::rtc->hour(), Peripherals::rtc->minute());
-    this->printValue(Peripherals::buffer, MD_TOP_X, MD_TOP_Y, EPD_WIDTH, MD_TOP_HEIGHT, (GFXfont *)&MAIN_DISPLAY_SMALL_FONT, false, false);
+    this->printValue(Peripherals::buffer, MD_TOP_X, MD_TOP_Y, EPD_WIDTH, MD_TOP_HEIGHT, (GFXfont *)&MAIN_DISPLAY_SMALL_FONT);
     epd_draw_hline(MD_TOP_X, MD_TOP_Y + MD_TOP_HEIGHT, MD_TOP_WIDTH, 0, Peripherals::framebuffer);
 
     this->printVHLValue(0, 50, DIS_NONE, Peripherals::sht2x->temperature, "C", 21.3, 29.6);

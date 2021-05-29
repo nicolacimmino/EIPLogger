@@ -5,7 +5,7 @@ void Display::onBLongPress()
     return;
 }
 
-void Display::printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font, bool center, bool skipFrameBuffer)
+void Display::printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font, uint8_t options)
 {
     y = y + height;
 
@@ -16,7 +16,7 @@ void Display::printValue(char *buffer, int x, int y, int width, int height, cons
     int w;
     int h;
 
-    if (skipFrameBuffer)
+    if (options & DIS_DIRECT_PRINT)
     {
 
         Rect_t area = {
@@ -31,21 +31,20 @@ void Display::printValue(char *buffer, int x, int y, int width, int height, cons
 
     get_text_bounds(font, buffer, &x, &y, &x1, &y1, &w, &h, NULL);
 
-    if (center)
+    if (options & DIS_CENTER)
     {
         x0 = x0 + (width - w) / 2;
     }
 
-    if (skipFrameBuffer)
+    if (options & DIS_DIRECT_PRINT)
     {
         epd_poweron();
-    }
-
-    writeln(font, buffer, &x0, &y0, (skipFrameBuffer ? NULL : Peripherals::framebuffer));
-
-    if (skipFrameBuffer)
-    {
+        writeln(font, buffer, &x0, &y0, NULL);
         epd_poweroff();
+    }
+    else
+    {
+        writeln(font, buffer, &x0, &y0, Peripherals::framebuffer);
     }
 }
 
@@ -66,7 +65,7 @@ void Display::displayFramebuffer()
 
 void Display::powerDown()
 {
-    this->printValue("Power down", 0, EPD_HEIGHT / 2, EPD_WIDTH, EPD_HEIGHT, (GFXfont *)&BIG_POWER_DOWN_SCREEN_FONT, true, true);
+    this->printValue("Power down", 0, EPD_HEIGHT / 2, EPD_WIDTH, EPD_HEIGHT, (GFXfont *)&BIG_POWER_DOWN_SCREEN_FONT, DIS_CENTER | DIS_DIRECT_PRINT);
 }
 
 void Display::printVHLValue(uint16_t x, uint16_t y, uint8_t options, float value, char *unit, float low, float high)
@@ -85,19 +84,19 @@ void Display::printVHLValue(uint16_t x, uint16_t y, uint8_t options, float value
     {
         snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "---");
     }
-    this->printValue(Peripherals::buffer, x, y, 215, 110, (GFXfont *)&MAIN_DISPLAY_LARGE_FONT, false, false);
+    this->printValue(Peripherals::buffer, x, y, 215, 110, (GFXfont *)&MAIN_DISPLAY_LARGE_FONT);
 
     if (!options & DIS_NO_DECIMAL && value != NO_VALUE)
     {
         snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, ".%d", (uint16_t)(10 * (value - floor(value))));
-        this->printValue(Peripherals::buffer, x + 115, y + 50, 105, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT, false, false);
+        this->printValue(Peripherals::buffer, x + 115, y + 50, 105, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
     }
 
-    this->printValue(unit, x + midSectionOffset, y + 6, 105, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT, false, false);
+    this->printValue(unit, x + midSectionOffset, y + 6, 105, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
 
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "H:%0.0f" : "H:%0.1f", high);
-    this->printValue(Peripherals::buffer, x + midSectionOffset + 95, y + 6, 215, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT, false, false);
+    this->printValue(Peripherals::buffer, x + midSectionOffset + 95, y + 6, 215, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
 
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "L:%0.0f" : "L:%0.1f", low);
-    this->printValue(Peripherals::buffer, x + midSectionOffset + 95, y + 50, 215, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT, false, false);
+    this->printValue(Peripherals::buffer, x + midSectionOffset + 95, y + 50, 215, 55, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
 }

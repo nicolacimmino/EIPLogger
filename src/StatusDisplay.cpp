@@ -11,7 +11,7 @@ void StatusDisplay::onBLongPress()
 }
 
 void StatusDisplay::loop()
-{    
+{
     if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
     {
         return;
@@ -27,7 +27,7 @@ void StatusDisplay::runI2CScan()
     int y = 160;
 
     uint8_t addresses[] = {AS3935_ADDR, SHT2x_ADDR, IAQ_ADDR, EEPROM_ADDR, RTC_ADDR, BMP280_ADDR};
-    
+
     this->printValue("Status", 0, 90, EPD_WIDTH / 2, 90, (GFXfont *)&SMALL_STATUS_SCREEN_FONT, true);
 
     this->displayFramebuffer();
@@ -38,7 +38,7 @@ void StatusDisplay::runI2CScan()
 
         snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, " I2C 0x%02x...........[%s]", addresses[ix], Wire.endTransmission() == 0 ? "OK" : "FAIL");
 
-        this->printValue(Peripherals::buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&SMALL_STATUS_SCREEN_FONT, false, true);
+        this->printValue(Peripherals::buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&SMALL_STATUS_SCREEN_FONT, DIS_DIRECT_PRINT);
 
         y += 50;
 
@@ -60,14 +60,14 @@ void StatusDisplay::runI2CScan()
 
         snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, " WiFi...............[%d/10]", attempts);
 
-        this->printValue(Peripherals::buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&SMALL_STATUS_SCREEN_FONT, false, true);
+        this->printValue(Peripherals::buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&SMALL_STATUS_SCREEN_FONT, DIS_DIRECT_PRINT);
 
         delay(3000);
     }
 
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, " WiFi...............[%s]", Peripherals::isWiFiConnected() ? "OK" : "FAIL");
 
-    this->printValue(Peripherals::buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&SMALL_STATUS_SCREEN_FONT, false, true);
+    this->printValue(Peripherals::buffer, 10, y, EPD_WIDTH / 2, 50, (GFXfont *)&SMALL_STATUS_SCREEN_FONT, DIS_DIRECT_PRINT);
     y += 50;
 
     PowerManager::enterL1();

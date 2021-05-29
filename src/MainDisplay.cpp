@@ -21,6 +21,8 @@ void MainDisplay::loop()
     // Top bar
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%02i-%02i-%02i %02i:%02i", Peripherals::rtc->day(), Peripherals::rtc->month(), Peripherals::rtc->year(), Peripherals::rtc->hour(), Peripherals::rtc->minute());
     this->printValue(Peripherals::buffer, 10, 0, EPD_WIDTH, 50, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
+    this->showIcon(870, 20, battery_100_width, battery_100_height, (uint8_t *)battery_100_data);
+    this->showIcon(800, 15, wifi_width, wifi_height, (uint8_t *)wifi_data);
 
     this->printVHLValue("Temperature", this->getAreaX(0), this->getAreaY(0), DIS_NONE, Peripherals::sht2x->temperature, "C", 21.3, 29.6);
     this->printVHLValue("Humidity", this->getAreaX(2), this->getAreaY(2), DIS_NO_DECIMAL, Peripherals::sht2x->humidity, "%RH", 45, 85);

@@ -4,6 +4,8 @@
 
 #include "Display.h"
 #include "icons/thunder.h"
+#include "icons/battery_100.h"
+#include "icons/wifi.h"
 
 class MainDisplay : public Display
 {

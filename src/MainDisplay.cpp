@@ -24,12 +24,41 @@ void MainDisplay::loop()
     this->showIcon(870, 20, battery_100_width, battery_100_height, (uint8_t *)battery_100_data);
     this->showIcon(800, 15, wifi_width, wifi_height, (uint8_t *)wifi_data);
 
-    this->printVHLValue("Temperature", this->getAreaX(0), this->getAreaY(0), DIS_NONE, Status::temperature, "C", 21.3, 29.6);
-    this->printVHLValue("Humidity", this->getAreaX(2), this->getAreaY(2), DIS_NO_DECIMAL, Status::humidity, "%RH", 45, 85);
+    this->printVHLValue("Temperature",
+                        this->getAreaX(0),
+                        this->getAreaY(0),
+                        DIS_NONE,
+                        Status::temperature->get(), "C",
+                        Status::temperature->getMin(),
+                        Status::temperature->getMax());
 
-    this->printVHLValue("CO2", this->getAreaX(1), this->getAreaY(1), DIS_NO_DECIMAL | DIS_LARGE_VALUE, Status::co2, "ppm", 450, 6700);
-    this->printVHLValue("TVOC", this->getAreaX(3), this->getAreaY(3), DIS_NO_DECIMAL | DIS_LARGE_VALUE, Status::tvoc, "ppb", 100, 640);
-    this->printVHLValue("Barometer", this->getAreaX(5), this->getAreaY(5), DIS_NO_DECIMAL | DIS_LARGE_VALUE, Status::barometricPressure, "HPa", 940, 1007);
+    this->printVHLValue("Humidity",
+                        this->getAreaX(2), this->getAreaY(2),
+                        DIS_NO_DECIMAL,
+                        Status::humidity->get(), "%RH",
+                        Status::humidity->getMin(),
+                        Status::humidity->getMax());
+
+    this->printVHLValue("CO2",
+                        this->getAreaX(1), this->getAreaY(1),
+                        DIS_NO_DECIMAL | DIS_LARGE_VALUE,
+                        Status::co2->get(), "ppm",
+                        Status::co2->getMin(),
+                        Status::co2->getMax());
+
+    this->printVHLValue("TVOC",
+                        this->getAreaX(3), this->getAreaY(3),
+                        DIS_NO_DECIMAL | DIS_LARGE_VALUE,
+                        Status::tvoc->get(), "ppb",
+                        Status::tvoc->getMin(),
+                        Status::tvoc->getMax());
+
+    this->printVHLValue("Barometer", 
+    this->getAreaX(5), this->getAreaY(5),
+     DIS_NO_DECIMAL | DIS_LARGE_VALUE,
+      Status::barometricPressure->get(), "HPa",
+       Status::barometricPressure->getMin(),
+        Status::barometricPressure->getMax());
 
     this->showIcon(this->getAreaX(4), this->getAreaY(4) + 50, thunder_width, thunder_height, (uint8_t *)thunder_data);
 

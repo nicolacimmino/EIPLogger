@@ -43,4 +43,6 @@
 
 #define TEXT_BUFFER_SIZE 64
 
+#define NO_VALUE -9999
+
 #endif

@@ -98,24 +98,19 @@ void Peripherals::loop()
     float pressure;
     if (Peripherals::bmp280->getPressure(pressure))
     {
-        Status::barometricPressure = pressure;
+        Status::barometricPressure->set(pressure);
     }
 
     Peripherals::sht2x->loop();
-    Status::temperature = sht2x->temperature;
-    Status::humidity = sht2x->humidity;
+    Status::temperature->set(sht2x->temperature);
+    Status::humidity->set(sht2x->humidity);
 
     Peripherals::rtc->refresh();
 
     Wire.setClock(80000L);
     if (Peripherals::iaq->hasValue() && Peripherals::iaq->isValid())
     {
-        Status::co2 = Peripherals::iaq->getCO2();
-        Status::tvoc = Peripherals::iaq->getTVOC();
-    }
-    else
-    {
-        Status::co2 = NO_VALUE;
-        Status::tvoc = NO_VALUE;
+        Status::co2->set(Peripherals::iaq->getCO2());
+        Status::tvoc->set(Peripherals::iaq->getTVOC());
     }
 }

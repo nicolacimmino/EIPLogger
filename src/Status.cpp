@@ -8,11 +8,11 @@ int Status::thunderStrikes = 0;
 int Status::thunderDistance = 0;
 int Status::thunderEnergy = 0;
 int Status::thunderInterferers = 0;
-int Status::barometricPressure = 0;
-int Status::co2 = 0;
-int Status::tvoc = 0;
-float Status::temperature = 0;
-int Status::humidity = 0;
+MinMaxVal<float> *Status::temperature = new MinMaxVal<float>();
+MinMaxVal<int> *Status::barometricPressure = new MinMaxVal<int>();
+MinMaxVal<int> *Status::co2 = new MinMaxVal<int>();
+MinMaxVal<int> *Status::tvoc = new MinMaxVal<int>();
+MinMaxVal<int> *Status::humidity = new MinMaxVal<int>();
 
 void Status::abortLoop()
 {

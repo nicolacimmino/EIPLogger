@@ -14,8 +14,6 @@
 #include "Button.h"
 #include "secrets.h"
 
-#define NO_VALUE -9999
-
 class Peripherals
 {
 public:

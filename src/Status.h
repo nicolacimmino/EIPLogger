@@ -2,6 +2,7 @@
 #define __TEMPERATURE_STATUS_H__
 
 #include <Arduino.h>
+#include "MinMaxVal.h"
 
 class Status
 {
@@ -27,11 +28,11 @@ public:
     static int thunderDistance;
     static int thunderEnergy;
     static int thunderInterferers;
-    static int barometricPressure;
-    static int co2;
-    static int tvoc;
-    static float temperature;
-    static int humidity;
+    static MinMaxVal<int> *barometricPressure;
+    static MinMaxVal<int> *co2;
+    static MinMaxVal<int> *tvoc;
+    static MinMaxVal<int> *humidity;
+    static MinMaxVal<float> *temperature;    
 };
 
 #endif

@@ -11,7 +11,7 @@ void PollenDisplay::onBLongPress()
 
 void PollenDisplay::loop()
 {
-    if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
+    if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < (60 *60000))
     {
         return;
     }
@@ -132,12 +132,39 @@ void PollenDisplay::printPollen(int pollenId, uint16_t x, uint16_t y, int value,
     }
     else if (pollenId == 36)
     {
-        this->printValue("Babka", x, y + 20, midSectionOffset + 310, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT);
+        this->printValue("Plantago", x, y + 20, midSectionOffset + 310, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT);
     }
     else
     {
         this->printValue("???", x, y + 20, midSectionOffset + 310, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT);
     }
+
+    if (strcmp("Bez zmian", trend) == 0)
+    {
+        this->showIcon(x + midSectionOffset, y + 80, trend_eq_width, trend_eq_height, (uint8_t *)trend_eq_data);
+    }
+    else if (strcmp("Wzrost", trend) == 0)
+    {
+        this->showIcon(x + midSectionOffset, y + 80, trend_u_width, trend_u_height, (uint8_t *)trend_u_data);
+    }
+    else if (strcmp("Silny wzrost", trend) == 0)
+    {
+        this->showIcon(x + midSectionOffset, y + 80, trend_uu_width, trend_uu_height, (uint8_t *)trend_uu_data);
+    }
+    else if (strcmp("Spadek", trend) == 0)
+    {
+        this->showIcon(x + midSectionOffset, y + 80, trend_d_width, trend_d_height, (uint8_t *)trend_d_data);
+    }
+    else if (strcmp("Silny spadek", trend) == 0)
+    {
+        this->showIcon(x + midSectionOffset, y + 80, trend_dd_width, trend_dd_height, (uint8_t *)trend_dd_data);
+    }
+    else if (strcmp("Koniec sezonu", trend) == 0)
+    {
+        this->showIcon(x + midSectionOffset, y + 80, trend_end_width, trend_end_height, (uint8_t *)trend_end_data);
+    }
+
+    //this->showIcon(x + midSectionOffset, y + 80, trend_uu_width, trend_uu_height, (uint8_t *)trend_uu_data);
 
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%d", value);
     this->printValue(Peripherals::buffer, x, y + 50, 110, 110, (GFXfont *)&MAIN_DISPLAY_LARGE_FONT, DIS_RIGHT);
@@ -147,7 +174,7 @@ void PollenDisplay::printPollen(int pollenId, uint16_t x, uint16_t y, int value,
 
 uint16_t PollenDisplay::getAreaX(uint8_t areaNumber)
 {
-    return 10 + (areaNumber % 3) * 300;
+    return 105 + (areaNumber % 3) * 300;
 }
 
 uint16_t PollenDisplay::getAreaY(uint8_t areaNumber)

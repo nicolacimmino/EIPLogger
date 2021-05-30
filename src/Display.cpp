@@ -5,7 +5,7 @@ void Display::onBLongPress()
     return;
 }
 
-void Display::printValue(char *buffer, int x, int y, int width, int height, const GFXfont *font, uint8_t options)
+void Display::printValue(const char *buffer, int x, int y, int width, int height, const GFXfont *font, uint8_t options)
 {
     y = y + height;
 
@@ -78,7 +78,7 @@ void Display::powerDown()
     this->displayFramebuffer();
 }
 
-void Display::printLabelledValue(char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, char *v1Label, float v1, char *v2Label, float v2, char *v3Label, float v3)
+void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, const char *v1Label, float v1,const char *v2Label, float v2, const char *v3Label, float v3)
 {
     uint16_t midSectionOffset = 115;
     if (options & DIS_LARGE_VALUE)

@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 
+#include "esp_adc_cal.h"
 #include "src/Button.h"
 #include "src/Peripherals.h"
 #include "src/ModeManager.h"
@@ -43,8 +44,18 @@ void onButtonALongPress()
     PowerManager::enterL3();
 }
 
+int vref = 1100;
+
 void setup()
 {
+    esp_adc_cal_characteristics_t adc_chars;
+    esp_adc_cal_value_t val_type = esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, 1100, &adc_chars);
+    if (val_type == ESP_ADC_CAL_VAL_EFUSE_VREF) {
+        Serial.printf("eFuse Vref:%u mV", adc_chars.vref);
+        vref = adc_chars.vref;
+    }
+
+
     if (esp_sleep_get_wakeup_cause() != ESP_SLEEP_WAKEUP_TIMER)
     {
         delay(500);

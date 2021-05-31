@@ -34,7 +34,7 @@ void PollenDisplay::loop()
 
     // TODO: move wait to L0 enter
     uint8_t count = 0;
-    while (!Peripherals::isWiFiConnected() && count < 20)
+    while (!Peripherals::isWiFiConnected() && count < 40)
     {
         count++;
         delay(500);

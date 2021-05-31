@@ -61,6 +61,14 @@ void Peripherals::connectWiFi()
 
 bool Peripherals::isWiFiConnected()
 {
+    static unsigned long lastReconnectAttempt = millis();
+
+    if (WiFi.status() != WL_CONNECTED && millis() - lastReconnectAttempt > 10000)
+    {
+        WiFi.disconnect();
+        WiFi.reconnect();
+    }
+
     return WiFi.status() == WL_CONNECTED;
 }
 

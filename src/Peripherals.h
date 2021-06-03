@@ -8,6 +8,7 @@
 #include <iAQCoreI2C.h>
 #include <SparkFun_AS3935.h>
 #include <BMP280_DEV.h>
+#include "Adafruit_APDS9960.h"
 #include <WiFi.h>
 #include "drivers/SHT2x.h"
 #include "config.h"
@@ -23,6 +24,7 @@ public:
     static Button *buttonB;
     static Button *buttonC;
     static SparkFun_AS3935 *lightning;
+    static Adafruit_APDS9960 *apds;
     static uint8_t *framebuffer;
     static char *buffer;
 

@@ -9,6 +9,7 @@ Button *Peripherals::buttonC = NULL;
 iAQCoreI2C *Peripherals::iaq = NULL;
 SparkFun_AS3935 *Peripherals::lightning = NULL;
 BMP280_DEV *Peripherals::bmp280 = NULL;
+Adafruit_APDS9960 *Peripherals::apds = NULL;
 uint8_t *Peripherals::framebuffer = NULL;
 char *Peripherals::buffer = NULL;
 
@@ -38,7 +39,9 @@ void Peripherals::setup()
     Peripherals::rtc = new uRTCLib(RTC_ADDR);
     Peripherals::eeprom = new uEEPROMLib(EEPROM_ADDR);
     Peripherals::bmp280 = new BMP280_DEV();
+    Peripherals::apds = new Adafruit_APDS9960();
 
+    Peripherals::apds->begin();
     Peripherals::lightning->begin();
     Peripherals::lightning->resetSettings();
     Peripherals::lightning->setIndoorOutdoor(0x12); // Indoor
@@ -52,6 +55,8 @@ void Peripherals::setup()
     {
         Serial.println("IAQ ERROR!");
     }
+
+    Peripherals::apds->enableColor(true);
 }
 
 void Peripherals::connectWiFi()

@@ -7,6 +7,7 @@
 #include "MainDisplay.h"
 #include "StatusDisplay.h"
 #include "PollenDisplay.h"
+#include "LightDisplay.h"
 
 class ModeManager
 {

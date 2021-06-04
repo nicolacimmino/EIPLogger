@@ -42,13 +42,13 @@ void LightDisplay::loop()
 }
 
 void LightDisplay::printLightValue(const char *label, uint16_t x, uint16_t y, int value, const char *unit)
-{
-    uint16_t midSectionOffset = 115;
-
-    this->printValue(label, x, y + 20, midSectionOffset + 310, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT);
+{    
+    this->printValue(label, x, y + 20, 240, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT, DIS_RIGHT);
 
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%d", value);
-    this->printValue(Peripherals::buffer, x, y + 50, 110, 110, (GFXfont *)&MAIN_DISPLAY_LARGE_FONT, DIS_RIGHT);
+    this->printValue(Peripherals::buffer, x, y + 50, 220, 110, (GFXfont *)&MAIN_DISPLAY_LARGE_FONT, DIS_RIGHT);
+    
+    this->printValue(unit, x + 230, y + 50, 110, 110, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT, DIS_NONE);
 }
 
 uint16_t LightDisplay::getAreaX(uint8_t areaNumber)

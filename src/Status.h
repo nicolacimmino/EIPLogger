@@ -37,6 +37,12 @@ struct PollenCount
     uint8_t type;
 };
 
+struct Time
+{
+    uint8_t h;
+    uint8_t m;
+};
+
 class Status
 {
 private:
@@ -54,6 +60,14 @@ public:
     static uint8_t getCO2QI();
     static uint8_t getTVOCQI();
     static uint8_t getClimateQI();
+    static Time getSunrise();
+    static Time getSunset();
+    static uint16_t getDayOfYear();
+    static bool isDST();
+    static uint16_t getDay();
+    static uint16_t getMonth();
+    static uint16_t getYear();
+    static uint16_t getDayOfWeek();
     static int thunderStrikes;
     static int thunderDistance;
     static int thunderEnergy;

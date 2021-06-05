@@ -5,6 +5,11 @@ void Display::onBLongPress()
     return;
 }
 
+void Display::setWiFiIcon(bool visible)
+{
+    this->showIcon(800, 15, WIFI_WIDTH, WIFI_HEIGHT, visible ? (uint8_t *)wifi_data : NULL, DIS_DIRECT_PRINT);
+}
+
 void Display::printValue(const char *buffer, int x, int y, int width, int height, const GFXfont *font, uint8_t options)
 {
     y = y + height;
@@ -78,7 +83,7 @@ void Display::powerDown()
     this->displayFramebuffer();
 }
 
-void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, const char *v1Label, float v1,const char *v2Label, float v2, const char *v3Label, float v3)
+void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, const char *v1Label, float v1, const char *v2Label, float v2, const char *v3Label, float v3)
 {
     uint16_t midSectionOffset = 115;
     if (options & DIS_LARGE_VALUE)
@@ -125,7 +130,7 @@ void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint
     }
 }
 
-void Display::showIcon(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t *data)
+void Display::showIcon(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t *data, uint8_t options)
 {
     Rect_t area = {
         .x = x,
@@ -133,6 +138,19 @@ void Display::showIcon(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
         .width = width,
         .height = height,
     };
+
+    if (options & DIS_DIRECT_PRINT)
+    {
+        epd_poweron();
+        epd_clear_area(area);
+        if (data != NULL)
+        {
+            epd_draw_grayscale_image(area, data);
+        }
+        epd_poweroff();
+
+        return;
+    }
 
     epd_copy_to_framebuffer(area, data, Peripherals::framebuffer);
 }

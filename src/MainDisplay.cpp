@@ -74,8 +74,8 @@ void MainDisplay::loop()
                              "CLI", Status::getClimateQI());
 
     //this->showIcon(this->getAreaX(4), this->getAreaY(4) + 50, thunder_width, thunder_height, (uint8_t *)thunder_data);
-    this->showIcon(870, 20, battery_100_width, battery_100_height, (uint8_t *)battery_100_data);
-    this->showIcon(800, 15, wifi_width, wifi_height, (uint8_t *)wifi_data);
+    //this->showIcon(870, 20, battery_100_width, battery_100_height, (uint8_t *)battery_100_data);
+    //this->showIcon(800, 15, wifi_width, wifi_height, (uint8_t *)wifi_data);
 
     // epd_draw_hline(0, 70, EPD_WIDTH, 0, Peripherals::framebuffer);
     // epd_draw_hline(0, 220, EPD_WIDTH, 0, Peripherals::framebuffer);

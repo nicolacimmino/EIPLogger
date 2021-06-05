@@ -10,6 +10,9 @@
 #include "fonts/sevenSeg_60.h"
 #include "fonts/sevenSeg_25.h"
 #include "fonts/mono15.h"
+#include "icons/thunder.h"
+#include "icons/battery_100.h"
+#include "icons/wifi.h"
 
 #define DIS_NONE 0
 #define DIS_NO_DECIMAL 1
@@ -35,12 +38,13 @@ protected:
                             const char *v2Label = NULL, float v2 = 0,
                             const char *v3Label = NULL, float v3 = 0);
 
-    void showIcon(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t *data);
+    void showIcon(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t *data, uint8_t options = DIS_NONE);
 
 public:
     virtual void loop() = 0;
     virtual void onBClick() = 0;
     virtual void onBLongPress() = 0;
+    void setWiFiIcon(bool visible);
     void powerDown();
 };
 

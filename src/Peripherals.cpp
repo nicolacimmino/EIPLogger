@@ -61,6 +61,7 @@ void Peripherals::setup()
 
 void Peripherals::connectWiFi()
 {
+    //ModeManager::currentDisplay->setWiFiIcon(true);
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 }
 
@@ -80,6 +81,7 @@ bool Peripherals::isWiFiConnected()
 void Peripherals::disconnectWiFi()
 {
     WiFi.disconnect();
+    //ModeManager::currentDisplay->setWiFiIcon(false);
 }
 
 void Peripherals::loop()

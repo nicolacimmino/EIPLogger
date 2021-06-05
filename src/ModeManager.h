@@ -11,13 +11,13 @@
 
 class ModeManager
 {
-private:    
+private:
     static uint8_t mode;
     static void enterMode();
 
 public:
     static Display *currentDisplay;
-    static void setup();    
+    static void setup();
     static void changeMode();
 };
 

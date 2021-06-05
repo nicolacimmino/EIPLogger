@@ -12,15 +12,15 @@ void StatusDisplay::onBLongPress()
 
 void StatusDisplay::loop()
 {
+    this->printHeader();
+    
     if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
     {
         return;
     }
 
     this->lastRefreshTime = millis();
-
-    this->printHeader();
-
+    
     this->printValue("Press B to scan I2C bus.", 0, 40, EPD_WIDTH / 2, 90, (GFXfont *)&SMALL_STATUS_SCREEN_FONT, true);
 
     this->displayFramebuffer();

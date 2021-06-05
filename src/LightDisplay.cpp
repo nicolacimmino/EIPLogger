@@ -11,15 +11,15 @@ void LightDisplay::onBLongPress()
 
 void LightDisplay::loop()
 {
+    this->printHeader();
+    
     if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
     {
         return;
     }
 
     this->lastRefreshTime = millis();
-
-    this->printHeader();
-
+    
     uint16_t r, g, b, a;
 
     Peripherals::apds->getColorData(&r, &g, &b, &a);

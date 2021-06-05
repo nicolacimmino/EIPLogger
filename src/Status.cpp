@@ -34,17 +34,7 @@ void Status::loop()
 
 void Status::syncPollen()
 {
-    PowerManager::enterL0();
-
-    // TODO: move wait to L0 enter
-    uint8_t count = 0;
-    while (!Peripherals::isWiFiConnected() && count < 40)
-    {
-        count++;
-        delay(500);
-    }
-
-    if (!Peripherals::isWiFiConnected())
+    if (!PowerManager::enterL0())
     {
         return;
     }

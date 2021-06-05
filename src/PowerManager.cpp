@@ -6,12 +6,34 @@ unsigned long PowerManager::lastUserInteractionTime = millis();
 uint8_t PowerManager::level = PS_LEVEL_0;
 uint8_t PowerManager::previousLevel = PS_LEVEL_0;
 
-void PowerManager::enterL0()
+bool PowerManager::enterL0()
 {
-    DIAGNOSTIC("PMA,L0")
+    DIAGNOSTIC("PMA,L0,attempt")
+
+    uint8_t previousLevel = PowerManager::level;
 
     PowerManager::level = PS_LEVEL_0;
-    Peripherals::connectWiFi();        
+    Peripherals::connectWiFi();
+
+    uint8_t count = 0;
+    while (!Peripherals::isWiFiConnected() && count < 40)
+    {
+        count++;
+        DIAGNOSTIC("PMA,L0,wait")
+        ModeManager::currentDisplay->loop();
+        delay(500);
+    }
+
+    if (!Peripherals::isWiFiConnected())
+    {
+        DIAGNOSTIC("PMA,L0,failed")
+
+        PowerManager::level = previousLevel;
+
+        return false;
+    }
+
+    return true;
 }
 
 void PowerManager::enterL1()
@@ -20,6 +42,7 @@ void PowerManager::enterL1()
 
     PowerManager::level = PS_LEVEL_1;
     Peripherals::disconnectWiFi();
+    ModeManager::currentDisplay->loop();
 }
 
 void PowerManager::enterL2()
@@ -38,7 +61,7 @@ void PowerManager::enterL3()
     DIAGNOSTIC("PMA,L3");
 
     PowerManager::level = PS_LEVEL_3;
-    epd_poweroff_all();    
+    epd_poweroff_all();
     esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
     esp_sleep_enable_ext1_wakeup(PIN_BUTTON_A_SEL, ESP_EXT1_WAKEUP_ALL_LOW);
     esp_deep_sleep_start();

@@ -11,14 +11,14 @@ void PollenDisplay::onBLongPress()
 
 void PollenDisplay::loop()
 {
+    this->printHeader();
+    
     if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
     {
         return;
     }
 
     this->lastRefreshTime = millis();
-
-   this->printHeader();
 
     for (uint8_t ix = 0; ix < MAX_POLLEN_COUNTS; ix++)
     {

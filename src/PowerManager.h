@@ -30,7 +30,7 @@ private:
 public:
     static uint8_t level;
 
-    static void enterL0();
+    static bool enterL0();
     static void enterL1();
     static void enterL2();
     static void enterL3();

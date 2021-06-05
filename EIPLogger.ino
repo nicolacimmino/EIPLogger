@@ -62,6 +62,14 @@ void setup()
     //     vref = adc_chars.vref;
     // }
 
+    if (esp_sleep_get_wakeup_cause() == ESP_SLEEP_WAKEUP_TIMER)
+    {
+        Peripherals::buttonB->loop();
+        ModeManager::currentDisplay->loop();
+        
+        PowerManager::enterL2();
+    }
+
     if (esp_sleep_get_wakeup_cause() != ESP_SLEEP_WAKEUP_TIMER)
     {
         delay(500);

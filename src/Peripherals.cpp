@@ -84,26 +84,6 @@ void Peripherals::loop()
     Peripherals::buttonB->loop();
     Peripherals::buttonC->loop();
 
-    // uint8_t intVal = Peripherals::lightning->readInterruptReg();
-    // if (intVal)
-    // {
-    //     if (intVal == DISTURBER_INT)
-    //     {
-    //         Status::thunderInterferers++;
-    //     }
-    //     else if (intVal == LIGHTNING_INT)
-    //     {
-    //         Status::thunderStrikes++;
-    //         Status::thunderEnergy = Peripherals::lightning->lightningEnergy();
-    //         Status::thunderDistance = Peripherals::lightning->distanceToStorm();
-    //     }
-
-    //     while (Peripherals::lightning->readInterruptReg())
-    //     {
-    //         delay(1);
-    //     }
-    // }
-
     float pressure;
     if (Peripherals::bmp280->getPressure(pressure))
     {

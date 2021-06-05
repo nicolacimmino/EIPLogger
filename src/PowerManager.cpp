@@ -66,7 +66,7 @@ void PowerManager::enterL2()
     //esp_sleep_enable_ext0_wakeup((gpio_num_t)PIN_BUTTON_B, 0);
     esp_sleep_enable_ext0_wakeup((gpio_num_t)PIN_INT, 1);
     esp_sleep_enable_ext1_wakeup(PIN_BUTTON_A_SEL, ESP_EXT1_WAKEUP_ALL_LOW);
-    esp_sleep_enable_timer_wakeup(60 * 1000000); // 60s
+    esp_sleep_enable_timer_wakeup(1 * 1000000); // 60s
     esp_light_sleep_start();
 }
 

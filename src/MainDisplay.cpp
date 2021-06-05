@@ -11,15 +11,15 @@ void MainDisplay::onBLongPress()
 
 void MainDisplay::loop()
 {
+    this->printHeader();
+    
     if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
     {
         return;
     }
 
     this->lastRefreshTime = millis();
-
-    this->printHeader();
-    
+        
     this->printLabelledValue("Temperature",
                              this->getAreaX(0),
                              this->getAreaY(0),

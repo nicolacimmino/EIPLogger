@@ -11,7 +11,7 @@ void PowerManager::enterL0()
     DIAGNOSTIC("PMA,L0")
 
     PowerManager::level = PS_LEVEL_0;
-    Peripherals::connectWiFi();    
+    Peripherals::connectWiFi();        
 }
 
 void PowerManager::enterL1()

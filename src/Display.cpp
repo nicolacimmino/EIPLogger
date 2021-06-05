@@ -79,7 +79,20 @@ void Display::displayFramebuffer()
 
 void Display::printHeader()
 {
-     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s %02i-%02i-%02i %02i:%02i %s",
+    if (this->lastWiFiStatus != Peripherals::isWiFiConnected())
+    {
+        this->setWiFiIcon(Peripherals::isWiFiConnected());
+        this->lastWiFiStatus = Peripherals::isWiFiConnected();
+    }
+
+    if (this->lastHeaderRefreshTime != 0 && millis() - this->lastHeaderRefreshTime < 60000)
+    {
+        return;
+    }
+
+    this->lastHeaderRefreshTime = millis();
+
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s %02i-%02i-%02i %02i:%02i %s",
              "MON\0TUE\0WED\0THU\0FRI\0SAT\0SUN\0" + ((Status::getDayOfWeek() - 1) * 4),
              Status::getDay(),
              Status::getMonth(),

@@ -82,8 +82,7 @@ void loop()
     ModeManager::currentDisplay->loop();
     
     Status::loop();
-
-    PowerManager::enterL2();
-
+    
     PowerManager::enterL1();
+    PowerManager::enterL2();
 }

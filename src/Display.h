@@ -25,6 +25,9 @@
 class Display
 {
 private:
+    unsigned long lastHeaderRefreshTime = 0;  
+    bool lastWiFiStatus = false;
+      
 protected:
     void printHeader();
     void printValue(const char *buffer, int x, int y, int width, int height, const GFXfont *font, uint8_t options = DIS_NONE);

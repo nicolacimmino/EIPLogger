@@ -64,6 +64,8 @@ public:
     static Time getSunset();
     static uint16_t getDayOfYear();
     static bool isDST();
+    static uint16_t getHour();
+    static uint16_t getMinute();
     static uint16_t getDay();
     static uint16_t getMonth();
     static uint16_t getYear();

@@ -51,10 +51,7 @@ void Peripherals::setup()
     Peripherals::bmp280->setTimeStandby(TIME_STANDBY_2000MS);
     Peripherals::bmp280->startNormalConversion();
 
-    if (!Peripherals::iaq->begin())
-    {
-        Serial.println("IAQ ERROR!");
-    }
+    Peripherals::iaq->begin();
 
     Peripherals::apds->enableColor(true);
 }

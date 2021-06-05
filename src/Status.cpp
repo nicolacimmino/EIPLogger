@@ -65,8 +65,6 @@ void Status::syncPollen()
 
         for (uint8_t ix = 0; ix < responseObject.length(); ix++)
         {
-            Serial.println(responseObject[ix]["allergen"]["name"]);
-
             Status::pollenCounts[ix].count = (uint8_t)(int)responseObject[ix]["value"];
 
             Status::pollenCounts[ix].type = (int)responseObject[ix]["allergen"]["id"];
@@ -162,12 +160,14 @@ Time Status::getSunset()
 }
 
 // TODO: This still need fixing to consider the hours between midnight and 2/3 AM of the switch day.
-// TODO: last sunday seems incorrect....
 bool Status::isDST()
 {
+    // The general gist is from this library, just simplified:
+    // https://github.com/vancegroup-mirrors/avr-libc/blob/master/avr-libc/include/util/eu_dst.h
+
     uint8_t month = Status::getMonth();
     uint8_t day = Status::getDay();
-    uint8_t dow = Status::getDayOfWeek();
+    uint8_t dow = Status::getDayOfWeek() - 1;
 
     if (month != 3 && month != 10)
     {
@@ -177,9 +177,6 @@ bool Status::isDST()
     uint8_t firstSunday = ((day - 1) - dow + 7) % 7;
     uint8_t numberOfSundays = (31 - firstSunday) / 7;
     uint8_t lastSunday = firstSunday + (7 * numberOfSundays);
-
-    Serial.println("Last sun: ");
-    Serial.println(lastSunday);
 
     if (day < lastSunday)
     {
@@ -192,6 +189,16 @@ bool Status::isDST()
 uint16_t Status::getDayOfYear()
 {
     return (uint16_t)((Peripherals::rtc->month() - 1) * 30.5) + Peripherals::rtc->day();
+}
+
+uint16_t Status::getHour()
+{
+    return Peripherals::rtc->hour();
+}
+
+uint16_t Status::getMinute()
+{
+    return Peripherals::rtc->minute();
 }
 
 uint16_t Status::getDay()

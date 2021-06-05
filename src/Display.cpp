@@ -5,6 +5,29 @@ void Display::onBLongPress()
     return;
 }
 
+void Display::forceFullDraw()
+{
+    this->lastRefreshTime = 0;
+    this->lastHeaderRefreshTime = 0;
+    this->loop();
+}
+
+void Display::loop()
+{
+    this->printHeader();
+
+    if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
+    {
+        return;
+    }
+
+    this->lastRefreshTime = millis();
+
+    this->refreshDisplay();
+
+    this->displayFramebuffer();
+}
+
 void Display::setWiFiIcon(bool visible)
 {
     this->showIcon(800, 15, WIFI_WIDTH, WIFI_HEIGHT, visible ? (uint8_t *)wifi_data : NULL, DIS_DIRECT_PRINT);

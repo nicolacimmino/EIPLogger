@@ -6,12 +6,13 @@
 
 class MainDisplay : public Display
 {
+    protected:
+        void refreshDisplay();
 private:
     uint16_t getAreaX(uint8_t areaNumber);
     uint16_t getAreaY(uint8_t areaNumber);
 
 public:
-    void loop();
     void onBClick();
     void onBLongPress();
 };

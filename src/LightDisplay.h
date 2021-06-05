@@ -6,6 +6,9 @@
 
 class LightDisplay : public Display
 {
+protected:
+    void refreshDisplay();
+
 private:
     void printLightValue(const char *label, uint16_t x, uint16_t y, int value, const char *unit);
     void printTimeValue(const char *label, uint16_t x, uint16_t y, Time time);
@@ -15,7 +18,6 @@ private:
     float calculateLux(uint16_t r, uint16_t g, uint16_t b);
 
 public:
-    void loop();
     void onBClick();
     void onBLongPress();
 };

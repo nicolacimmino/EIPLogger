@@ -10,20 +10,9 @@ void StatusDisplay::onBLongPress()
     return;
 }
 
-void StatusDisplay::loop()
+void StatusDisplay::refreshDisplay()
 {
-    this->printHeader();
-    
-    if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
-    {
-        return;
-    }
-
-    this->lastRefreshTime = millis();
-    
     this->printValue("Press B to scan I2C bus.", 0, 40, EPD_WIDTH / 2, 90, (GFXfont *)&SMALL_STATUS_SCREEN_FONT, true);
-
-    this->displayFramebuffer();
 }
 
 void StatusDisplay::runI2CScan()

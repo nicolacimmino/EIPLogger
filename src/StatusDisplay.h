@@ -6,11 +6,13 @@
 
 class StatusDisplay : public Display
 {
+protected:
+    void refreshDisplay();
+
 private:
     void runI2CScan();
 
 public:
-    void loop();
     void onBClick();
     void onBLongPress();
 };

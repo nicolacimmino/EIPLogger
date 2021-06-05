@@ -26,13 +26,13 @@ class Display
 {
 private:
     unsigned long lastHeaderRefreshTime = 0;  
+    unsigned long lastRefreshTime = 0;  
     bool lastWiFiStatus = false;
-      
+
 protected:
     void printHeader();
     void printValue(const char *buffer, int x, int y, int width, int height, const GFXfont *font, uint8_t options = DIS_NONE);
     void displayFramebuffer();
-    unsigned long lastRefreshTime = 0;
     
     void printLabelledValue(const char *label,
                             uint16_t x, uint16_t y,
@@ -44,8 +44,11 @@ protected:
 
     void showIcon(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t *data, uint8_t options = DIS_NONE);
 
+    virtual void refreshDisplay() = 0;
+    void forceFullDraw();
+
 public:
-    virtual void loop() = 0;
+    void loop();    
     virtual void onBClick() = 0;
     virtual void onBLongPress() = 0;
     void setWiFiIcon(bool visible);

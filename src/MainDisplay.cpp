@@ -2,24 +2,15 @@
 
 void MainDisplay::onBClick()
 {
-    this->lastRefreshTime = 0;
+    this->forceFullDraw();
 }
 
 void MainDisplay::onBLongPress()
 {
 }
 
-void MainDisplay::loop()
-{
-    this->printHeader();
-    
-    if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
-    {
-        return;
-    }
-
-    this->lastRefreshTime = millis();
-        
+void MainDisplay::refreshDisplay()
+{        
     this->printLabelledValue("Temperature",
                              this->getAreaX(0),
                              this->getAreaY(0),
@@ -62,9 +53,7 @@ void MainDisplay::loop()
                              Status::getIAQI(), "",
                              "CO2", Status::getCO2QI(),
                              "TVOC", Status::getTVOCQI(),
-                             "CLI", Status::getClimateQI());
-   
-    this->displayFramebuffer();
+                             "CLI", Status::getClimateQI());       
 }
 
 uint16_t MainDisplay::getAreaX(uint8_t areaNumber)

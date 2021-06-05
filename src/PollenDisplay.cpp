@@ -2,33 +2,22 @@
 
 void PollenDisplay::onBClick()
 {
-    this->lastRefreshTime = 0;
+    this->forceFullDraw();
 }
 
 void PollenDisplay::onBLongPress()
 {
 }
 
-void PollenDisplay::loop()
-{
-    this->printHeader();
-    
-    if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
-    {
-        return;
-    }
-
-    this->lastRefreshTime = millis();
-
+void PollenDisplay::refreshDisplay()
+{ 
     for (uint8_t ix = 0; ix < MAX_POLLEN_COUNTS; ix++)
     {
         if (Status::pollenCounts[ix].type != NULL)
         {
             this->printPollen(Status::pollenCounts[ix], this->getAreaX(ix), this->getAreaY(ix));
         }
-    }
-
-    this->displayFramebuffer();
+    }    
 }
 
 void PollenDisplay::printPollen(PollenCount pollenCount, uint16_t x, uint16_t y)

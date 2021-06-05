@@ -2,24 +2,15 @@
 
 void LightDisplay::onBClick()
 {
-    this->lastRefreshTime = 0;
+    this->forceFullDraw();
 }
 
 void LightDisplay::onBLongPress()
 {
 }
 
-void LightDisplay::loop()
-{
-    this->printHeader();
-    
-    if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
-    {
-        return;
-    }
-
-    this->lastRefreshTime = millis();
-    
+void LightDisplay::refreshDisplay()
+{    
     uint16_t r, g, b, a;
 
     Peripherals::apds->getColorData(&r, &g, &b, &a);
@@ -30,9 +21,7 @@ void LightDisplay::loop()
 
     this->printTimeValue("Sunrise", this->getAreaX(2), this->getAreaY(2), Status::getSunrise());
 
-    this->printTimeValue("Sunset", this->getAreaX(3), this->getAreaY(3), Status::getSunset());
-
-    this->displayFramebuffer();
+    this->printTimeValue("Sunset", this->getAreaX(3), this->getAreaY(3), Status::getSunset()); 
 }
 
 void LightDisplay::printTimeValue(const char *label, uint16_t x, uint16_t y, Time time)

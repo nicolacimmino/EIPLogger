@@ -71,7 +71,6 @@ void setup()
         Peripherals::buttonC->registerOnClickCallback(onButtonCClick);
     }
 
-    PowerManager::enterL1();
     //Peripherals::rtc->set(0, 52, 12, 6, 15, 5, 21);
 }
 

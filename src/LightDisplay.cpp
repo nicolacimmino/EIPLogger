@@ -37,7 +37,7 @@ void LightDisplay::loop()
 
 void LightDisplay::printTimeValue(const char *label, uint16_t x, uint16_t y, Time time)
 {
-    this->printValue(label, x, y + 20, 240, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT, DIS_RIGHT);
+    this->printValue(label, x, y + 20, 240, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT);
 
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%02d:%02d", time.h, time.m);
     this->printValue(Peripherals::buffer, x, y + 50, 220, 110, (GFXfont *)&MAIN_DISPLAY_LARGE_FONT);    
@@ -45,7 +45,7 @@ void LightDisplay::printTimeValue(const char *label, uint16_t x, uint16_t y, Tim
 
 void LightDisplay::printLightValue(const char *label, uint16_t x, uint16_t y, int value, const char *unit)
 {
-    this->printValue(label, x, y + 20, 240, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT, DIS_RIGHT);
+    this->printValue(label, x, y + 20, 240, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT);
 
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%04d", value);
     this->printValue(Peripherals::buffer, x, y + 50, 220, 110, (GFXfont *)&MAIN_DISPLAY_LARGE_FONT);
@@ -55,7 +55,7 @@ void LightDisplay::printLightValue(const char *label, uint16_t x, uint16_t y, in
 
 uint16_t LightDisplay::getAreaX(uint8_t areaNumber)
 {
-    return 155 + (areaNumber % 2) * 300;
+    return 105 + (areaNumber % 2) * 350;
 }
 
 uint16_t LightDisplay::getAreaY(uint8_t areaNumber)

@@ -13,6 +13,7 @@
 #endif
 
 #define AS3935_ADDR 0x01
+#define APDS_9960_ADDR 0x39
 #define SHT2x_ADDR 0x40
 #define IAQ_ADDR 0x5A
 #define EEPROM_ADDR 0x57

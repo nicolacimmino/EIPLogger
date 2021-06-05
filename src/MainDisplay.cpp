@@ -18,17 +18,8 @@ void MainDisplay::loop()
 
     this->lastRefreshTime = millis();
 
-    // Top bar
-    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s %02i-%02i-%02i %02i:%02i",
-             "MON\0TUE\0WED\0THU\0FRI\0SAT\0SUN\0" + ((Peripherals::rtc->dayOfWeek() - 1) * 4),
-             Peripherals::rtc->day(),
-             Peripherals::rtc->month(),
-             Peripherals::rtc->year(),
-             Peripherals::rtc->hour(),
-             Peripherals::rtc->minute());
-
-    this->printValue(Peripherals::buffer, 10, 0, EPD_WIDTH, 50, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
-
+    this->printHeader();
+    
     this->printLabelledValue("Temperature",
                              this->getAreaX(0),
                              this->getAreaY(0),
@@ -72,16 +63,7 @@ void MainDisplay::loop()
                              "CO2", Status::getCO2QI(),
                              "TVOC", Status::getTVOCQI(),
                              "CLI", Status::getClimateQI());
-
-    //this->showIcon(this->getAreaX(4), this->getAreaY(4) + 50, thunder_width, thunder_height, (uint8_t *)thunder_data);
-    //this->showIcon(870, 20, battery_100_width, battery_100_height, (uint8_t *)battery_100_data);
-    //this->showIcon(800, 15, wifi_width, wifi_height, (uint8_t *)wifi_data);
-
-    // epd_draw_hline(0, 70, EPD_WIDTH, 0, Peripherals::framebuffer);
-    // epd_draw_hline(0, 220, EPD_WIDTH, 0, Peripherals::framebuffer);
-    // epd_draw_hline(0, 370, EPD_WIDTH, 0, Peripherals::framebuffer);
-    // epd_draw_vline(430, 70, EPD_HEIGHT - 50, 0, Peripherals::framebuffer);
-
+   
     this->displayFramebuffer();
 }
 

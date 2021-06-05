@@ -26,6 +26,7 @@ class Display
 {
 private:
 protected:
+    void printHeader();
     void printValue(const char *buffer, int x, int y, int width, int height, const GFXfont *font, uint8_t options = DIS_NONE);
     void displayFramebuffer();
     unsigned long lastRefreshTime = 0;

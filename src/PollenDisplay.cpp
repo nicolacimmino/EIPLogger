@@ -11,21 +11,14 @@ void PollenDisplay::onBLongPress()
 
 void PollenDisplay::loop()
 {
-    if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < (60 * 60000))
+    if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
     {
         return;
     }
 
     this->lastRefreshTime = millis();
 
-    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s %02i-%02i-%02i %02i:%02i",
-             "MON\0TUE\0WED\0THU\0FRI\0SAT\0SUN\0" + ((Peripherals::rtc->dayOfWeek() - 1) * 4),
-             Peripherals::rtc->day(),
-             Peripherals::rtc->month(),
-             Peripherals::rtc->year(),
-             Peripherals::rtc->hour(),
-             Peripherals::rtc->minute());
-    this->printValue(Peripherals::buffer, 10, 0, EPD_WIDTH, 50, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
+   this->printHeader();
 
     for (uint8_t ix = 0; ix < MAX_POLLEN_COUNTS; ix++)
     {

@@ -77,6 +77,18 @@ void Display::displayFramebuffer()
     memset(Peripherals::framebuffer, 0xFF, EPD_WIDTH * EPD_HEIGHT / 2);
 }
 
+void Display::printHeader()
+{
+     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s %02i-%02i-%02i %02i:%02i",
+             "MON\0TUE\0WED\0THU\0FRI\0SAT\0SUN\0" + ((Peripherals::rtc->dayOfWeek() - 1) * 4),
+             Peripherals::rtc->day(),
+             Peripherals::rtc->month(),
+             Peripherals::rtc->year(),
+             Peripherals::rtc->hour(),
+             Peripherals::rtc->minute());
+    this->printValue(Peripherals::buffer, 10, 0, EPD_WIDTH, 50, (GFXfont *)&MAIN_DISPLAY_MID_FONT);
+}
+
 void Display::powerDown()
 {
     this->printValue("Power down", 0, 0, EPD_WIDTH, EPD_HEIGHT, (GFXfont *)&BIG_POWER_DOWN_SCREEN_FONT, DIS_CENTER | DIS_VCENTER);

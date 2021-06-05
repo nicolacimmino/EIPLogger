@@ -70,6 +70,7 @@ public:
     static uint16_t getMonth();
     static uint16_t getYear();
     static uint16_t getDayOfWeek();
+    static void readThunderEvent();
     static int thunderStrikes;
     static int thunderDistance;
     static int thunderEnergy;

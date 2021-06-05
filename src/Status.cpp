@@ -32,6 +32,30 @@ void Status::loop()
     }
 }
 
+void Status::readThunderEvent()
+{
+    uint8_t intVal = Peripherals::lightning->readInterruptReg();
+    
+    if (intVal)
+    {        
+        if (intVal == DISTURBER_INT)
+        {
+            DIAGNOSTIC("THU,interf");
+            Status::thunderInterferers++;
+        }
+        else if (intVal == LIGHTNING_INT)
+        {
+            DIAGNOSTIC("THU,strike");
+            Status::thunderStrikes++;
+            Status::thunderEnergy = Peripherals::lightning->lightningEnergy();
+            Status::thunderDistance = Peripherals::lightning->distanceToStorm();
+        }                
+
+        while(Peripherals::lightning->readInterruptReg()) {
+            delay(1);
+        }
+    }    
+}
 void Status::syncPollen()
 {
     if (!PowerManager::enterL0())

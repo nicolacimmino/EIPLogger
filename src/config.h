@@ -49,4 +49,6 @@
 
 #define MAX_POLLEN_COUNTS 16
 
+#define PIN_INT 13
+
 #endif

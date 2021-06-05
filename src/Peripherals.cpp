@@ -44,8 +44,7 @@ void Peripherals::setup()
     Peripherals::apds->begin();
     Peripherals::lightning->begin();
     Peripherals::lightning->resetSettings();
-    Peripherals::lightning->setIndoorOutdoor(0x12); // Indoor
-    Peripherals::lightning->spikeRejection(2);
+    Peripherals::lightning->setIndoorOutdoor(0xE); // Indoor 0x12
 
     Peripherals::bmp280->begin(BMP280_ADDR);
     Peripherals::bmp280->setTimeStandby(TIME_STANDBY_2000MS);
@@ -85,25 +84,25 @@ void Peripherals::loop()
     Peripherals::buttonB->loop();
     Peripherals::buttonC->loop();
 
-    uint8_t intVal = Peripherals::lightning->readInterruptReg();
-    if (intVal)
-    {
-        if (intVal == DISTURBER_INT)
-        {
-            Status::thunderInterferers++;
-        }
-        else if (intVal == LIGHTNING_INT)
-        {
-            Status::thunderStrikes++;
-            Status::thunderEnergy = Peripherals::lightning->lightningEnergy();
-            Status::thunderDistance = Peripherals::lightning->distanceToStorm();
-        }
+    // uint8_t intVal = Peripherals::lightning->readInterruptReg();
+    // if (intVal)
+    // {
+    //     if (intVal == DISTURBER_INT)
+    //     {
+    //         Status::thunderInterferers++;
+    //     }
+    //     else if (intVal == LIGHTNING_INT)
+    //     {
+    //         Status::thunderStrikes++;
+    //         Status::thunderEnergy = Peripherals::lightning->lightningEnergy();
+    //         Status::thunderDistance = Peripherals::lightning->distanceToStorm();
+    //     }
 
-        while (Peripherals::lightning->readInterruptReg())
-        {
-            delay(1);
-        }
-    }
+    //     while (Peripherals::lightning->readInterruptReg())
+    //     {
+    //         delay(1);
+    //     }
+    // }
 
     float pressure;
     if (Peripherals::bmp280->getPressure(pressure))

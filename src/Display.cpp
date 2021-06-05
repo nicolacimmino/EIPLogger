@@ -132,6 +132,24 @@ void Display::powerDown()
     this->displayFramebuffer();
 }
 
+void Display::printSimpleValue(const char *label, uint16_t x, uint16_t y, int value, const char *unit)
+{
+    this->printValue(label, x, y + 20, 240, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT);
+
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%04d", value);
+    this->printValue(Peripherals::buffer, x, y + 50, 220, 110, (GFXfont *)&MAIN_DISPLAY_LARGE_FONT);
+
+    this->printValue(unit, x + 230, y + 50, 110, 110, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT, DIS_NONE);
+}
+
+void Display::printTimeValue(const char *label, uint16_t x, uint16_t y, Time time)
+{
+    this->printValue(label, x, y + 20, 240, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT);
+
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%02d:%02d", time.h, time.m);
+    this->printValue(Peripherals::buffer, x, y + 50, 220, 110, (GFXfont *)&MAIN_DISPLAY_LARGE_FONT);    
+}
+
 void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, const char *v1Label, float v1, const char *v2Label, float v2, const char *v3Label, float v3)
 {
     uint16_t midSectionOffset = 115;

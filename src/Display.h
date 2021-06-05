@@ -32,6 +32,9 @@ private:
 protected:
     void printHeader();
     void printValue(const char *buffer, int x, int y, int width, int height, const GFXfont *font, uint8_t options = DIS_NONE);
+    void printSimpleValue(const char *label, uint16_t x, uint16_t y, int value, const char *unit);
+    void printTimeValue(const char *label, uint16_t x, uint16_t y, Time time);
+    
     void displayFramebuffer();
     
     void printLabelledValue(const char *label,

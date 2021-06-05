@@ -15,31 +15,13 @@ void LightDisplay::refreshDisplay()
 
     Peripherals::apds->getColorData(&r, &g, &b, &a);
 
-    this->printLightValue("Temperature", this->getAreaX(0), this->getAreaY(0), this->calculateColorTemperature(r, g, b), "K");
+    this->printSimpleValue("Temperature", this->getAreaX(0), this->getAreaY(0), this->calculateColorTemperature(r, g, b), "K");
 
-    this->printLightValue("Luminance", this->getAreaX(1), this->getAreaY(1), this->calculateLux(r, g, b), "LUX");
+    this->printSimpleValue("Luminance", this->getAreaX(1), this->getAreaY(1), this->calculateLux(r, g, b), "LUX");
 
     this->printTimeValue("Sunrise", this->getAreaX(2), this->getAreaY(2), Status::getSunrise());
 
     this->printTimeValue("Sunset", this->getAreaX(3), this->getAreaY(3), Status::getSunset()); 
-}
-
-void LightDisplay::printTimeValue(const char *label, uint16_t x, uint16_t y, Time time)
-{
-    this->printValue(label, x, y + 20, 240, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT);
-
-    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%02d:%02d", time.h, time.m);
-    this->printValue(Peripherals::buffer, x, y + 50, 220, 110, (GFXfont *)&MAIN_DISPLAY_LARGE_FONT);    
-}
-
-void LightDisplay::printLightValue(const char *label, uint16_t x, uint16_t y, int value, const char *unit)
-{
-    this->printValue(label, x, y + 20, 240, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT);
-
-    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%04d", value);
-    this->printValue(Peripherals::buffer, x, y + 50, 220, 110, (GFXfont *)&MAIN_DISPLAY_LARGE_FONT);
-
-    this->printValue(unit, x + 230, y + 50, 110, 110, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT, DIS_NONE);
 }
 
 uint16_t LightDisplay::getAreaX(uint8_t areaNumber)

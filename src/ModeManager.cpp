@@ -28,6 +28,9 @@ void ModeManager::enterMode()
         currentDisplay = new PollenDisplay();
         break;        
     case 3:
+        currentDisplay = new ThunderDisplay();
+        break;                
+    case 4:
         currentDisplay = new StatusDisplay();
         break;
     }

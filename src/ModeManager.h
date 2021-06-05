@@ -8,6 +8,7 @@
 #include "StatusDisplay.h"
 #include "PollenDisplay.h"
 #include "LightDisplay.h"
+#include "ThunderDisplay.h"
 
 class ModeManager
 {

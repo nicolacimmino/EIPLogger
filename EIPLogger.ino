@@ -17,6 +17,16 @@ void onButtonAClick()
 {
     DIAGNOSTIC("BTN,A");
 
+    if (Status::locked)
+    {
+        Status::locked = false;
+        ModeManager::currentDisplay->setLockedIcon(Status::locked);
+
+        onButtonPress();
+        
+        return;
+    }
+
     ModeManager::changeMode();
     onButtonPress();
 }
@@ -61,15 +71,7 @@ void setup()
     // {
     //     vref = adc_chars.vref;
     // }
-
-    if (esp_sleep_get_wakeup_cause() == ESP_SLEEP_WAKEUP_TIMER)
-    {
-        Peripherals::buttonB->loop();
-        ModeManager::currentDisplay->loop();
-        
-        PowerManager::enterL2();
-    }
-
+ 
     if (esp_sleep_get_wakeup_cause() != ESP_SLEEP_WAKEUP_TIMER)
     {
         delay(500);
@@ -106,8 +108,8 @@ void loop()
     {
         Status::readThunderEvent();
 
-        interrupt = false;        
+        interrupt = false;
     }
 
-    PowerManager::enterL2();
+    //PowerManager::enterL2();
 }

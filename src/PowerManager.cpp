@@ -38,16 +38,18 @@ bool PowerManager::enterL0()
 
 void PowerManager::enterL1()
 {
-    if(PowerManager::level == PS_LEVEL_1) {
+    if (PowerManager::level == PS_LEVEL_1)
+    {
         return;
     }
 
     DIAGNOSTIC("PMA,L1");
 
     PowerManager::level = PS_LEVEL_1;
-    
+
     Peripherals::disconnectWiFi();
-    while(Peripherals::isWiFiConnected()) {
+    while (Peripherals::isWiFiConnected())
+    {
         delay(10);
     }
 
@@ -56,17 +58,22 @@ void PowerManager::enterL1()
 
 void PowerManager::enterL2()
 {
-     if(PowerManager::level == PS_LEVEL_2) {
+    if (PowerManager::level == PS_LEVEL_2)
+    {
         return;
     }
 
     DIAGNOSTIC("PMA,L2");
 
+    Status::locked = true;
+    ModeManager::currentDisplay->setLockedIcon(Status::locked);
+
     PowerManager::level = PS_LEVEL_2;
+
     //esp_sleep_enable_ext0_wakeup((gpio_num_t)PIN_BUTTON_B, 0);
     esp_sleep_enable_ext0_wakeup((gpio_num_t)PIN_INT, 1);
     esp_sleep_enable_ext1_wakeup(PIN_BUTTON_A_SEL, ESP_EXT1_WAKEUP_ALL_LOW);
-    esp_sleep_enable_timer_wakeup(1 * 1000000); // 60s
+    esp_sleep_enable_timer_wakeup(60 * 1000000); // 60s
     esp_light_sleep_start();
 }
 
@@ -83,44 +90,13 @@ void PowerManager::enterL3()
 
 void PowerManager::loop()
 {
-    // if (level > PS_LEVEL_0)
-    // {
-    //     return;
-    // }
-
-    // if (millis() - lastUserInteractionTime > POWER_SAVE_TIMEOUT_MS)
-    // {
-    //     enterL2();
-    // }
+    if (millis() - lastUserInteractionTime > POWER_SAVE_TIMEOUT_MS)
+    {
+        enterL2();
+    }
 }
 
 void PowerManager::onUserInteratcion()
 {
-    // lastUserInteractionTime = millis();
-
-    // if (level != PS_LEVEL_0)
-    // {
-    //     enterL0();
-
-    //     ModeManager::currentDisplay->onDisplayAwaken();
-    // }
-}
-
-void PowerManager::restoreLevel()
-{
-    // if (previousLevel != level)
-    // {
-    //     switch (previousLevel)
-    //     {
-    //     case (PS_LEVEL_0):
-    //         enterL0();
-    //         break;
-    //     case (PS_LEVEL_1):
-    //         enterL1();
-    //         break;
-    //     case (PS_LEVEL_2):
-    //         enterL2();
-    //         break;
-    //     }
-    // }
+    lastUserInteractionTime = millis();
 }

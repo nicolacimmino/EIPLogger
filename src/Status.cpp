@@ -8,6 +8,7 @@ int Status::thunderStrikes = 0;
 int Status::thunderDistance = 0;
 int Status::thunderEnergy = 0;
 int Status::thunderInterferers = 0;
+bool Status::locked = false;
 MinMaxVal<float> *Status::temperature = new MinMaxVal<float>();
 MinMaxVal<int> *Status::barometricPressure = new MinMaxVal<int>();
 MinMaxVal<int> *Status::co2 = new MinMaxVal<int>();
@@ -35,9 +36,9 @@ void Status::loop()
 void Status::readThunderEvent()
 {
     uint8_t intVal = Peripherals::lightning->readInterruptReg();
-    
+
     if (intVal)
-    {        
+    {
         if (intVal == DISTURBER_INT)
         {
             DIAGNOSTIC("THU,interf");
@@ -49,12 +50,13 @@ void Status::readThunderEvent()
             Status::thunderStrikes++;
             Status::thunderEnergy = Peripherals::lightning->lightningEnergy();
             Status::thunderDistance = Peripherals::lightning->distanceToStorm();
-        }                
+        }
 
-        while(Peripherals::lightning->readInterruptReg()) {
+        while (Peripherals::lightning->readInterruptReg())
+        {
             delay(1);
         }
-    }    
+    }
 }
 void Status::syncPollen()
 {

@@ -53,6 +53,7 @@ private:
     static void syncPollen();
 
 public:
+    static bool locked;
     static void setup();
     static void loop();
     static int getFreeRamBytes();

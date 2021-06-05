@@ -51,4 +51,6 @@
 
 #define PIN_INT 13
 
+#define POWER_SAVE_TIMEOUT_MS 20000
+
 #endif

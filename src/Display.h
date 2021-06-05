@@ -13,6 +13,7 @@
 #include "icons/thunder.h"
 #include "icons/battery_100.h"
 #include "icons/wifi.h"
+#include "icons/padlock.h"
 
 #define DIS_NONE 0
 #define DIS_NO_DECIMAL 1
@@ -55,7 +56,9 @@ public:
     virtual void onBClick() = 0;
     virtual void onBLongPress() = 0;
     void setWiFiIcon(bool visible);
+    void setLockedIcon(bool visible);
     void powerDown();
+
 };
 
 #endif

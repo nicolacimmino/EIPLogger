@@ -33,6 +33,11 @@ void Display::setWiFiIcon(bool visible)
     this->showIcon(800, 15, WIFI_WIDTH, WIFI_HEIGHT, visible ? (uint8_t *)wifi_data : NULL, DIS_DIRECT_PRINT);
 }
 
+void Display::setLockedIcon(bool visible)
+{
+    this->showIcon(730, 15, PADLOCK_WIDTH, PADLOCK_WIDTH, visible ? (uint8_t *)padlock_data : NULL, DIS_DIRECT_PRINT);
+}
+
 void Display::printValue(const char *buffer, int x, int y, int width, int height, const GFXfont *font, uint8_t options)
 {
     y = y + height;
@@ -105,6 +110,7 @@ void Display::printHeader()
     if (this->lastWiFiStatus != Peripherals::isWiFiConnected())
     {
         this->setWiFiIcon(Peripherals::isWiFiConnected());
+        this->setLockedIcon(Status::locked);
         this->lastWiFiStatus = Peripherals::isWiFiConnected();
     }
 
@@ -147,7 +153,7 @@ void Display::printTimeValue(const char *label, uint16_t x, uint16_t y, Time tim
     this->printValue(label, x, y + 20, 240, 40, (GFXfont *)&MAIN_DISPLAY_LABEL_FONT);
 
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%02d:%02d", time.h, time.m);
-    this->printValue(Peripherals::buffer, x, y + 50, 220, 110, (GFXfont *)&MAIN_DISPLAY_LARGE_FONT);    
+    this->printValue(Peripherals::buffer, x, y + 50, 220, 110, (GFXfont *)&MAIN_DISPLAY_LARGE_FONT);
 }
 
 void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, const char *v1Label, float v1, const char *v2Label, float v2, const char *v3Label, float v3)

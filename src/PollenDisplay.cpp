@@ -10,14 +10,14 @@ void PollenDisplay::onBLongPress()
 }
 
 void PollenDisplay::refreshDisplay()
-{ 
+{
     for (uint8_t ix = 0; ix < MAX_POLLEN_COUNTS; ix++)
     {
         if (Status::pollenCounts[ix].type != NULL)
         {
             this->printPollen(Status::pollenCounts[ix], this->getAreaX(ix), this->getAreaY(ix));
         }
-    }    
+    }
 }
 
 void PollenDisplay::printPollen(PollenCount pollenCount, uint16_t x, uint16_t y)
@@ -83,7 +83,7 @@ void PollenDisplay::printPollen(PollenCount pollenCount, uint16_t x, uint16_t y)
 
     if (trendIcon != NULL)
     {
-        this->showIcon(x + midSectionOffset, y + 80, trend_eq_width, trend_eq_height, trendIcon);
+        this->showIcon(x + midSectionOffset, y + 80, TREND_EQ_WIDTH, TREND_EQ_WIDTH, trendIcon);
     }
 
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%d", pollenCount.count);

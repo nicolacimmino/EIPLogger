@@ -26,8 +26,8 @@ im.thumbnail((SCREEN_WIDTH, SCREEN_HEIGHT), Image.ANTIALIAS)
 
 # Write out the output file.
 with open(args.outputfile, 'w') as f:
-    f.write("#define {}_WIDTH = {};\n".format(args.name.upper(), im.size[0]))
-    f.write("#define {}_HEIGHT = {};\n".format(args.name.upper(), im.size[1]))
+    f.write("#define {}_WIDTH {}\n".format(args.name.upper(), im.size[0]))
+    f.write("#define {}_HEIGHT {}\n".format(args.name.upper(), im.size[1]))
     f.write(
         "const uint8_t {}_data[({}*{})/2] = {{\n".format(args.name, math.ceil(im.size[0] / 2) * 2, im.size[1])
     )

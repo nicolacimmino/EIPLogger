@@ -45,4 +45,6 @@
 
 #define NO_VALUE -9999
 
+#define MAX_POLLEN_COUNTS 16
+
 #endif

@@ -2,7 +2,6 @@
 #define __TEMPERATURE_LOGGER_BUTTON_H__
 
 #include <Arduino.h>
-#include "Status.h"
 
 class Button
 {

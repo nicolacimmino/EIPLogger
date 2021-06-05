@@ -14,6 +14,7 @@
 #include "config.h"
 #include "Button.h"
 #include "secrets.h"
+#include "Status.h"
 
 class Peripherals
 {

@@ -23,7 +23,7 @@ bool Button::isPressed()
 
 void Button::loop()
 {
-    if (!this->isPressed() || Status::shouldAbortLoop())
+    if (!this->isPressed())
     {
         return;
     }
@@ -58,7 +58,7 @@ void Button::loop()
         }
     }
 
-    while (this->isPressed() && !Status::shouldAbortLoop())
+    while (this->isPressed())
     {
         delay(1);
     }

@@ -64,6 +64,7 @@ void setup()
 
         Peripherals::setup();
         ModeManager::setup();
+        Status::setup();
 
         Peripherals::buttonA->registerOnClickCallback(onButtonAClick);
         Peripherals::buttonA->registerOnLongPressCallback(onButtonALongPress);
@@ -80,13 +81,8 @@ void loop()
     PowerManager::loop();
     Peripherals::loop();
     ModeManager::currentDisplay->loop();
-
-    if (Status::shouldAbortLoop())
-    {
-        Status::loopAborted();
-
-        return;
-    }
+    
+    Status::loop();
 
     PowerManager::enterL2();
 

@@ -59,7 +59,9 @@ void Display::printValue(const char *buffer, int x, int y, int width, int height
             .height = height,
         };
 
+      //  epd_poweron();
         epd_clear_area(area);
+      //  epd_poweroff();
     }
 
     get_text_bounds(font, buffer, &x, &y, &x1, &y1, &w, &h, NULL);

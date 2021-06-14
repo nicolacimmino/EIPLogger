@@ -5,10 +5,6 @@
 #include "config.h"
 #include "Display.h"
 #include "MainDisplay.h"
-#include "StatusDisplay.h"
-#include "PollenDisplay.h"
-#include "LightDisplay.h"
-#include "ThunderDisplay.h"
 
 class ModeManager
 {

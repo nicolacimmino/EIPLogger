@@ -30,8 +30,7 @@
 #define PIN_SCL 18
 #define PIN_SDA 19
 
-// Increase by 1 to enable to "hidden" status display.
-#define DISPLAY_MODES 4
+#define DISPLAY_MODES 1
 
 #define LIGHTNING_INT 0x08
 #define DISTURBER_INT 0x04

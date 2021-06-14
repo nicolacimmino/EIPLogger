@@ -20,19 +20,7 @@ void ModeManager::enterMode()
     {
     case 0:
         currentDisplay = new MainDisplay();
-        break;   
-    case 1:
-       // currentDisplay = new LightDisplay();
-        break;        
-    case 2:
-      //  currentDisplay = new PollenDisplay();
-        break;        
-    case 3:
-     //   currentDisplay = new ThunderDisplay();
-        break;                
-    case 4:
-     //   currentDisplay = new StatusDisplay();
-        break;
+        break;       
     }
 }
 

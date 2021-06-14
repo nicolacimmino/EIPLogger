@@ -15,17 +15,7 @@ void onButtonPress()
 void onButtonAClick()
 {
     DIAGNOSTIC("BTN,A");
-
-    if (Status::locked)
-    {
-        Status::locked = false;
-        ModeManager::currentDisplay->setLockedIcon(Status::locked);
-
-        onButtonPress();
-        
-        return;
-    }
-
+    
     ModeManager::changeMode();
     onButtonPress();
 }
@@ -53,14 +43,6 @@ void onButtonALongPress()
     // PowerManager::enterL3();
 }
 
-int vref = 1100;
-volatile bool interrupt = false;
-
-void ISR()
-{
-    interrupt = true;
-}
-
 void setup()
 {
     DIAGNOSTIC("SETUP")
@@ -68,9 +50,6 @@ void setup()
     if (esp_sleep_get_wakeup_cause() != ESP_SLEEP_WAKEUP_TIMER)
     {
         delay(500);
-
-        // pinMode(PIN_INT, INPUT);
-        // attachInterrupt(digitalPinToInterrupt(PIN_INT), ISR, RISING);
 
         Serial.begin(115200);
 
@@ -96,13 +75,6 @@ void loop()
     Status::loop();
 
     PowerManager::enterL1();
-
-    if (interrupt)
-    {
-        Status::readThunderEvent();
-
-        interrupt = false;
-    }
 
     //PowerManager::enterL2();
 }

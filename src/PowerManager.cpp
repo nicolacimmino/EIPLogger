@@ -64,10 +64,7 @@ void PowerManager::enterL2()
     }
 
     DIAGNOSTIC("PMA,L2");
-
-    Status::locked = true;
-    ModeManager::currentDisplay->setLockedIcon(Status::locked);
-
+    
     PowerManager::level = PS_LEVEL_2;
 
     //esp_sleep_enable_ext0_wakeup((gpio_num_t)PIN_BUTTON_B, 0);

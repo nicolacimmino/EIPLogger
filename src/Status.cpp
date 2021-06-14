@@ -1,121 +1,20 @@
 #include "Status.h"
 
-unsigned long Status::lastPollenSync = 0;
 long Status::batteryVoltage = 0;
 bool Status::abortLoopRequested = false;
 bool Status::timeSyncRequsted = true;
-int Status::thunderStrikes = 0;
-int Status::thunderDistance = 0;
-int Status::thunderEnergy = 0;
-int Status::thunderInterferers = 0;
 bool Status::locked = false;
 MinMaxVal<float> *Status::temperature = new MinMaxVal<float>();
-MinMaxVal<int> *Status::barometricPressure = new MinMaxVal<int>();
 MinMaxVal<int> *Status::co2 = new MinMaxVal<int>();
 MinMaxVal<int> *Status::tvoc = new MinMaxVal<int>();
 MinMaxVal<int> *Status::humidity = new MinMaxVal<int>();
-PollenCount Status::pollenCounts[MAX_POLLEN_COUNTS] = {};
 
 void Status::setup()
 {
-    for (uint8_t ix = 0; ix < MAX_POLLEN_COUNTS; ix++)
-    {
-        Status::pollenCounts[ix].type = NULL;
-    }
 }
 
 void Status::loop()
-{
-    if (Status::lastPollenSync == 0 || millis() - Status::lastPollenSync > 24 * 60 * 60000)
-    {
-        //Status::syncPollen();
-        Status::lastPollenSync = millis();
-    }
-}
-
-void Status::readThunderEvent()
-{
-    uint8_t intVal = Peripherals::lightning->readInterruptReg();
-
-    if (intVal)
-    {
-        if (intVal == DISTURBER_INT)
-        {
-            DIAGNOSTIC("THU,interf");
-            Status::thunderInterferers++;
-        }
-        else if (intVal == LIGHTNING_INT)
-        {
-            DIAGNOSTIC("THU,strike");
-            Status::thunderStrikes++;
-            Status::thunderEnergy = Peripherals::lightning->lightningEnergy();
-            Status::thunderDistance = Peripherals::lightning->distanceToStorm();
-        }
-
-        while (Peripherals::lightning->readInterruptReg())
-        {
-            delay(1);
-        }
-    }
-}
-void Status::syncPollen()
-{
-    if (!PowerManager::enterL0())
-    {
-        return;
-    }
-
-    HTTPClient http;
-    http.setConnectTimeout(3000);
-    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "https://api.zadnegoale.pl/dusts/public/date/%d-%d-20%d/region/3",
-             Peripherals::rtc->day(),
-             Peripherals::rtc->month(),
-             Peripherals::rtc->year());
-
-    http.begin(Peripherals::buffer);
-    int httpResponseCode = http.GET();
-    if (httpResponseCode == 200)
-    {
-        String payload = http.getString();
-        JSONVar responseObject = JSON.parse(payload);
-
-        for (uint8_t ix = 0; ix < responseObject.length(); ix++)
-        {
-            Status::pollenCounts[ix].count = (uint8_t)(int)responseObject[ix]["value"];
-
-            Status::pollenCounts[ix].type = (int)responseObject[ix]["allergen"]["id"];
-
-            const char *trend = (const char *)responseObject[ix]["trend"];
-
-            if (strcmp("Bez zmian", trend) == 0)
-            {
-                Status::pollenCounts[ix].trend = POLLEN_TREND_EQ;
-            }
-            else if (strcmp("Wzrost", trend) == 0)
-            {
-                Status::pollenCounts[ix].trend = POLLEN_TREND_U;
-            }
-            else if (strcmp("Silny wzrost", trend) == 0)
-            {
-                Status::pollenCounts[ix].trend = POLLEN_TREND_UU;
-            }
-            else if (strcmp("Spadek", trend) == 0)
-            {
-                Status::pollenCounts[ix].trend = POLLEN_TREND_D;
-            }
-            else if (strcmp("Silny spadek", trend) == 0)
-            {
-                Status::pollenCounts[ix].trend = POLLEN_TREND_DD;
-            }
-            else if (strcmp("Koniec sezonu", trend) == 0)
-            {
-                Status::pollenCounts[ix].trend = POLLEN_TREND_END;
-            }
-        }
-        http.end();
-
-        PowerManager::enterL1();
-    }
+{ 
 }
 
 /**
@@ -131,48 +30,6 @@ int Status::getFreeRamBytes()
 uint8_t Status::getIAQI()
 {
     return max(max(Status::getCO2QI(), Status::getTVOCQI()), Status::getClimateQI());
-}
-
-Time Status::getSunrise()
-{
-    // Based on this very useful article:
-    // https://arduinodiy.wordpress.com/2017/03/07/calculating-sunrise-and-sunset-on-arduino-or-other-microcontroller/
-    //
-    // These values are for Warsaw.
-    // ESR: Earliest sunrise 4:14 => 254 - 60 => 194 (minutes past midnight, ignoring DST)
-    // LSR: Latest sunrise 7:45 => 465 (minutes past midnght)
-    // ASR: Average sunrise: (ESR + LSR) / 2 => 329
-    // DSR: Delta: (LSR - ESR) => 271
-
-    // time = ASR + 0.5*DSR * cos((doy+8)/58.09) + DST
-    uint16_t sunriseMinutes = (uint16_t)(329 + 135.0 * cos((Status::getDayOfYear() + 8) / 58.09)) + (Status::isDST() ? 60 : 0);
-
-    Time sunriseTime;
-    sunriseTime.h = (uint8_t)floor(sunriseMinutes / 60.0);
-    sunriseTime.m = (uint8_t)(sunriseMinutes - (sunriseTime.h * 60));
-
-    return sunriseTime;
-}
-
-Time Status::getSunset()
-{
-    // Based on this very useful article:
-    // https://arduinodiy.wordpress.com/2017/03/07/calculating-sunrise-and-sunset-on-arduino-or-other-microcontroller/
-    //
-    // These values are for Warsaw.
-    // ESS: Earliest sunset 15:24 => 924 (minutes past midnight)
-    // LSS: Latest sunset 21:01 => 1201 (minutes past midnght, ignoring DST)
-    // ASS: Average set: (ESS + LSS) / 2 => 1062
-    // DSS: Delta: (LSS - ESS) => 277
-
-    // time = ASS - 0.5*DSS * cos((doy+8)/58.09) + DST
-    uint16_t sunsetMinutes = (uint16_t)(1062 - 138 * cos((Status::getDayOfYear() + 8) / 58.09)) + (Status::isDST() ? 60 : 0);
-
-    Time sunsetTime;
-    sunsetTime.h = (uint8_t)floor(sunsetMinutes / 60.0);
-    sunsetTime.m = (uint8_t)(sunsetMinutes - (sunsetTime.h * 60));
-
-    return sunsetTime;
 }
 
 // TODO: This still need fixing to consider the hours between midnight and 2/3 AM of the switch day.

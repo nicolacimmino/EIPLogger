@@ -28,7 +28,7 @@ void Status::loop()
 {
     if (Status::lastPollenSync == 0 || millis() - Status::lastPollenSync > 24 * 60 * 60000)
     {
-        Status::syncPollen();
+        //Status::syncPollen();
         Status::lastPollenSync = millis();
     }
 }

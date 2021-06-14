@@ -4,7 +4,6 @@
 #include <Arduino.h>
 #include <uRTCLib.h>
 #include <uEEPROMLib.h>
-#include <epd_driver.h>
 #include <iAQCoreI2C.h>
 #include <SparkFun_AS3935.h>
 #include <BMP280_DEV.h>
@@ -15,6 +14,9 @@
 #include "Button.h"
 #include "secrets.h"
 #include "Status.h"
+#include "DEV_Config.h"
+#include "EPD.h"
+#include "GUI_Paint.h"
 
 class Peripherals
 {
@@ -26,7 +28,7 @@ public:
     static Button *buttonC;
     static SparkFun_AS3935 *lightning;
     static Adafruit_APDS9960 *apds;
-    static uint8_t *framebuffer;
+    static UBYTE *framebuffer;
     static char *buffer;
 
     static void setup();

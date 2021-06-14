@@ -18,6 +18,8 @@ void Button::registerOnLongPressCallback(void (*callback)())
 
 bool Button::isPressed()
 {
+    return false;
+    
     return digitalRead(this->pin) == LOW;
 }
 

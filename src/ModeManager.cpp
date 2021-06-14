@@ -22,16 +22,16 @@ void ModeManager::enterMode()
         currentDisplay = new MainDisplay();
         break;   
     case 1:
-        currentDisplay = new LightDisplay();
+       // currentDisplay = new LightDisplay();
         break;        
     case 2:
-        currentDisplay = new PollenDisplay();
+      //  currentDisplay = new PollenDisplay();
         break;        
     case 3:
-        currentDisplay = new ThunderDisplay();
+     //   currentDisplay = new ThunderDisplay();
         break;                
     case 4:
-        currentDisplay = new StatusDisplay();
+     //   currentDisplay = new StatusDisplay();
         break;
     }
 }

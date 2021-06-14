@@ -58,10 +58,10 @@ void MainDisplay::refreshDisplay()
 
 uint16_t MainDisplay::getAreaX(uint8_t areaNumber)
 {
-    return 10 + (areaNumber % 2) * 450;
+    return 10 + (areaNumber % 2) * 200;
 }
 
 uint16_t MainDisplay::getAreaY(uint8_t areaNumber)
 {
-    return 50 + ((areaNumber / 2) * 150);
+    return 50 + ((areaNumber / 2) * 80);
 }

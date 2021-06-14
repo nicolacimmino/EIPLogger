@@ -26,8 +26,9 @@
 
 #define PIN_BUTTON_A_SEL GPIO_SEL_39
 
-#define PIN_SDA 14
-#define PIN_SCL 15
+#define PIN_PERIPHERALS_PWR 12
+#define PIN_SCL 18
+#define PIN_SDA 19
 
 // Increase by 1 to enable to "hidden" status display.
 #define DISPLAY_MODES 4
@@ -36,12 +37,12 @@
 #define DISTURBER_INT 0x04
 #define NOISE_INT 0x01
 
-#define SMALL_STATUS_SCREEN_FONT mono15
-#define BIG_POWER_DOWN_SCREEN_FONT sevenSeg60
+#define SMALL_STATUS_SCREEN_FONT &Font8
+#define BIG_POWER_DOWN_SCREEN_FONT &Font24
 
-#define MAIN_DISPLAY_MID_FONT sevenSeg25
-#define MAIN_DISPLAY_LARGE_FONT sevenSeg60
-#define MAIN_DISPLAY_LABEL_FONT mono15
+#define MAIN_DISPLAY_MID_FONT &Font16
+#define MAIN_DISPLAY_LARGE_FONT &Font24
+#define MAIN_DISPLAY_LABEL_FONT &Font12
 
 #define TEXT_BUFFER_SIZE 64
 

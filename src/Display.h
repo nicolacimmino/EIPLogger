@@ -7,13 +7,13 @@
 #include "Status.h"
 #include "ui.h"
 #include "Peripherals.h"
-#include "fonts/sevenSeg_60.h"
-#include "fonts/sevenSeg_25.h"
-#include "fonts/mono15.h"
 #include "icons/thunder.h"
 #include "icons/battery_100.h"
 #include "icons/wifi.h"
 #include "icons/padlock.h"
+#include "DEV_Config.h"
+#include "EPD.h"
+#include "GUI_Paint.h"
 
 #define DIS_NONE 0
 #define DIS_NO_DECIMAL 1
@@ -32,7 +32,7 @@ private:
 
 protected:
     void printHeader();
-    void printValue(const char *buffer, int x, int y, int width, int height, const GFXfont *font, uint8_t options = DIS_NONE);
+    void printValue(const char *buffer, int x, int y, int width, int height, sFONT *font, uint8_t options = DIS_NONE);
     void printSimpleValue(const char *label, uint16_t x, uint16_t y, int value, const char *unit);
     void printTimeValue(const char *label, uint16_t x, uint16_t y, Time time);
     

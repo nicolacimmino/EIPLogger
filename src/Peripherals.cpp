@@ -10,20 +10,40 @@ iAQCoreI2C *Peripherals::iaq = NULL;
 SparkFun_AS3935 *Peripherals::lightning = NULL;
 BMP280_DEV *Peripherals::bmp280 = NULL;
 Adafruit_APDS9960 *Peripherals::apds = NULL;
-uint8_t *Peripherals::framebuffer = NULL;
+UBYTE *Peripherals::framebuffer = NULL;
 char *Peripherals::buffer = NULL;
 
 void Peripherals::setup()
 {
-    Peripherals::framebuffer = (uint8_t *)ps_calloc(sizeof(uint8_t), EPD_WIDTH * EPD_HEIGHT / 2);
-    memset(Peripherals::framebuffer, 0xFF, EPD_WIDTH * EPD_HEIGHT / 2);
+    DIAGNOSTIC("PERIPHERALS,SETUP")
 
-    Peripherals::buffer = (char *)ps_calloc(sizeof(char), TEXT_BUFFER_SIZE);
+    pinMode(PIN_PERIPHERALS_PWR, OUTPUT);
+    digitalWrite(PIN_PERIPHERALS_PWR, 1);
+
+    // Peripherals::framebuffer = (uint8_t *)ps_calloc(sizeof(uint8_t), EPD_WIDTH * EPD_HEIGHT / 2);
+    // memset(Peripherals::framebuffer, 0xFF, EPD_WIDTH * EPD_HEIGHT / 2);
+
+    Peripherals::buffer = (char *)malloc(TEXT_BUFFER_SIZE);
     memset(Peripherals::buffer, 0, TEXT_BUFFER_SIZE);
+    
+    DIAGNOSTIC("PERIPHERALS,DEVINIT")
+    DEV_Module_Init();
 
-    epd_init();
+    EPD_4IN2_Init();
+    EPD_4IN2_Clear();
+    DEV_Delay_ms(500);
+    EPD_4IN2_Sleep();
 
-    delay(500);
+    DIAGNOSTIC("PERIPHERALS,DEVINIT DONE")
+
+    Peripherals::framebuffer = (UBYTE *)malloc((EPD_4IN2_WIDTH / 8 + 1) * EPD_4IN2_HEIGHT);
+    DIAGNOSTIC("PERIPHERALS,MALLOCDONE")
+    Paint_NewImage(Peripherals::framebuffer, EPD_4IN2_WIDTH, EPD_4IN2_HEIGHT, 0, WHITE);
+    Paint_SelectImage(Peripherals::framebuffer);
+    Paint_Clear(WHITE);
+    
+    DIAGNOSTIC("PERIPHERALS,PAINTDONE")
+
 
     Wire.begin(PIN_SDA, PIN_SCL);
 

@@ -40,13 +40,6 @@ void MainDisplay::refreshDisplay()
                              "L", Status::tvoc->getMin(),
                              "H", Status::tvoc->getMax());
 
-    this->printLabelledValue("Barometer",
-                             this->getAreaX(5), this->getAreaY(5),
-                             DIS_NO_DECIMAL | DIS_LARGE_VALUE,
-                             Status::barometricPressure->get(), "HPa",
-                             "L", Status::barometricPressure->getMin(),
-                             "H", Status::barometricPressure->getMax());
-
     this->printLabelledValue("IAQI",
                              this->getAreaX(4), this->getAreaY(4),
                              DIS_NO_DECIMAL,

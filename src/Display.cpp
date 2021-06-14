@@ -101,7 +101,7 @@ void Display::displayFramebuffer()
     DIAGNOSTIC("DIS,DISPLAY_FRAMEBUFFER");
 
     EPD_4IN2_Init();
-    EPD_4IN2_Clear();
+    // EPD_4IN2_Clear();
     DEV_Delay_ms(500);
 
     EPD_4IN2_Display(Peripherals::framebuffer);
@@ -136,7 +136,7 @@ void Display::printHeader()
              Status::getHour(),
              Status::getMinute(),
              Status::isDST() ? "DST" : "");
-    this->printValue(Peripherals::buffer, 10, 0, EPD_4IN2_WIDTH, 10, MAIN_DISPLAY_MID_FONT);  
+    this->printValue(Peripherals::buffer, 10, 0, EPD_4IN2_WIDTH, 10, MAIN_DISPLAY_MID_FONT);
 }
 
 void Display::powerDown()
@@ -165,48 +165,44 @@ void Display::printTimeValue(const char *label, uint16_t x, uint16_t y, Time tim
 
 void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, const char *v1Label, float v1, const char *v2Label, float v2, const char *v3Label, float v3)
 {
-    uint16_t midSectionOffset = 40;
-    if (options & DIS_LARGE_VALUE)
-    {
-        midSectionOffset = 70;
-    }
-
-    this->printValue(label, x, y, midSectionOffset + 20, 40, MAIN_DISPLAY_LABEL_FONT);
+    this->printValue(label, x, y, 100, 22, MAIN_DISPLAY_LABEL_FONT);
 
     if (value != NO_VALUE)
     {
-        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%d", (int)floor(value));
+        if (options & DIS_NO_DECIMAL)
+        {
+            snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%*d", 4, (int)floor(value));
+        }
+        else
+        {
+            snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%0.1f", value);
+        }
     }
     else
     {
         snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "---");
     }
-    this->printValue(Peripherals::buffer, x, y + 29, (options & DIS_LARGE_VALUE) ? 50 : 25, 10, MAIN_DISPLAY_LARGE_FONT, DIS_RIGHT);
+    this->printValue(Peripherals::buffer, x, y + 22, 80, 22, MAIN_DISPLAY_LARGE_FONT, DIS_RIGHT);
 
-    if (!options & DIS_NO_DECIMAL && value != NO_VALUE)
-    {
-        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, ".%d", (uint16_t)(10 * (value - floor(value))));
-        this->printValue(Peripherals::buffer, x + 30, y + 27, 105, 55, MAIN_DISPLAY_MID_FONT);
-    }
-
-    this->printValue(unit, x + midSectionOffset, y + 15, 105, 55, MAIN_DISPLAY_LABEL_FONT);
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s", unit);
+    this->printValue(Peripherals::buffer, x + 70, y + 22, 80, 22, MAIN_DISPLAY_MID_FONT, DIS_RIGHT);
 
     if (v1Label != NULL)
     {
         snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s:%0.0f" : "%s:%0.1f", v1Label, v1);
-        this->printValue(Peripherals::buffer, x + midSectionOffset + 45, y + 10 , 215, 55, MAIN_DISPLAY_MID_FONT);
+        this->printValue(Peripherals::buffer, x + 110, y + 22, 100, 22, MAIN_DISPLAY_MID_FONT);
     }
 
     if (v2Label != NULL)
     {
         snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s:%0.0f" : "%s:%0.1f", v2Label, v2);
-        this->printValue(Peripherals::buffer, x + midSectionOffset + 45, y + 25, 215, 55, MAIN_DISPLAY_MID_FONT);
+        this->printValue(Peripherals::buffer, x + 110, y + 44, 100, 22, MAIN_DISPLAY_MID_FONT);
     }
 
     if (v3Label != NULL)
     {
         snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s:%0.0f" : "%s:%0.1f", v3Label, v3);
-        this->printValue(Peripherals::buffer, x + midSectionOffset + 45, y + 40, 215, 55, MAIN_DISPLAY_MID_FONT);
+        this->printValue(Peripherals::buffer, x + 110, y + 66, 100, 22, MAIN_DISPLAY_MID_FONT);
     }
 }
 

@@ -68,13 +68,13 @@ void setup()
 
 void loop()
 {
+    PowerManager::enterL1();
+
     PowerManager::loop();
     Peripherals::loop();
     ModeManager::currentDisplay->loop();
 
     Status::loop();
-
-    PowerManager::enterL1();
-
-    //PowerManager::enterL2();
+    
+    PowerManager::enterL2();
 }

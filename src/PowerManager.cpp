@@ -47,13 +47,13 @@ void PowerManager::enterL1()
 
     PowerManager::level = PS_LEVEL_1;
 
-    Peripherals::disconnectWiFi();
-    while (Peripherals::isWiFiConnected())
-    {
-        delay(10);
-    }
+    // Peripherals::disconnectWiFi();
+    // while (Peripherals::isWiFiConnected())
+    // {
+    //     delay(10);
+    // }
 
-    ModeManager::currentDisplay->loop();
+    // ModeManager::currentDisplay->loop();
 }
 
 void PowerManager::enterL2()

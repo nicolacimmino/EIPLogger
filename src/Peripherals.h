@@ -14,6 +14,7 @@
 #include "EPD.h"
 #include "GUI_Paint.h"
 
+
 class Peripherals
 {
 public:
@@ -23,7 +24,7 @@ public:
     static Button *buttonC;
     static UBYTE *framebuffer;
     static char *buffer;
-
+    
     static void setup();
     static void loop();
     static void connectWiFi();

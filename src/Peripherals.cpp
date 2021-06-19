@@ -15,7 +15,7 @@ void Peripherals::setup()
 
     Peripherals::buffer = (char *)malloc(TEXT_BUFFER_SIZE);
     memset(Peripherals::buffer, 0, TEXT_BUFFER_SIZE);
-    
+
     DEV_Module_Init();
     EPD_4IN2_Init();
     EPD_4IN2_Clear();
@@ -28,6 +28,17 @@ void Peripherals::setup()
     Paint_Clear(WHITE);
 
     Wire.begin(PIN_SDA, PIN_SCL);
+
+    sensirion_i2c_init();
+    while (sps30_probe() != 0)
+    {
+        Serial.print("SPS sensor probing failed\n");
+        delay(500);
+    }
+
+    sps30_set_fan_auto_cleaning_interval_days(4);
+
+    sps30_start_measurement();
 
     //iAQ-Core can operate at a maximum of 100kHz clock speed
     Wire.setClock(80000L);
@@ -77,10 +88,25 @@ void Peripherals::loop()
 
     Peripherals::rtc->refresh();
 
+    uint16_t ready = false;
+    sps30_read_data_ready(&ready);
+
+    if (ready)
+    {
+        struct sps30_measurement m;
+        sps30_read_measurement(&m);
+
+        Status::pm0p5->set(m.nc_0p5);
+        Status::pm1->set(m.nc_1p0 - m.nc_0p5);
+        Status::pm2p5->set(m.nc_2p5 - m.nc_1p0);
+        Status::pm4->set(m.nc_4p0 - m.nc_2p5);
+        Status::pm10->set(m.nc_10p0 - m.nc_4p0);
+    }
+
     Wire.setClock(80000L);
     if (Peripherals::iaq->hasValue() && Peripherals::iaq->isValid())
     {
         Status::co2->set(Peripherals::iaq->getCO2());
         Status::tvoc->set(Peripherals::iaq->getTVOC());
-    }        
+    }
 }

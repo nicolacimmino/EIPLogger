@@ -67,7 +67,7 @@ void Display::printHeader()
     this->printValue(Peripherals::buffer, 10, 0, MAIN_DISPLAY_MID_FONT);
 }
 
-void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, const char *v1Label, float v1, const char *v2Label, float v2, const char *v3Label, float v3)
+void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, const char *v1Label, float v1, const char *v2Label, float v2, const char *v3Label, float v3, const char *v4Label, float v4, const char *v5Label, float v5, bool extraWideLabels)
 {
     this->printValue(label, x, y + 45, MAIN_DISPLAY_LABEL_FONT);
 
@@ -91,22 +91,36 @@ void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s", unit);
     this->printValue(Peripherals::buffer, x + 70, y + 22, MAIN_DISPLAY_MID_FONT);
 
+    uint8_t labelsX = extraWideLabels ? 80 : 110;
+
     if (v1Label != NULL)
     {
-        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s:%0.0f" : "%s:%0.1f", v1Label, v1);
-        this->printValue(Peripherals::buffer, x + 110, y + 22, MAIN_DISPLAY_SMALL_FONT);
+        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s%0.0f" : "%s%0.1f", v1Label, v1);
+        this->printValue(Peripherals::buffer, x + labelsX, y + 20, MAIN_DISPLAY_SMALL_FONT);
     }
 
     if (v2Label != NULL)
     {
-        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s:%0.0f" : "%s:%0.1f", v2Label, v2);
-        this->printValue(Peripherals::buffer, x + 110, y + 34, MAIN_DISPLAY_SMALL_FONT);
+        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s%0.0f" : "%s%0.1f", v2Label, v2);
+        this->printValue(Peripherals::buffer, x + labelsX, y + 32, MAIN_DISPLAY_SMALL_FONT);
     }
 
     if (v3Label != NULL)
     {
-        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s:%0.0f" : "%s:%0.1f", v3Label, v3);
-        this->printValue(Peripherals::buffer, x + 110, y + 46, MAIN_DISPLAY_SMALL_FONT);
+        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s%0.0f" : "%s%0.1f", v3Label, v3);
+        this->printValue(Peripherals::buffer, x + labelsX, y + 44, MAIN_DISPLAY_SMALL_FONT);
+    }
+
+    if (v4Label != NULL)
+    {
+        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s%0.0f" : "%s%0.1f", v4Label, v4);
+        this->printValue(Peripherals::buffer, x + labelsX, y + 56, MAIN_DISPLAY_SMALL_FONT);
+    }
+
+    if (v5Label != NULL)
+    {
+        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s%0.0f" : "%s%0.1f", v5Label, v5);
+        this->printValue(Peripherals::buffer, x + labelsX, y + 68, MAIN_DISPLAY_SMALL_FONT);
     }
 }
 

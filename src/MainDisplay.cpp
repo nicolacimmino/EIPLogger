@@ -17,40 +17,52 @@ void MainDisplay::refreshDisplay()
                              DIS_NONE,
                              Status::temperature->get(), "C",
                              NULL, 0,
-                             "L", Status::temperature->getMin(),
-                             "H", Status::temperature->getMax());
+                             "L:", Status::temperature->getMin(),
+                             "H:", Status::temperature->getMax());
 
     this->printLabelledValue("Humidity",
                              this->getAreaX(2), this->getAreaY(2),
                              DIS_NO_DECIMAL,
                              Status::humidity->get(), "%RH",
                              NULL, 0,
-                             "L", Status::humidity->getMin(),
-                             "H", Status::humidity->getMax());
+                             "L:", Status::humidity->getMin(),
+                             "H:", Status::humidity->getMax());
 
     this->printLabelledValue("CO2",
                              this->getAreaX(4), this->getAreaY(4),
                              DIS_NO_DECIMAL | DIS_LARGE_VALUE,
                              Status::co2->get(), "ppm",
                              NULL, 0,
-                             "L", Status::co2->getMin(),
-                             "H", Status::co2->getMax());
+                             "L:", Status::co2->getMin(),
+                             "H:", Status::co2->getMax());
 
     this->printLabelledValue("TVOC",
                              this->getAreaX(6), this->getAreaY(6),
                              DIS_NO_DECIMAL | DIS_LARGE_VALUE,
                              Status::tvoc->get(), "ppb",
                              NULL, 0,
-                             "L", Status::tvoc->getMin(),
-                             "H", Status::tvoc->getMax());
+                             "L:", Status::tvoc->getMin(),
+                             "H:", Status::tvoc->getMax());
 
     this->printLabelledValue("IAQI",
                              this->getAreaX(8), this->getAreaY(8),
                              DIS_NO_DECIMAL,
                              Status::getIAQI(), "",
-                             "CO2", Status::getCO2QI(),
-                             "TVOC", Status::getTVOCQI(),
-                             "CLI", Status::getClimateQI());
+                             "CO2:  ", Status::getCO2QI(),
+                             "TVOC: ", Status::getTVOCQI(),
+                             "CLI:  ", Status::getClimateQI(),
+                             NULL, 0, NULL, 0, true);
+
+    this->printLabelledValue("PM",
+                             this->getAreaX(9), this->getAreaY(9),
+                             DIS_NO_DECIMAL,
+                             10, "",
+                             "PM0.5: ", Status::pm0p5->get(),
+                             "PM1:   ", Status::pm1->get(),
+                             "PM2.5: ", Status::pm2p5->get(),
+                             "PM4:   ", Status::pm4->get(),
+                             "PM10:  ", Status::pm10->get(),
+                             true);
 
     this->plotGraph("", this->getAreaX(1), this->getAreaY(1), 24 * 60, 1, 40);
     this->plotGraph("", this->getAreaX(3), this->getAreaY(3), 24 * 60, 2, 100);
@@ -65,5 +77,5 @@ uint16_t MainDisplay::getAreaX(uint8_t areaNumber)
 
 uint16_t MainDisplay::getAreaY(uint8_t areaNumber)
 {
-    return 15 + ((areaNumber / 2) * 77);
+    return 15 + ((areaNumber / 2) * 76);
 }

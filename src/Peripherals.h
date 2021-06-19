@@ -5,6 +5,7 @@
 #include <uRTCLib.h>
 #include <iAQCoreI2C.h>
 #include "drivers/SHT2x.h"
+#include <sps30.h>
 #include <WiFi.h>
 #include "config.h"
 #include "Button.h"

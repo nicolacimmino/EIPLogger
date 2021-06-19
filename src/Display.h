@@ -40,7 +40,10 @@ protected:
                             float value, char *unit,
                             const char *v1Label = NULL, float v1 = 0,
                             const char *v2Label = NULL, float v2 = 0,
-                            const char *v3Label = NULL, float v3 = 0);
+                            const char *v3Label = NULL, float v3 = 0,
+                            const char *v4Label = NULL, float v4 = 0,
+                            const char *v5Label = NULL, float v5 = 0,
+                            bool extraWideLabels = false);
 
     void plotGraph(const char *label, uint16_t x, uint16_t y, uint16_t timeRangeMinutes, uint8_t valueIndex, float maxValue);
 

@@ -133,7 +133,7 @@ float DataLog::getValue(uint32_t minutesBackSinceNow, uint8_t valueIndex)
         }
 
         // Innacurate on the first day after enreting/exiting DST as we assume DST on current time. Good way around would be to log UTC.
-        time_t recordTime = calculateUnixTime(atoi(y) - 2000, atoi(mo), atoi(d), atoi(h), atoi(m), 0, Status::isDST());
+        time_t recordTime = Utilities::calculateUnixTime(atoi(y) - 2000, atoi(mo), atoi(d), atoi(h), atoi(m), 0, Status::isDST());
 
         if (recordTime > wantedTime)
         {

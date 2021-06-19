@@ -85,7 +85,5 @@ void loop()
 
     Status::loop();
 
-    printf("seconds since the Epoch: %ld\n", (long)Status::getUnixTime());
-
     PowerManager::enterL2();
 }

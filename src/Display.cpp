@@ -69,7 +69,7 @@ void Display::printHeader()
 
 void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, const char *v1Label, float v1, const char *v2Label, float v2, const char *v3Label, float v3)
 {
-    this->printValue(label, x, y, MAIN_DISPLAY_LABEL_FONT);
+    this->printValue(label, x, y + 45, MAIN_DISPLAY_LABEL_FONT);
 
     if (value != NO_VALUE)
     {
@@ -94,25 +94,25 @@ void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint
     if (v1Label != NULL)
     {
         snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s:%0.0f" : "%s:%0.1f", v1Label, v1);
-        this->printValue(Peripherals::buffer, x + 110, y + 22, MAIN_DISPLAY_MID_FONT);
+        this->printValue(Peripherals::buffer, x + 110, y + 22, MAIN_DISPLAY_SMALL_FONT);
     }
 
     if (v2Label != NULL)
     {
         snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s:%0.0f" : "%s:%0.1f", v2Label, v2);
-        this->printValue(Peripherals::buffer, x + 110, y + 44, MAIN_DISPLAY_MID_FONT);
+        this->printValue(Peripherals::buffer, x + 110, y + 34, MAIN_DISPLAY_SMALL_FONT);
     }
 
     if (v3Label != NULL)
     {
         snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s:%0.0f" : "%s:%0.1f", v3Label, v3);
-        this->printValue(Peripherals::buffer, x + 110, y + 66, MAIN_DISPLAY_MID_FONT);
+        this->printValue(Peripherals::buffer, x + 110, y + 46, MAIN_DISPLAY_SMALL_FONT);
     }
 }
 
-void Display::plotGraph(const char *label, uint16_t x, uint16_t y, uint16_t timeRangeMinutes, float maxValue)
+void Display::plotGraph(const char *label, uint16_t x, uint16_t y, uint16_t timeRangeMinutes, uint8_t valueIndex, float maxValue)
 {
-#define X_AXIS_LEN 170
+#define X_AXIS_LEN 130
 #define Y_AXIS_LEN 65
 
     uint16_t axisOriginX = x + 15;
@@ -142,7 +142,7 @@ void Display::plotGraph(const char *label, uint16_t x, uint16_t y, uint16_t time
     uint16_t lastY = axisOriginY;
     for (uint8_t ix = 0; ix < X_AXIS_LEN; ix++)
     {
-        float value = DataLog::instance()->getValue(timeRangeMinutes - (ix * minutesPerPixel), 3);
+        float value = DataLog::instance()->getValue(timeRangeMinutes - (ix * minutesPerPixel), valueIndex);
 
         if (value == NO_VALUE)
         {

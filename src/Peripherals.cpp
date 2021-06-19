@@ -23,7 +23,7 @@ void Peripherals::setup()
     EPD_4IN2_Sleep();
 
     Peripherals::framebuffer = (UBYTE *)malloc((EPD_4IN2_WIDTH / 8 + 1) * EPD_4IN2_HEIGHT);
-    Paint_NewImage(Peripherals::framebuffer, EPD_4IN2_WIDTH, EPD_4IN2_HEIGHT, 0, WHITE);
+    Paint_NewImage(Peripherals::framebuffer, EPD_4IN2_WIDTH, EPD_4IN2_HEIGHT, 90, WHITE);
     Paint_SelectImage(Peripherals::framebuffer);
     Paint_Clear(WHITE);
 

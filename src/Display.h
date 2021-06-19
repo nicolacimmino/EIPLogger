@@ -42,7 +42,7 @@ protected:
                             const char *v2Label = NULL, float v2 = 0,
                             const char *v3Label = NULL, float v3 = 0);
 
-    void plotGraph(const char *label, uint16_t x, uint16_t y, uint16_t timeRangeMinutes, float maxValue);
+    void plotGraph(const char *label, uint16_t x, uint16_t y, uint16_t timeRangeMinutes, uint8_t valueIndex, float maxValue);
 
     virtual void refreshDisplay() = 0;
     void forceFullDraw();

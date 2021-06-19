@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include "MinMaxVal.h"
 #include "PowerManager.h"
+#include <time.h>
 
 struct Time
 {
@@ -17,7 +18,7 @@ private:
     static long batteryVoltage;
     static bool abortLoopRequested;
     static bool timeSyncRequsted;
-
+    static time_t calculateUnixTime(uint8_t y, uint8_t mo, uint8_t d, uint8_t h, uint8_t m, uint8_t s, bool dst);    
 public:
     static bool locked;
     static void setup();
@@ -35,6 +36,7 @@ public:
     static uint16_t getMonth();
     static uint16_t getYear();
     static uint16_t getDayOfWeek();
+    static time_t getUnixTime();
     static MinMaxVal<int> *co2;
     static MinMaxVal<int> *tvoc;
     static MinMaxVal<int> *humidity;

@@ -15,16 +15,14 @@ void MainDisplay::refreshDisplay()
                              this->getAreaX(0),
                              this->getAreaY(0),
                              DIS_NONE,
-                             Status::temperature->get(), "C",
-                             NULL, 0,
+                             Status::temperature->get(), "C",                             
                              "L:", Status::temperature->getMin(),
                              "H:", Status::temperature->getMax());
 
     this->printLabelledValue("Humidity",
                              this->getAreaX(2), this->getAreaY(2),
                              DIS_NO_DECIMAL,
-                             Status::humidity->get(), "%RH",
-                             NULL, 0,
+                             Status::humidity->get(), "%RH",                             
                              "L:", Status::humidity->getMin(),
                              "H:", Status::humidity->getMax());
 

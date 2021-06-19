@@ -14,6 +14,7 @@ class DataLog
 private:
     const char *getLogFileName();
     File retrievalfile;
+    static DataLog *dataLog;
 
 protected:
 public:
@@ -22,6 +23,7 @@ public:
     bool startRetrieval();
     float getValue(uint32_t minutesBackSinceNow, uint8_t valueIndex);
     void stopRetrieval();
+    static DataLog *instance();
 };
 
 #endif

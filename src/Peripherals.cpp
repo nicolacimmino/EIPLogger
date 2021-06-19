@@ -15,7 +15,7 @@ void Peripherals::setup()
 
     Peripherals::buffer = (char *)malloc(TEXT_BUFFER_SIZE);
     memset(Peripherals::buffer, 0, TEXT_BUFFER_SIZE);
-
+    
     DEV_Module_Init();
     EPD_4IN2_Init();
     EPD_4IN2_Clear();
@@ -82,5 +82,5 @@ void Peripherals::loop()
     {
         Status::co2->set(Peripherals::iaq->getCO2());
         Status::tvoc->set(Peripherals::iaq->getTVOC());
-    }    
+    }        
 }

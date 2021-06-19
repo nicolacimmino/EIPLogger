@@ -5,6 +5,7 @@
 #include "MinMaxVal.h"
 #include "PowerManager.h"
 #include "Utilities.h"
+#include "DataLog.h"
 
 struct Time
 {

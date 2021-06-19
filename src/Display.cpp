@@ -14,8 +14,6 @@ void Display::forceFullDraw()
 
 void Display::loop()
 {
-    this->printHeader();
-
     if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
     {
         return;
@@ -23,13 +21,15 @@ void Display::loop()
 
     this->lastRefreshTime = millis();
 
+    this->printHeader();
+
     this->refreshDisplay();
 
     this->displayFramebuffer();
 }
 
 void Display::printValue(const char *buffer, int x, int y, sFONT *font)
-{    
+{
     Paint_DrawString_EN(x, y, buffer, font, WHITE, BLACK);
 }
 
@@ -48,7 +48,7 @@ void Display::displayFramebuffer()
 }
 
 void Display::printHeader()
-{   
+{
     if (this->lastHeaderRefreshTime != 0 && millis() - this->lastHeaderRefreshTime < 60000)
     {
         return;
@@ -108,4 +108,53 @@ void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint
         snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, (options & DIS_NO_DECIMAL) ? "%s:%0.0f" : "%s:%0.1f", v3Label, v3);
         this->printValue(Peripherals::buffer, x + 110, y + 66, MAIN_DISPLAY_MID_FONT);
     }
+}
+
+void Display::plotGraph(const char *label, uint16_t x, uint16_t y, uint16_t timeRangeMinutes, float maxValue)
+{
+#define X_AXIS_LEN 170
+#define Y_AXIS_LEN 65
+
+    uint16_t axisOriginX = x + 15;
+    uint16_t axisOriginY = y + 80;
+    uint8_t minutesPerPixel = timeRangeMinutes / X_AXIS_LEN;
+    float valuePerPixel = maxValue / Y_AXIS_LEN;
+
+    this->printValue(label, x, y, MAIN_DISPLAY_LABEL_FONT);
+
+    // Draw axis
+    Paint_DrawLine(axisOriginX, axisOriginY, axisOriginX + X_AXIS_LEN, axisOriginY, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(axisOriginX, axisOriginY, axisOriginX, axisOriginY - Y_AXIS_LEN, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+
+    for (uint8_t ix = 1; ix < 11; ix++)
+    {
+        Paint_DrawLine(axisOriginX - 5, axisOriginY - (ix * Y_AXIS_LEN / 10), axisOriginX, axisOriginY - (ix * Y_AXIS_LEN / 10), BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    }
+
+    for (uint8_t ix = 1; ix < 25; ix++)
+    {
+        Paint_DrawLine(axisOriginX + (ix * X_AXIS_LEN / 24), axisOriginY, axisOriginX + (ix * X_AXIS_LEN / 24), axisOriginY + 5, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    }
+
+    DataLog::instance()->startRetrieval();
+
+    uint16_t lastX = axisOriginX;
+    uint16_t lastY = axisOriginY;
+    for (uint8_t ix = 0; ix < X_AXIS_LEN; ix++)
+    {
+        float value = DataLog::instance()->getValue(timeRangeMinutes - (ix * minutesPerPixel), 3);
+
+        if (value == NO_VALUE)
+        {
+            continue;
+        }
+
+        uint8_t y = (uint8_t)floor(value / valuePerPixel);
+
+        Paint_DrawLine(lastX, lastY, lastX + 1, axisOriginY - y, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+        lastX = lastX + 1;
+        lastY = axisOriginY - y;
+    }
+
+    DataLog::instance()->stopRetrieval();
 }

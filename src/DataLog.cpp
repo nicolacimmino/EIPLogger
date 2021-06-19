@@ -1,5 +1,17 @@
 #include "DataLog.h"
 
+DataLog *DataLog::dataLog = NULL;
+
+DataLog *DataLog::instance()
+{
+    if (!DataLog::dataLog)
+    {
+        DataLog::dataLog = new DataLog();
+    }
+
+    return DataLog::dataLog;
+}
+
 const char *DataLog::getLogFileName()
 {
     return "/data_03.csv";
@@ -7,7 +19,15 @@ const char *DataLog::getLogFileName()
 
 void DataLog::loop()
 {
+    static unsigned long lastRecordTime = 0;
+
     DIAGNOSTIC("DATALOG,loop")
+
+    if (lastRecordTime != 0 && millis() - lastRecordTime < 60000)
+    {
+        DIAGNOSTIC("DATALOG,toosoon")
+        return;
+    }
 
     File file;
 

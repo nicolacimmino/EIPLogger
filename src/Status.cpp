@@ -14,7 +14,8 @@ void Status::setup()
 }
 
 void Status::loop()
-{
+{   
+    DataLog::instance()->loop();
 }
 
 /**
@@ -177,4 +178,3 @@ uint8_t Status::getClimateQI()
 
     return lookup[humBin][tempBin];
 }
-

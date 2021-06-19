@@ -7,9 +7,6 @@
 #include "src/Button.h"
 #include "src/Peripherals.h"
 #include "src/ModeManager.h"
-#include "src/DataLog.h"
-
-DataLog dataLog;
 
 void onButtonPress()
 {
@@ -65,8 +62,6 @@ void setup()
 
         Serial.begin(115200);
 
-        //dataLog.dump();
-
         Peripherals::setup();
         ModeManager::setup();
         Status::setup();
@@ -89,16 +84,8 @@ void loop()
     ModeManager::currentDisplay->loop();
 
     Status::loop();
-    dataLog.loop();
 
     printf("seconds since the Epoch: %ld\n", (long)Status::getUnixTime());
-
-    dataLog.startRetrieval();
-    Serial.println(dataLog.getValue(60 * 10, 1));
-    Serial.println(dataLog.getValue(60, 2));
-    Serial.println(dataLog.getValue(10, 3));
-    Serial.println(dataLog.getValue(1, 4));
-    dataLog.stopRetrieval();
 
     PowerManager::enterL2();
 }

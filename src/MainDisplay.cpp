@@ -10,7 +10,7 @@ void MainDisplay::onBLongPress()
 }
 
 void MainDisplay::refreshDisplay()
-{        
+{
     this->printLabelledValue("Temperature",
                              this->getAreaX(0),
                              this->getAreaY(0),
@@ -46,7 +46,9 @@ void MainDisplay::refreshDisplay()
                              Status::getIAQI(), "",
                              "CO2", Status::getCO2QI(),
                              "TVOC", Status::getTVOCQI(),
-                             "CLI", Status::getClimateQI());       
+                             "CLI", Status::getClimateQI());
+
+    this->plotGraph("CO2  (0-4000, 24h)", this->getAreaX(5), this->getAreaY(5), 24 * 60, 4000);
 }
 
 uint16_t MainDisplay::getAreaX(uint8_t areaNumber)

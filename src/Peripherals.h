@@ -24,7 +24,7 @@ public:
     static Button *buttonC;
     static UBYTE *framebuffer;
     static char *buffer;
-    
+
     static void setup();
     static void loop();
     static void connectWiFi();

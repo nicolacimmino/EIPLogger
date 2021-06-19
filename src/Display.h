@@ -24,16 +24,16 @@
 class Display
 {
 private:
-    unsigned long lastHeaderRefreshTime = 0;  
-    unsigned long lastRefreshTime = 0;  
+    unsigned long lastHeaderRefreshTime = 0;
+    unsigned long lastRefreshTime = 0;
     bool lastWiFiStatus = false;
 
 protected:
     void printHeader();
     void printValue(const char *buffer, int x, int y, sFONT *font);
-    
+
     void displayFramebuffer();
-    
+
     void printLabelledValue(const char *label,
                             uint16_t x, uint16_t y,
                             uint8_t options,
@@ -42,13 +42,15 @@ protected:
                             const char *v2Label = NULL, float v2 = 0,
                             const char *v3Label = NULL, float v3 = 0);
 
+    void plotGraph(const char *label, uint16_t x, uint16_t y, uint16_t timeRangeMinutes, float maxValue);
+
     virtual void refreshDisplay() = 0;
     void forceFullDraw();
 
 public:
-    void loop();    
+    void loop();
     virtual void onBClick() = 0;
-    virtual void onBLongPress() = 0;    
+    virtual void onBLongPress() = 0;
 };
 
 #endif

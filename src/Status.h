@@ -48,6 +48,7 @@ public:
     static MinMaxVal<int> *pm2p5;
     static MinMaxVal<int> *pm4;
     static MinMaxVal<int> *pm10;
+    static uint8_t getPMAQI();
 };
 
 #endif

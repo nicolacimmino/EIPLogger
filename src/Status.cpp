@@ -35,7 +35,7 @@ int Status::getFreeRamBytes()
 
 uint8_t Status::getIAQI()
 {
-    return max(max(Status::getCO2QI(), Status::getTVOCQI()), Status::getClimateQI());
+    return max(max(max(Status::getCO2QI(), Status::getTVOCQI()), Status::getClimateQI()), Status::getPMAQI());
 }
 
 // TODO: This still need fixing to consider the hours between midnight and 2/3 AM of the switch day.
@@ -182,4 +182,53 @@ uint8_t Status::getClimateQI()
         {6, 5, 4, 3, 3, 3, 3, 4, 5, 5, 6, 6, 6}};
 
     return lookup[humBin][tempBin];
+}
+
+uint8_t Status::getPMAQI()
+{
+    uint8_t pm2p5Index = 1;
+    if (Status::pm2p5->get() > 60)
+    {
+        pm2p5Index = 6;
+    }
+    else if (Status::pm2p5->get() > 30)
+    {
+        pm2p5Index = 5;
+    }
+    else if (Status::pm2p5->get() > 20)
+    {
+        pm2p5Index = 4;
+    }
+    else if (Status::pm2p5->get() > 10)
+    {
+        pm2p5Index = 3;
+    }
+    else if (Status::pm2p5->get() > 5)
+    {
+        pm2p5Index = 2;
+    }
+
+    uint8_t pm10Index = 1;
+    if (Status::pm10->get() > 100)
+    {
+        pm10Index = 6;
+    }
+    else if (Status::pm10->get() > 50)
+    {
+        pm10Index = 5;
+    }
+    else if (Status::pm10->get() > 30)
+    {
+        pm10Index = 4;
+    }
+    else if (Status::pm10->get() > 15)
+    {
+        pm10Index = 3;
+    }
+    else if (Status::pm10->get() > 5)
+    {
+        pm10Index = 2;
+    }
+
+    return max(pm10Index, pm2p5Index);
 }

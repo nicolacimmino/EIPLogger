@@ -51,12 +51,13 @@ void MainDisplay::refreshDisplay()
                              "CO2:  ", Status::getCO2QI(),
                              "TVOC: ", Status::getTVOCQI(),
                              "CLI:  ", Status::getClimateQI(),
-                             NULL, 0, NULL, 0, true);
+                             "PM:   ", Status::getPMAQI(),
+                             NULL, 0, true);
 
     this->printLabelledValue("PM",
                              this->getAreaX(9), this->getAreaY(9),
                              DIS_NO_DECIMAL,
-                             10, "",
+                             Status::getPMAQI(), "",
                              "PM0.5: ", Status::pm0p5->get(),
                              "PM1:   ", Status::pm1->get(),
                              "PM2.5: ", Status::pm2p5->get(),

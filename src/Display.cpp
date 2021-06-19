@@ -149,7 +149,7 @@ void Display::plotGraph(const char *label, uint16_t x, uint16_t y, uint16_t time
             continue;
         }
 
-        uint8_t y = (uint8_t)floor(value / valuePerPixel);
+        uint8_t y = min((uint8_t)Y_AXIS_LEN, (uint8_t)floor(value / valuePerPixel));
 
         Paint_DrawLine(lastX, lastY, lastX + 1, axisOriginY - y, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
         lastX = lastX + 1;

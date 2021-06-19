@@ -16,6 +16,7 @@ void MainDisplay::refreshDisplay()
                              this->getAreaY(0),
                              DIS_NONE,
                              Status::temperature->get(), "C",
+                             NULL, 0,
                              "L", Status::temperature->getMin(),
                              "H", Status::temperature->getMax());
 
@@ -23,6 +24,7 @@ void MainDisplay::refreshDisplay()
                              this->getAreaX(2), this->getAreaY(2),
                              DIS_NO_DECIMAL,
                              Status::humidity->get(), "%RH",
+                             NULL, 0,
                              "L", Status::humidity->getMin(),
                              "H", Status::humidity->getMax());
 
@@ -30,6 +32,7 @@ void MainDisplay::refreshDisplay()
                              this->getAreaX(4), this->getAreaY(4),
                              DIS_NO_DECIMAL | DIS_LARGE_VALUE,
                              Status::co2->get(), "ppm",
+                             NULL, 0,
                              "L", Status::co2->getMin(),
                              "H", Status::co2->getMax());
 
@@ -37,6 +40,7 @@ void MainDisplay::refreshDisplay()
                              this->getAreaX(6), this->getAreaY(6),
                              DIS_NO_DECIMAL | DIS_LARGE_VALUE,
                              Status::tvoc->get(), "ppb",
+                             NULL, 0,
                              "L", Status::tvoc->getMin(),
                              "H", Status::tvoc->getMax());
 
@@ -61,5 +65,5 @@ uint16_t MainDisplay::getAreaX(uint8_t areaNumber)
 
 uint16_t MainDisplay::getAreaY(uint8_t areaNumber)
 {
-    return 15 + ((areaNumber / 2) * 80);
+    return 15 + ((areaNumber / 2) * 77);
 }

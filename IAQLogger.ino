@@ -72,7 +72,7 @@ void setup()
         Peripherals::buttonC->registerOnClickCallback(onButtonCClick);
     }
 
-    //Peripherals::rtc->set(0, 52, 12, 6, 15, 5, 21);
+   // Peripherals::rtc->set(0, 55, 15, 7, 20, 6, 21);
 }
 
 void loop()

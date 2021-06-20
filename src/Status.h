@@ -42,8 +42,7 @@ public:
     static MinMaxVal<int> *tvoc;
     static MinMaxVal<int> *humidity;
     static MinMaxVal<float> *temperature;
-
-    static MinMaxVal<int> *pm0p5;
+    
     static MinMaxVal<int> *pm1;
     static MinMaxVal<int> *pm2p5;
     static MinMaxVal<int> *pm4;

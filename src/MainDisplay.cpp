@@ -55,12 +55,12 @@ void MainDisplay::refreshDisplay()
     this->printLabelledValue("PM",
                              this->getAreaX(9), this->getAreaY(9),
                              DIS_NO_DECIMAL,
-                             Status::getPMAQI(), "",
-                             "PM0.5: ", Status::pm0p5->get(),
+                             Status::getPMAQI(), "",                             
                              "PM1:   ", Status::pm1->get(),
                              "PM2.5: ", Status::pm2p5->get(),
                              "PM4:   ", Status::pm4->get(),
                              "PM10:  ", Status::pm10->get(),
+                             NULL, 0,
                              true);
 
     this->plotGraph("", this->getAreaX(1), this->getAreaY(1), 24 * 60, 1, 40);

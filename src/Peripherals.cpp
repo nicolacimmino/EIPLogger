@@ -96,11 +96,10 @@ void Peripherals::loop()
         struct sps30_measurement m;
         sps30_read_measurement(&m);
 
-        Status::pm0p5->set(m.nc_0p5);
-        Status::pm1->set(m.nc_1p0 - m.nc_0p5);
-        Status::pm2p5->set(m.nc_2p5 - m.nc_1p0);
-        Status::pm4->set(m.nc_4p0 - m.nc_2p5);
-        Status::pm10->set(m.nc_10p0 - m.nc_4p0);
+        Status::pm1->set(m.mc_1p0);
+        Status::pm2p5->set(m.mc_2p5);
+        Status::pm4->set(m.mc_4p0);
+        Status::pm10->set(m.mc_10p0);
     }
 
     Wire.setClock(80000L);

@@ -8,7 +8,6 @@ MinMaxVal<float> *Status::temperature = new MinMaxVal<float>();
 MinMaxVal<int> *Status::co2 = new MinMaxVal<int>();
 MinMaxVal<int> *Status::tvoc = new MinMaxVal<int>();
 MinMaxVal<int> *Status::humidity = new MinMaxVal<int>();
-MinMaxVal<int> *Status::pm0p5 = new MinMaxVal<int>();
 MinMaxVal<int> *Status::pm1 = new MinMaxVal<int>();
 MinMaxVal<int> *Status::pm2p5 = new MinMaxVal<int>();
 MinMaxVal<int> *Status::pm4 = new MinMaxVal<int>();
@@ -187,45 +186,45 @@ uint8_t Status::getClimateQI()
 uint8_t Status::getPMAQI()
 {
     uint8_t pm2p5Index = 1;
-    if (Status::pm2p5->get() > 60)
+    if (Status::pm2p5->get() > 250)
     {
         pm2p5Index = 6;
     }
-    else if (Status::pm2p5->get() > 30)
+    else if (Status::pm2p5->get() > 150)
     {
         pm2p5Index = 5;
     }
-    else if (Status::pm2p5->get() > 20)
+    else if (Status::pm2p5->get() > 55)
     {
         pm2p5Index = 4;
     }
-    else if (Status::pm2p5->get() > 10)
+    else if (Status::pm2p5->get() > 35)
     {
         pm2p5Index = 3;
     }
-    else if (Status::pm2p5->get() > 5)
+    else if (Status::pm2p5->get() > 12)
     {
         pm2p5Index = 2;
     }
 
     uint8_t pm10Index = 1;
-    if (Status::pm10->get() > 100)
+    if (Status::pm10->get() > 425)
     {
         pm10Index = 6;
     }
-    else if (Status::pm10->get() > 50)
+    else if (Status::pm10->get() > 355)
     {
         pm10Index = 5;
     }
-    else if (Status::pm10->get() > 30)
+    else if (Status::pm10->get() > 255)
     {
         pm10Index = 4;
     }
-    else if (Status::pm10->get() > 15)
+    else if (Status::pm10->get() > 155)
     {
         pm10Index = 3;
     }
-    else if (Status::pm10->get() > 5)
+    else if (Status::pm10->get() > 55)
     {
         pm10Index = 2;
     }

@@ -14,7 +14,7 @@ DataLog *DataLog::instance()
 
 const char *DataLog::getLogFileName()
 {
-    return "/data_03.csv";
+    return "/data_04.csv";
 }
 
 void DataLog::loop()

@@ -45,6 +45,11 @@ void PowerManager::enterL1()
 
     DIAGNOSTIC("PMA,L1");
 
+    if (millis() < 60000 || (Status::getMinute() % 10) == 0)
+    {
+        sps30_start_measurement();
+    }
+
     PowerManager::level = PS_LEVEL_1;
 
     // Peripherals::disconnectWiFi();
@@ -64,12 +69,17 @@ void PowerManager::enterL2()
     }
 
     DIAGNOSTIC("PMA,L2");
-    
+
+    if (millis() > 120000 && (Status::getMinute() % 10) != 0)
+    {
+        sps30_stop_measurement();
+    }
+
     PowerManager::level = PS_LEVEL_2;
 
     //esp_sleep_enable_ext0_wakeup((gpio_num_t)PIN_BUTTON_B, 0);
-  //  esp_sleep_enable_ext0_wakeup((gpio_num_t)PIN_INT, 1);
-  //  esp_sleep_enable_ext1_wakeup(PIN_BUTTON_A_SEL, ESP_EXT1_WAKEUP_ALL_LOW);
+    //  esp_sleep_enable_ext0_wakeup((gpio_num_t)PIN_INT, 1);
+    //  esp_sleep_enable_ext1_wakeup(PIN_BUTTON_A_SEL, ESP_EXT1_WAKEUP_ALL_LOW);
     esp_sleep_enable_timer_wakeup(60 * 1000000); // 60s
     esp_light_sleep_start();
 }
@@ -80,8 +90,8 @@ void PowerManager::enterL3()
 
     PowerManager::level = PS_LEVEL_3;
     digitalWrite(PIN_PERIPHERALS_PWR, LOW);
- //   esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
- //   esp_sleep_enable_ext1_wakeup(PIN_BUTTON_A_SEL, ESP_EXT1_WAKEUP_ALL_LOW);
+    //   esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
+    //   esp_sleep_enable_ext1_wakeup(PIN_BUTTON_A_SEL, ESP_EXT1_WAKEUP_ALL_LOW);
     esp_deep_sleep_start();
 }
 

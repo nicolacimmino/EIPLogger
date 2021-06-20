@@ -30,11 +30,6 @@ void Peripherals::setup()
     Wire.begin(PIN_SDA, PIN_SCL);
 
     sensirion_i2c_init();
-    while (sps30_probe() != 0)
-    {
-        Serial.print("SPS sensor probing failed\n");
-        delay(500);
-    }
 
     sps30_set_fan_auto_cleaning_interval_days(4);
 
@@ -93,6 +88,8 @@ void Peripherals::loop()
 
     if (ready)
     {
+        DIAGNOSTIC("PM,READY")
+
         struct sps30_measurement m;
         sps30_read_measurement(&m);
 

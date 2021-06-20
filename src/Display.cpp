@@ -14,18 +14,18 @@ void Display::forceFullDraw()
 
 void Display::loop()
 {
-    if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 60000)
+    if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 58000)
     {
         return;
     }
-
-    this->lastRefreshTime = millis();
-
+    
     this->printHeader();
 
     this->refreshDisplay();
 
     this->displayFramebuffer();
+
+    this->lastRefreshTime = millis();
 }
 
 void Display::printValue(const char *buffer, int x, int y, sFONT *font)

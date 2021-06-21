@@ -60,7 +60,7 @@ void DataLog::loop()
         return;
     }
 
-    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "20%02i-%02i-%02iT%02i:%02i,%0.1f,%d,%d,%d,%d,%d,%d,%d\n",
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "20%02i-%02i-%02iT%02i:%02i,%0.1f,%d,%d,%d,%d,%d,%d,%d,%d\n",
              Status::getYear(),
              Status::getMonth(),
              Status::getDay(),
@@ -73,7 +73,8 @@ void DataLog::loop()
              Status::getClimateQI(),
              Status::getCO2QI(),
              Status::getTVOCQI(),
-             Status::getIAQI());
+             Status::getIAQI(),
+             Status::batteryVoltage);
 
     file.print(Peripherals::buffer);
     file.close();

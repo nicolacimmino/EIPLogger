@@ -105,4 +105,11 @@ void Peripherals::loop()
         Status::co2->set(Peripherals::iaq->getCO2());
         Status::tvoc->set(Peripherals::iaq->getTVOC());
     }
+
+    Status::batteryVoltage = analogRead(PIN_VBAT_SENSE) * 1.77;
+
+    if (Status::batteryVoltage != 0 && Status::batteryVoltage < 3000)
+    {
+        PowerManager::enterL3();
+    }
 }

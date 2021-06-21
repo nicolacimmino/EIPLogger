@@ -46,6 +46,7 @@ protected:
    
 public:
     void loop();
+    void showShutdown();
     virtual void onBClick() = 0;
     virtual void onBLongPress() = 0;
 };

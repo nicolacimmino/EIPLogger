@@ -25,6 +25,8 @@
 #define PIN_SCL 18
 #define PIN_SDA 19
 
+#define PIN_VBAT_SENSE 34 
+
 #define DISPLAY_MODES 1
 
 #define LIGHTNING_INT 0x08

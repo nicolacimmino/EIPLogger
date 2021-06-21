@@ -1,7 +1,7 @@
 #include "Display.h"
 
 void Display::onBLongPress()
-{ 
+{
 }
 
 void Display::loop()
@@ -39,16 +39,37 @@ void Display::displayFramebuffer()
     Paint_Clear(WHITE);
 }
 
-void Display::printHeader()
-{   
-    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s %02i-%02i-%02i %02i:%02i %s",
+void Display::showShutdown()
+{
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s %02i-%02i-%02i %02i:%02i %0.2f",
              "MON\0TUE\0WED\0THU\0FRI\0SAT\0SUN\0" + ((Status::getDayOfWeek() - 1) * 4),
              Status::getDay(),
              Status::getMonth(),
              Status::getYear(),
              Status::getHour(),
              Status::getMinute(),
-             Status::isDST() ? "DST" : "");
+             Status::batteryVoltage / 1000.0);
+
+    this->printValue(Peripherals::buffer, 20, 50, MAIN_DISPLAY_MID_FONT);
+
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "Power Down");
+
+    this->printValue(Peripherals::buffer, 20, 70, MAIN_DISPLAY_LARGE_FONT);
+
+    this->displayFramebuffer();
+}
+
+void Display::printHeader()
+{
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s %02i-%02i-%02i %02i:%02i %s %0.2f",
+             "MON\0TUE\0WED\0THU\0FRI\0SAT\0SUN\0" + ((Status::getDayOfWeek() - 1) * 4),
+             Status::getDay(),
+             Status::getMonth(),
+             Status::getYear(),
+             Status::getHour(),
+             Status::getMinute(),
+             Status::isDST() ? "DST" : "",
+             Status::batteryVoltage / 1000.0);
 
     this->printValue(Peripherals::buffer, 0, 0, MAIN_DISPLAY_MID_FONT);
 }
@@ -58,7 +79,7 @@ void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint
     this->printValue(label, x, y + 45, MAIN_DISPLAY_LABEL_FONT);
 
     if (value != NO_VALUE)
-    {                
+    {
         if (options & DIS_NO_DECIMAL)
         {
             snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%*d", 4, (int)floor(value));

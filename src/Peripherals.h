@@ -14,7 +14,7 @@
 #include "DEV_Config.h"
 #include "EPD.h"
 #include "GUI_Paint.h"
-
+#include "PowerManager.h"
 
 class Peripherals
 {

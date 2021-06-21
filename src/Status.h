@@ -15,9 +15,9 @@ struct Time
 class Status
 {
 private:
-    static long batteryVoltage;
-    
+        
 public:    
+    static long batteryVoltage;
     static int getFreeRamBytes();
     static uint8_t getIAQI();
     static uint8_t getCO2QI();

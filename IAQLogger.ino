@@ -51,20 +51,14 @@ void setup()
     DIAGNOSTIC("SETUP")
 
     if (esp_sleep_get_wakeup_cause() != ESP_SLEEP_WAKEUP_TIMER)
-    {
-        if (!SPIFFS.begin(true))
-        {
-            Serial.println("SPIFFS Mount Failed");
-            return;
-        }
-
+    {       
         delay(500);
 
         Serial.begin(115200);
 
+        DataLog::instance()->setup();
         Peripherals::setup();
         ModeManager::setup();
-        Status::setup();
 
         Peripherals::buttonA->registerOnClickCallback(onButtonAClick);
         Peripherals::buttonA->registerOnLongPressCallback(onButtonALongPress);
@@ -72,7 +66,7 @@ void setup()
         Peripherals::buttonC->registerOnClickCallback(onButtonCClick);
     }
 
-   // Peripherals::rtc->set(0, 55, 15, 7, 20, 6, 21);
+    // Peripherals::rtc->set(0, 55, 15, 7, 20, 6, 21);
 }
 
 void loop()
@@ -83,7 +77,7 @@ void loop()
     Peripherals::loop();
     ModeManager::currentDisplay->loop();
 
-    Status::loop();
+    DataLog::instance()->loop();
 
     PowerManager::enterL2();
 }

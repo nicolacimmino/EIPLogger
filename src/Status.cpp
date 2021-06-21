@@ -1,9 +1,6 @@
 #include "Status.h"
 
 long Status::batteryVoltage = 0;
-bool Status::abortLoopRequested = false;
-bool Status::timeSyncRequsted = true;
-bool Status::locked = false;
 MinMaxVal<float> *Status::temperature = new MinMaxVal<float>();
 MinMaxVal<int> *Status::co2 = new MinMaxVal<int>();
 MinMaxVal<int> *Status::tvoc = new MinMaxVal<int>();
@@ -12,15 +9,6 @@ MinMaxVal<int> *Status::pm1 = new MinMaxVal<int>();
 MinMaxVal<int> *Status::pm2p5 = new MinMaxVal<int>();
 MinMaxVal<int> *Status::pm4 = new MinMaxVal<int>();
 MinMaxVal<int> *Status::pm10 = new MinMaxVal<int>();
-
-void Status::setup()
-{
-}
-
-void Status::loop()
-{
-    DataLog::instance()->loop();
-}
 
 /**
  * See https://playground.arduino.cc/Code/AvailableMemory/

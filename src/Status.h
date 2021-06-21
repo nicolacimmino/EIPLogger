@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include "MinMaxVal.h"
-#include "PowerManager.h"
 #include "Utilities.h"
 #include "DataLog.h"
 
@@ -17,13 +16,8 @@ class Status
 {
 private:
     static long batteryVoltage;
-    static bool abortLoopRequested;
-    static bool timeSyncRequsted;
-
-public:
-    static bool locked;
-    static void setup();
-    static void loop();
+    
+public:    
     static int getFreeRamBytes();
     static uint8_t getIAQI();
     static uint8_t getCO2QI();
@@ -41,8 +35,7 @@ public:
     static MinMaxVal<int> *co2;
     static MinMaxVal<int> *tvoc;
     static MinMaxVal<int> *humidity;
-    static MinMaxVal<float> *temperature;
-    
+    static MinMaxVal<float> *temperature;    
     static MinMaxVal<int> *pm1;
     static MinMaxVal<int> *pm2p5;
     static MinMaxVal<int> *pm4;

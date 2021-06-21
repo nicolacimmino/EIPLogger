@@ -19,6 +19,7 @@ private:
 protected:
 public:
     void loop();
+    void setup();
     void dump();
     bool startRetrieval();
     float getValue(uint32_t minutesBackSinceNow, uint8_t valueIndex);

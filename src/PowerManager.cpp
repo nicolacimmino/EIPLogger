@@ -89,7 +89,7 @@ void PowerManager::enterL3()
     DIAGNOSTIC("PMA,L3");
 
     PowerManager::level = PS_LEVEL_3;
-    digitalWrite(PIN_PERIPHERALS_PWR, LOW);
+    
     //   esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
     //   esp_sleep_enable_ext1_wakeup(PIN_BUTTON_A_SEL, ESP_EXT1_WAKEUP_ALL_LOW);
     esp_deep_sleep_start();

@@ -1,15 +1,7 @@
 #include "Display.h"
 
 void Display::onBLongPress()
-{
-    return;
-}
-
-void Display::forceFullDraw()
-{
-    this->lastRefreshTime = 0;
-    this->lastHeaderRefreshTime = 0;
-    this->loop();
+{ 
 }
 
 void Display::loop()
@@ -18,14 +10,14 @@ void Display::loop()
     {
         return;
     }
-    
+
+    this->lastRefreshTime = millis();
+
     this->printHeader();
 
     this->refreshDisplay();
 
     this->displayFramebuffer();
-
-    this->lastRefreshTime = millis();
 }
 
 void Display::printValue(const char *buffer, int x, int y, sFONT *font)
@@ -48,14 +40,7 @@ void Display::displayFramebuffer()
 }
 
 void Display::printHeader()
-{
-    if (this->lastHeaderRefreshTime != 0 && millis() - this->lastHeaderRefreshTime < 60000)
-    {
-        return;
-    }
-
-    this->lastHeaderRefreshTime = millis();
-
+{   
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s %02i-%02i-%02i %02i:%02i %s",
              "MON\0TUE\0WED\0THU\0FRI\0SAT\0SUN\0" + ((Status::getDayOfWeek() - 1) * 4),
              Status::getDay(),
@@ -64,7 +49,8 @@ void Display::printHeader()
              Status::getHour(),
              Status::getMinute(),
              Status::isDST() ? "DST" : "");
-    this->printValue(Peripherals::buffer, 10, 0, MAIN_DISPLAY_MID_FONT);
+
+    this->printValue(Peripherals::buffer, 0, 0, MAIN_DISPLAY_MID_FONT);
 }
 
 void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint8_t options, float value, char *unit, const char *v1Label, float v1, const char *v2Label, float v2, const char *v3Label, float v3, const char *v4Label, float v4, const char *v5Label, float v5, bool extraWideLabels)
@@ -72,7 +58,7 @@ void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint
     this->printValue(label, x, y + 45, MAIN_DISPLAY_LABEL_FONT);
 
     if (value != NO_VALUE)
-    {
+    {                
         if (options & DIS_NO_DECIMAL)
         {
             snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%*d", 4, (int)floor(value));
@@ -84,7 +70,7 @@ void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint
     }
     else
     {
-        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "---");
+        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, " ---");
     }
     this->printValue(Peripherals::buffer, x, y + 22, MAIN_DISPLAY_LARGE_FONT);
 
@@ -166,7 +152,8 @@ void Display::plotGraph(const char *label, uint16_t x, uint16_t y, uint16_t time
         uint8_t y = min((uint8_t)Y_AXIS_LEN, (uint8_t)floor(value / valuePerPixel));
 
         Paint_DrawLine(lastX, lastY, lastX + 1, axisOriginY - y, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
-        lastX = lastX + 1;
+
+        lastX++;
         lastY = axisOriginY - y;
     }
 

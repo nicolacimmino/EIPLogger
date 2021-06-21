@@ -5,13 +5,10 @@
 #include "config.h"
 #include "PowerManager.h"
 #include "Status.h"
-#include "ui.h"
 #include "Peripherals.h"
-#include "icons/battery_100.h"
-#include "icons/wifi.h"
-#include "DEV_Config.h"
-#include "EPD.h"
-#include "GUI_Paint.h"
+#include <DEV_Config.h>
+#include <EPD.h>
+#include <GUI_Paint.h>
 
 #define DIS_NONE 0
 #define DIS_NO_DECIMAL 1
@@ -24,9 +21,7 @@
 class Display
 {
 private:
-    unsigned long lastHeaderRefreshTime = 0;
     unsigned long lastRefreshTime = 0;
-    bool lastWiFiStatus = false;
 
 protected:
     void printHeader();
@@ -48,8 +43,7 @@ protected:
     void plotGraph(const char *label, uint16_t x, uint16_t y, uint16_t timeRangeMinutes, uint8_t valueIndex, float maxValue);
 
     virtual void refreshDisplay() = 0;
-    void forceFullDraw();
-
+   
 public:
     void loop();
     virtual void onBClick() = 0;

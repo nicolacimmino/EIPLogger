@@ -1,8 +1,7 @@
 #include "MainDisplay.h"
 
 void MainDisplay::onBClick()
-{
-    this->forceFullDraw();
+{    
 }
 
 void MainDisplay::onBLongPress()

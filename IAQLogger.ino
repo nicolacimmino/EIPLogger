@@ -51,7 +51,7 @@ void setup()
     DIAGNOSTIC("SETUP")
 
     if (esp_sleep_get_wakeup_cause() != ESP_SLEEP_WAKEUP_TIMER)
-    {       
+    {
         delay(500);
 
         Serial.begin(115200);
@@ -59,6 +59,9 @@ void setup()
         DataLog::instance()->setup();
         Peripherals::setup();
         ModeManager::setup();
+
+        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "SPIFF,%d,%d", SPIFFS.usedBytes(), SPIFFS.totalBytes());
+        DIAGNOSTIC(Peripherals::buffer)
 
         Peripherals::buttonA->registerOnClickCallback(onButtonAClick);
         Peripherals::buttonA->registerOnLongPressCallback(onButtonALongPress);

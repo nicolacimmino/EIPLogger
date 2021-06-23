@@ -35,12 +35,12 @@ void Display::displayFramebuffer()
     EPD_4IN2_Display(Peripherals::framebuffer);
 
     EPD_4IN2_Sleep();
-
-    Paint_Clear(WHITE);
 }
 
 void Display::showShutdown()
 {
+    Paint_ClearWindows(0, 0, 300, 400, WHITE);
+
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s %02i-%02i-%02i %02i:%02i %0.2f",
              "MON\0TUE\0WED\0THU\0FRI\0SAT\0SUN\0" + ((Status::getDayOfWeek() - 1) * 4),
              Status::getDay(),
@@ -61,6 +61,8 @@ void Display::showShutdown()
 
 void Display::printHeader()
 {
+    Paint_ClearWindows(0, 0, 300, 15, WHITE);
+
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s %02i-%02i-%02i %02i:%02i %s %0.2f",
              "MON\0TUE\0WED\0THU\0FRI\0SAT\0SUN\0" + ((Status::getDayOfWeek() - 1) * 4),
              Status::getDay(),

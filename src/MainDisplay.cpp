@@ -1,7 +1,7 @@
 #include "MainDisplay.h"
 
 void MainDisplay::onBClick()
-{    
+{
 }
 
 void MainDisplay::onBLongPress()
@@ -10,18 +10,21 @@ void MainDisplay::onBLongPress()
 
 void MainDisplay::refreshDisplay()
 {
+    Paint_ClearWindows(0, 15, 150, 400, WHITE);
+    Paint_ClearWindows(0, 319, 300, 400, WHITE);
+
     this->printLabelledValue("Temperature",
                              this->getAreaX(0),
                              this->getAreaY(0),
                              DIS_NONE,
-                             Status::temperature->get(), "C",                             
+                             Status::temperature->get(), "C",
                              "L:", Status::temperature->getMin(),
                              "H:", Status::temperature->getMax());
 
     this->printLabelledValue("Humidity",
                              this->getAreaX(2), this->getAreaY(2),
                              DIS_NO_DECIMAL,
-                             Status::humidity->get(), "%RH",                             
+                             Status::humidity->get(), "%RH",
                              "L:", Status::humidity->getMin(),
                              "H:", Status::humidity->getMax());
 
@@ -54,7 +57,7 @@ void MainDisplay::refreshDisplay()
     this->printLabelledValue("PM",
                              this->getAreaX(9), this->getAreaY(9),
                              DIS_NO_DECIMAL,
-                             Status::getPMAQI(), "",                             
+                             Status::getPMAQI(), "",
                              "PM1:   ", Status::pm1->get(),
                              "PM2.5: ", Status::pm2p5->get(),
                              "PM4:   ", Status::pm4->get(),
@@ -62,10 +65,19 @@ void MainDisplay::refreshDisplay()
                              NULL, 0,
                              true);
 
-    this->plotGraph("", this->getAreaX(1), this->getAreaY(1), 24 * 60, 1, 40);
-    this->plotGraph("", this->getAreaX(3), this->getAreaY(3), 24 * 60, 2, 100);
-    this->plotGraph("", this->getAreaX(5), this->getAreaY(5), 24 * 60, 3, 4000);
-    this->plotGraph("", this->getAreaX(7), this->getAreaY(7), 24 * 60, 4, 2000);
+    static unsigned long lastGraphPlotTime = 0;
+
+    if (lastGraphPlotTime == 0 || millis() - lastGraphPlotTime > 10 * 60 * 1000)
+    {
+        lastGraphPlotTime = millis();
+
+        Paint_ClearWindows(150, 15, 300, 319, WHITE);
+
+        this->plotGraph("", this->getAreaX(1), this->getAreaY(1), 24 * 60, 1, 40);
+        this->plotGraph("", this->getAreaX(3), this->getAreaY(3), 24 * 60, 2, 100);
+        this->plotGraph("", this->getAreaX(5), this->getAreaY(5), 24 * 60, 3, 4000);
+        this->plotGraph("", this->getAreaX(7), this->getAreaY(7), 24 * 60, 4, 2000);
+    }
 }
 
 uint16_t MainDisplay::getAreaX(uint8_t areaNumber)

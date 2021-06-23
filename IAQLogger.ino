@@ -8,6 +8,7 @@
 #include "src/Peripherals.h"
 #include "src/ModeManager.h"
 
+
 void onButtonPress()
 {
     PowerManager::onUserInteratcion();

@@ -11,7 +11,7 @@ void MainDisplay::onBLongPress()
 void MainDisplay::refreshDisplay()
 {
     Paint_ClearWindows(0, 15, 150, 400, WHITE);
-    Paint_ClearWindows(0, 319, 300, 400, WHITE);
+    Paint_ClearWindows(0, 325, 300, 400, WHITE);
 
     this->printLabelledValue("Temperature",
                              this->getAreaX(0),

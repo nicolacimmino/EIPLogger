@@ -51,4 +51,6 @@
 
 #define POWER_SAVE_TIMEOUT_MS 20000
 
+#define MAX_LOG_FILES 15
+
 #endif

@@ -12,7 +12,7 @@
 class DataLog
 {
 private:
-    const char *getLogFileName();
+    const char *getLogFileNameForDay(uint16_t day);
     File retrievalfile;
     static DataLog *dataLog;
 
@@ -25,6 +25,7 @@ public:
     float getValue(uint32_t minutesBackSinceNow, uint8_t valueIndex);
     void stopRetrieval();
     static DataLog *instance();
+    void showContent();
 };
 
 #endif

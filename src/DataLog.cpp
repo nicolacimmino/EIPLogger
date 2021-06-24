@@ -12,9 +12,11 @@ DataLog *DataLog::instance()
     return DataLog::dataLog;
 }
 
-const char *DataLog::getLogFileName()
+const char *DataLog::getLogFileNameForDay(uint16_t day)
 {
-    return "/data_04.csv";
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "/data_%02d.csv", (day % MAX_LOG_FILES));
+
+    return Peripherals::buffer;
 }
 
 void DataLog::setup()
@@ -22,7 +24,7 @@ void DataLog::setup()
     if (!SPIFFS.begin(true))
     {
         DIAGNOSTIC("DATALOG,Mount Failed")
-    }
+    }        
 }
 
 void DataLog::loop()
@@ -39,10 +41,10 @@ void DataLog::loop()
 
     File file;
 
-    if (!SPIFFS.exists(this->getLogFileName()))
+    if (!SPIFFS.exists(this->getLogFileNameForDay(Status::getDayOfYear())))
     {
         DIAGNOSTIC("DATALOG,log not found")
-        file = SPIFFS.open(this->getLogFileName(), "w");
+        file = SPIFFS.open(this->getLogFileNameForDay(Status::getDayOfYear()), "w");
 
         if (!file)
         {
@@ -50,11 +52,11 @@ void DataLog::loop()
             return;
         }
 
-        file.print("TIME,T,H,CO2,TVOC,CLIQI,CO2QI,TVOCQI,IAQI\n");
+        file.print("TIME,T,H,CO2,TVOC,PM1,PM2.5,PM4,PM10\n");
         file.close();
     }
 
-    if (!(file = SPIFFS.open(this->getLogFileName(), "a")))
+    if (!(file = SPIFFS.open(this->getLogFileNameForDay(Status::getDayOfYear()), "a")))
     {
         DIAGNOSTIC("DATALOG,fail")
         return;
@@ -70,14 +72,19 @@ void DataLog::loop()
              Status::humidity->get(),
              Status::co2->get(),
              Status::tvoc->get(),
-             Status::getClimateQI(),
-             Status::getCO2QI(),
-             Status::getTVOCQI(),
-             Status::getIAQI(),
+             Status::pm1->get(),
+             Status::pm2p5->get(),
+             Status::pm4->get(),
+             Status::pm10->get(),
              Status::batteryVoltage);
 
     file.print(Peripherals::buffer);
     file.close();
+
+    if (SPIFFS.exists(this->getLogFileNameForDay(Status::getDayOfYear() + 1)))
+    {
+        SPIFFS.remove(this->getLogFileNameForDay(Status::getDayOfYear() + 1));
+    }
 
     DIAGNOSTIC("DATALOG,end")
 }
@@ -88,7 +95,7 @@ void DataLog::dump()
 
     File file;
 
-    if (!(file = SPIFFS.open(this->getLogFileName(), "r")))
+    if (!(file = SPIFFS.open(this->getLogFileNameForDay(Status::getDayOfYear()), "r")))
     {
         DIAGNOSTIC("DATALOG,DUMP,fail")
         return;
@@ -106,7 +113,7 @@ void DataLog::dump()
 
 bool DataLog::startRetrieval()
 {
-    if (!(this->retrievalfile = SPIFFS.open(this->getLogFileName(), "r")))
+    if (!(this->retrievalfile = SPIFFS.open(getLogFileNameForDay(Status::getDayOfYear()), "r")))
     {
         DIAGNOSTIC("DATALOG,RETRIEVAL,fail")
         return false;
@@ -186,4 +193,24 @@ void DataLog::stopRetrieval()
     {
         this->retrievalfile.close();
     }
+}
+
+void DataLog::showContent()
+{
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "DATALOG,space,%d,%d", SPIFFS.usedBytes(), SPIFFS.totalBytes());
+    DIAGNOSTIC(Peripherals::buffer)
+
+    File root = SPIFFS.open("/");
+
+    File file = root.openNextFile();
+    while (file)
+    {
+        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "DATALOG,ls,%s\t%d bytes", file.name(), file.size());
+        DIAGNOSTIC(Peripherals::buffer);
+
+        file.close();
+        file = root.openNextFile();
+    }
+
+    root.close();
 }

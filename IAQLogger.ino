@@ -8,7 +8,6 @@
 #include "src/Peripherals.h"
 #include "src/ModeManager.h"
 
-
 void onButtonPress()
 {
     PowerManager::onUserInteratcion();
@@ -57,17 +56,18 @@ void setup()
 
         Serial.begin(115200);
 
-        DataLog::instance()->setup();
+        DataLog::instance()->setup();        
         Peripherals::setup();
+        Peripherals::loop();
         ModeManager::setup();
-
-        snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "SPIFF,%d,%d", SPIFFS.usedBytes(), SPIFFS.totalBytes());
-        DIAGNOSTIC(Peripherals::buffer)
-
+        
         Peripherals::buttonA->registerOnClickCallback(onButtonAClick);
         Peripherals::buttonA->registerOnLongPressCallback(onButtonALongPress);
         Peripherals::buttonB->registerOnClickCallback(onButtonBClick);
         Peripherals::buttonC->registerOnClickCallback(onButtonCClick);
+
+        DataLog::instance()->showContent();
+        DataLog::instance()->dump();
     }
 
     // Peripherals::rtc->set(0, 55, 15, 7, 20, 6, 21);

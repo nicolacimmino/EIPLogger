@@ -22,7 +22,7 @@ public:
     void setup();
     void dump();
     bool startRetrieval();
-    float getValue(uint32_t minutesBackSinceNow, uint8_t valueIndex);
+    float getValue(uint32_t minutesBackSinceNow, uint8_t maxDelta, uint8_t valueIndex);
     void stopRetrieval();
     static DataLog *instance();
     void showContent();

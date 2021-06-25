@@ -161,11 +161,11 @@ void Display::plotGraph(const char *label, uint16_t x, uint16_t y, uint16_t time
 
     DataLog::instance()->startRetrieval();
 
-    uint16_t lastX = axisOriginX;
-    uint16_t lastY = axisOriginY;
+    uint16_t lastX = 0;
+    uint16_t lastY = 0;
     for (uint8_t ix = 0; ix < X_AXIS_LEN; ix++)
     {
-        float value = DataLog::instance()->getValue(timeRangeMinutes - (ix * minutesPerPixel), valueIndex);
+        float value = DataLog::instance()->getValue(timeRangeMinutes - (ix * minutesPerPixel), minutesPerPixel, valueIndex);
 
         if (value == NO_VALUE)
         {
@@ -174,9 +174,12 @@ void Display::plotGraph(const char *label, uint16_t x, uint16_t y, uint16_t time
 
         uint8_t y = min((uint8_t)Y_AXIS_LEN, (uint8_t)floor(value / valuePerPixel));
 
-        Paint_DrawLine(lastX, lastY, lastX + 1, axisOriginY - y, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+        if (lastX != 0 && lastY != 0)
+        {
+            Paint_DrawLine(lastX, lastY, axisOriginX + ix, axisOriginY - y, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+        }
 
-        lastX++;
+        lastX = axisOriginX + ix;
         lastY = axisOriginY - y;
     }
 

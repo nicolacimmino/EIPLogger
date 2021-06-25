@@ -24,7 +24,7 @@ void DataLog::setup()
     if (!SPIFFS.begin(true))
     {
         DIAGNOSTIC("DATALOG,Mount Failed")
-    }        
+    }
 }
 
 void DataLog::loop()
@@ -122,13 +122,15 @@ bool DataLog::startRetrieval()
     return true;
 }
 
-float DataLog::getValue(uint32_t minutesBackSinceNow, uint8_t valueIndex)
+float DataLog::getValue(uint32_t minutesBackSinceNow, uint8_t maxDelta, uint8_t valueIndex)
 {
     uint8_t ix;
     time_t wantedTime = Status::getUnixTime() - (minutesBackSinceNow * 60);
+    size_t positionBefore;
 
     while (true)
     {
+        positionBefore = this->retrievalfile.position();
         ix = 0;
         memset(Peripherals::buffer, 0, TEXT_BUFFER_SIZE);
 
@@ -173,6 +175,13 @@ float DataLog::getValue(uint32_t minutesBackSinceNow, uint8_t valueIndex)
 
         if (recordTime > wantedTime)
         {
+            if ((recordTime - wantedTime) > (maxDelta * 60))
+            {               
+                this->retrievalfile.seek(positionBefore);
+               
+                return NO_VALUE;
+            }
+
             char *v = strtok(Peripherals::buffer, ",");
 
             while (valueIndex-- > 0)

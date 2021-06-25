@@ -176,9 +176,9 @@ float DataLog::getValue(uint32_t minutesBackSinceNow, uint8_t maxDelta, uint8_t 
         if (recordTime > wantedTime)
         {
             if ((recordTime - wantedTime) > (maxDelta * 60))
-            {               
+            {
                 this->retrievalfile.seek(positionBefore);
-               
+
                 return NO_VALUE;
             }
 

@@ -100,7 +100,7 @@ void Display::printLabelledValue(const char *label, uint16_t x, uint16_t y, uint
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s", unit);
     this->printValue(Peripherals::buffer, x + 70, y + 22, MAIN_DISPLAY_MID_FONT);
 
-    uint8_t labelsX = extraWideLabels ? 80 : 110;
+    uint8_t labelsX = extraWideLabels ? 80 : 106;
 
     if (v1Label != NULL)
     {
@@ -149,9 +149,12 @@ void Display::plotGraph(const char *label, uint16_t x, uint16_t y, uint16_t time
     Paint_DrawLine(axisOriginX, axisOriginY, axisOriginX + X_AXIS_LEN, axisOriginY, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
     Paint_DrawLine(axisOriginX, axisOriginY, axisOriginX, axisOriginY - Y_AXIS_LEN, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
 
-    for (uint8_t ix = 1; ix < 11; ix++)
+#define Y_AXIS_TICKS 4
+
+    for (uint8_t ix = 1; ix <= Y_AXIS_TICKS; ix++)
     {
-        Paint_DrawLine(axisOriginX - 5, axisOriginY - (ix * Y_AXIS_LEN / 10), axisOriginX, axisOriginY - (ix * Y_AXIS_LEN / 10), BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+        Paint_DrawLine(axisOriginX - 5, axisOriginY - (ix * Y_AXIS_LEN / Y_AXIS_TICKS), axisOriginX, axisOriginY - (ix * Y_AXIS_LEN / Y_AXIS_TICKS), BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+        Paint_DrawLine(axisOriginX, axisOriginY - (ix * Y_AXIS_LEN / Y_AXIS_TICKS), axisOriginX + X_AXIS_LEN, axisOriginY - (ix * Y_AXIS_LEN / Y_AXIS_TICKS), BLACK, DOT_PIXEL_1X1, LINE_STYLE_DOTTED);
     }
 
     for (uint8_t ix = 1; ix < 25; ix++)

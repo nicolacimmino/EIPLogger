@@ -45,6 +45,8 @@ void PowerManager::enterL1()
         sps30_start_measurement();
     }
 
+    digitalWrite(PIN_LED_YELLOW, HIGH);
+
     PowerManager::level = PS_LEVEL_1;
 }
 
@@ -56,6 +58,8 @@ void PowerManager::enterL2()
     {
         sps30_stop_measurement();
     }
+
+    digitalWrite(PIN_LED_YELLOW, LOW);
 
     PowerManager::level = PS_LEVEL_2;
 
@@ -76,7 +80,7 @@ void PowerManager::enterL3()
 }
 
 void PowerManager::loop()
-{    
+{
 }
 
 void PowerManager::onUserInteratcion()

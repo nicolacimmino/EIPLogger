@@ -3,7 +3,7 @@
 Button::Button(uint8_t pin)
 {
     this->pin = pin;
-    pinMode(this->pin, INPUT_PULLUP);
+    pinMode(this->pin, INPUT_PULLDOWN);
 }
 
 void Button::registerOnClickCallback(void (*callback)())
@@ -17,10 +17,8 @@ void Button::registerOnLongPressCallback(void (*callback)())
 }
 
 bool Button::isPressed()
-{
-    return false;
-    
-    return digitalRead(this->pin) == LOW;
+{    
+    return digitalRead(this->pin) == HIGH;
 }
 
 void Button::loop()

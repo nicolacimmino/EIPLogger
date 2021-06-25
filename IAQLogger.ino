@@ -11,15 +11,12 @@
 void onButtonPress()
 {
     PowerManager::onUserInteratcion();
-
-    ModeManager::currentDisplay->loop();
 }
 
 void onButtonAClick()
 {
     DIAGNOSTIC("BTN,A");
 
-    ModeManager::changeMode();
     onButtonPress();
 }
 
@@ -27,13 +24,19 @@ void onButtonBClick()
 {
     DIAGNOSTIC("BTN,B");
 
-    ModeManager::currentDisplay->onBClick();
     onButtonPress();
 }
 
 void onButtonCClick()
 {
     DIAGNOSTIC("BTN,C");
+
+    onButtonPress();
+}
+
+void onButtonDClick()
+{
+    DIAGNOSTIC("BTN,D");
 
     onButtonPress();
 }
@@ -56,16 +59,19 @@ void setup()
 
         Serial.begin(115200);
 
-        DataLog::instance()->setup();        
+        DataLog::instance()->setup();
         Peripherals::setup();
         Peripherals::loop();
         ModeManager::setup();
-        
+
         Peripherals::buttonA->registerOnClickCallback(onButtonAClick);
         Peripherals::buttonA->registerOnLongPressCallback(onButtonALongPress);
         Peripherals::buttonB->registerOnClickCallback(onButtonBClick);
         Peripherals::buttonC->registerOnClickCallback(onButtonCClick);
+        Peripherals::buttonD->registerOnClickCallback(onButtonDClick);
 
+        PowerManager::enterL1();
+        
         DataLog::instance()->showContent();
         DataLog::instance()->dump();
     }

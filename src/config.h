@@ -16,16 +16,26 @@
 #define IAQ_ADDR 0x5A
 #define RTC_ADDR 0x68
 
-#define PIN_BUTTON_A 39
-#define PIN_BUTTON_B 34
+#define PIN_BUTTON_A 2
+#define PIN_BUTTON_B 4
 #define PIN_BUTTON_C 35
+#define PIN_BUTTON_D 32
 
-#define PIN_BUTTON_A_SEL GPIO_SEL_39
+#define PIN_BUTTON_A_SEL GPIO_SEL_2
+#define PIN_BUTTON_B_SEL GPIO_SEL_4
+#define PIN_BUTTON_C_SEL GPIO_SEL_35
+#define PIN_BUTTON_D_SEL GPIO_SEL_32
+
+#define PIN_LED_RED 5
+#define PIN_LED_YELLOW 21 
+#define PIN_LED_BLUE 22
+
+#define PIN_SWITCH_SENSE 23
 
 #define PIN_SCL 18
 #define PIN_SDA 19
 
-#define PIN_VBAT_SENSE 34 
+#define PIN_VBAT_SENSE 34
 
 #define DISPLAY_MODES 1
 

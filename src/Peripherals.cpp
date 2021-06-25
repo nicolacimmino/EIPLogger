@@ -5,6 +5,7 @@ uRTCLib *Peripherals::rtc = NULL;
 Button *Peripherals::buttonA = NULL;
 Button *Peripherals::buttonB = NULL;
 Button *Peripherals::buttonC = NULL;
+Button *Peripherals::buttonD = NULL;
 iAQCoreI2C *Peripherals::iaq = NULL;
 UBYTE *Peripherals::framebuffer = NULL;
 char *Peripherals::buffer = NULL;
@@ -43,9 +44,16 @@ void Peripherals::setup()
     Peripherals::buttonA = new Button(PIN_BUTTON_A);
     Peripherals::buttonB = new Button(PIN_BUTTON_B);
     Peripherals::buttonC = new Button(PIN_BUTTON_C);
+    Peripherals::buttonD = new Button(PIN_BUTTON_D);
     Peripherals::rtc = new uRTCLib(RTC_ADDR);
 
     Peripherals::iaq->begin();
+
+    pinMode(PIN_LED_RED, OUTPUT);
+    pinMode(PIN_LED_YELLOW, OUTPUT);
+    pinMode(PIN_LED_BLUE, OUTPUT);
+
+    digitalWrite(PIN_LED_RED, HIGH);
 }
 
 void Peripherals::connectWiFi()
@@ -76,6 +84,7 @@ void Peripherals::loop()
     Peripherals::buttonA->loop();
     Peripherals::buttonB->loop();
     Peripherals::buttonC->loop();
+    Peripherals::buttonD->loop();
 
     Peripherals::sht2x->loop();
     Status::temperature->set(sht2x->temperature);

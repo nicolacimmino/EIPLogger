@@ -18,6 +18,7 @@ void MainDisplay::refreshDisplay()
                              this->getAreaY(0),
                              DIS_NONE,
                              Status::temperature->get(), "C",
+                             NULL, 0,
                              "L:", Status::temperature->getMin(),
                              "H:", Status::temperature->getMax());
 
@@ -25,6 +26,7 @@ void MainDisplay::refreshDisplay()
                              this->getAreaX(2), this->getAreaY(2),
                              DIS_NO_DECIMAL,
                              Status::humidity->get(), "%RH",
+                             NULL, 0,
                              "L:", Status::humidity->getMin(),
                              "H:", Status::humidity->getMax());
 

@@ -23,6 +23,7 @@ public:
     static Button *buttonA;
     static Button *buttonB;
     static Button *buttonC;
+    static Button *buttonD;
     static UBYTE *framebuffer;
     static char *buffer;
 

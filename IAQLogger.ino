@@ -71,7 +71,7 @@ void setup()
         Peripherals::buttonD->registerOnClickCallback(onButtonDClick);
 
         PowerManager::enterL1();
-        
+
         DataLog::instance()->showContent();
         DataLog::instance()->dump();
     }

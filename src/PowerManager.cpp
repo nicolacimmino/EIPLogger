@@ -63,6 +63,12 @@ void PowerManager::enterL2()
 
     PowerManager::level = PS_LEVEL_2;
 
+    //esp_sleep_enable_ext1_wakeup(PIN_BUTTON_A_SEL | PIN_BUTTON_B_SEL | PIN_BUTTON_C_SEL | PIN_BUTTON_D_SEL, ESP_EXT1_WAKEUP_ANY_HIGH);
+    gpio_wakeup_enable(PIN_BUTTON_A, GPIO_INTR_HIGH_LEVEL);
+    gpio_wakeup_enable(PIN_BUTTON_B, GPIO_INTR_HIGH_LEVEL);
+    gpio_wakeup_enable(PIN_BUTTON_C, GPIO_INTR_HIGH_LEVEL);
+    gpio_wakeup_enable(PIN_BUTTON_D, GPIO_INTR_HIGH_LEVEL);
+    esp_sleep_enable_gpio_wakeup();
     esp_sleep_enable_timer_wakeup(60 * 1000000); // 60s
     esp_light_sleep_start();
 }

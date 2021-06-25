@@ -52,6 +52,7 @@ void Peripherals::setup()
     pinMode(PIN_LED_RED, OUTPUT);
     pinMode(PIN_LED_YELLOW, OUTPUT);
     pinMode(PIN_LED_BLUE, OUTPUT);
+    pinMode(PIN_SWITCH_SENSE, INPUT_PULLDOWN);
 
     digitalWrite(PIN_LED_RED, HIGH);
 }
@@ -121,4 +122,7 @@ void Peripherals::loop()
     {
         PowerManager::enterL3();
     }
+
+    // For testing only. This will drive the WiFi server mode.
+    digitalWrite(PIN_LED_BLUE, digitalRead(PIN_SWITCH_SENSE));
 }

@@ -56,12 +56,7 @@ void PowerManager::enterL2()
     }
 
     DIAGNOSTIC("PMA,L2");
-
-    if (millis() > 120000 && (Status::getMinute() % 10) != 0)
-    {
-        sps30_stop_measurement();
-    }
-
+   
     Peripherals::setRedLed(false);
 
     PowerManager::level = PS_LEVEL_2;

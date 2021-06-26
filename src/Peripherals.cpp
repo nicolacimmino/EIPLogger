@@ -139,6 +139,11 @@ void Peripherals::loop()
         Status::pm10->set(m.mc_10p0);
     }
 
+    if (millis() > 120000 && (Status::getMinute() % 10) > 1)
+    {
+        sps30_stop_measurement();
+    }
+
     Wire.setClock(80000L);
     if (Peripherals::iaq->hasValue() && Peripherals::iaq->isValid())
     {

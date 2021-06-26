@@ -54,7 +54,30 @@ void Peripherals::setup()
     pinMode(PIN_LED_BLUE, OUTPUT);
     pinMode(PIN_SWITCH_SENSE, INPUT_PULLDOWN);
 
-    digitalWrite(PIN_LED_RED, HIGH);
+    ledcSetup(PWM_CHANNEL_RED_LED, 4000, 8);
+    ledcAttachPin(PIN_LED_RED, PWM_CHANNEL_RED_LED);
+
+    ledcSetup(PWM_CHANNEL_BLUE_LED, 4000, 8);
+    ledcAttachPin(PIN_LED_BLUE, PWM_CHANNEL_BLUE_LED);
+
+    Peripherals::setRedLed(true);
+    Peripherals::setYellowLed(true);
+    Peripherals::setBlueLed(false);
+}
+
+void Peripherals::setRedLed(bool on)
+{
+    ledcWrite(PWM_CHANNEL_RED_LED, on ? 15 : 0);
+}
+
+void Peripherals::setYellowLed(bool on)
+{
+    digitalWrite(PIN_LED_YELLOW, on);
+}
+
+void Peripherals::setBlueLed(bool on)
+{
+    ledcWrite(PWM_CHANNEL_BLUE_LED, on ? 5 : 0);
 }
 
 void Peripherals::connectWiFi()
@@ -122,7 +145,4 @@ void Peripherals::loop()
     {
         PowerManager::enterL3();
     }
-
-    // For testing only. This will drive the WiFi server mode.
-    digitalWrite(PIN_LED_BLUE, digitalRead(PIN_SWITCH_SENSE));
 }

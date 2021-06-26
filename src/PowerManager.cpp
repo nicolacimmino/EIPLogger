@@ -45,7 +45,7 @@ void PowerManager::enterL1()
         sps30_start_measurement();
     }
 
-    digitalWrite(PIN_LED_YELLOW, HIGH);
+    Peripherals::setRedLed(true);
 
     PowerManager::level = PS_LEVEL_1;
 }
@@ -59,7 +59,7 @@ void PowerManager::enterL2()
         sps30_stop_measurement();
     }
 
-    digitalWrite(PIN_LED_YELLOW, LOW);
+    Peripherals::setRedLed(false);
 
     PowerManager::level = PS_LEVEL_2;
 

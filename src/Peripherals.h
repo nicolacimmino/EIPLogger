@@ -33,6 +33,10 @@ public:
     static bool isWiFiConnected();
     static void disconnectWiFi();
 
+    static void setRedLed(bool on);
+    static void setYellowLed(bool on);
+    static void setBlueLed(bool on);
+
 private:
     static iAQCoreI2C *iaq;
     static SHT2x *sht2x;

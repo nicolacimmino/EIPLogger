@@ -30,6 +30,9 @@
 #define PIN_LED_YELLOW 21 
 #define PIN_LED_BLUE 22
 
+#define PWM_CHANNEL_RED_LED 0
+#define PWM_CHANNEL_BLUE_LED 1
+
 #define PIN_SWITCH_SENSE 23
 
 #define PIN_SCL 18

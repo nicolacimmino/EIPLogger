@@ -63,15 +63,15 @@ void Display::printHeader()
 {
     Paint_ClearWindows(0, 0, 300, 15, WHITE);
 
-    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s %02i-%02i-%02i %02i:%02i %s %0.2f",
-             "MON\0TUE\0WED\0THU\0FRI\0SAT\0SUN\0" + ((Status::getDayOfWeek() - 1) * 4),
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s %02i-%02i-%02i %02i:%02i %s %d%%",
+            "MON\0TUE\0WED\0THU\0FRI\0SAT\0SUN\0" + ((Status::getDayOfWeek() - 1) * 4),
              Status::getDay(),
              Status::getMonth(),
              Status::getYear(),
              Status::getHour(),
              Status::getMinute(),
-             Status::isDST() ? "DST" : "",
-             Status::batteryVoltage / 1000.0);
+             Status::isDST() ? "DST" : "   ",
+             Status::getBatteryLevel());
 
     this->printValue(Peripherals::buffer, 0, 0, MAIN_DISPLAY_MID_FONT);
 }

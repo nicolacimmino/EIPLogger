@@ -10,6 +10,11 @@ MinMaxVal<int> *Status::pm2p5 = new MinMaxVal<int>();
 MinMaxVal<int> *Status::pm4 = new MinMaxVal<int>();
 MinMaxVal<int> *Status::pm10 = new MinMaxVal<int>();
 
+uint8_t Status::getBatteryLevel()
+{
+    return min((double)100, 100 * ((float)(Status::batteryVoltage - 3000) / 1200.0));
+}
+
 /**
  * See https://playground.arduino.cc/Code/AvailableMemory/
  **/

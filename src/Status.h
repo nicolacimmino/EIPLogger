@@ -15,8 +15,7 @@ struct Time
 class Status
 {
 private:
-        
-public:    
+public:
     static long batteryVoltage;
     static int getFreeRamBytes();
     static uint8_t getIAQI();
@@ -35,12 +34,13 @@ public:
     static MinMaxVal<int> *co2;
     static MinMaxVal<int> *tvoc;
     static MinMaxVal<int> *humidity;
-    static MinMaxVal<float> *temperature;    
+    static MinMaxVal<float> *temperature;
     static MinMaxVal<int> *pm1;
     static MinMaxVal<int> *pm2p5;
     static MinMaxVal<int> *pm4;
     static MinMaxVal<int> *pm10;
     static uint8_t getPMAQI();
+    static uint8_t getBatteryLevel();
 };
 
 #endif

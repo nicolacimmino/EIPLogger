@@ -41,6 +41,7 @@ public:
     static MinMaxVal<int> *pm10;
     static uint8_t getPMAQI();
     static uint8_t getBatteryLevel();
+    static bool serverMode;
 };
 
 #endif

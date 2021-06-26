@@ -38,13 +38,12 @@ bool PowerManager::enterL0()
 
 void PowerManager::enterL1()
 {
-    DIAGNOSTIC("PMA,L1");
-
-    if (millis() < 60000 || (Status::getMinute() % 10) == 0)
-    {
-        sps30_start_measurement();
+    if(PowerManager::level == PS_LEVEL_1) {
+        return;
     }
 
+    DIAGNOSTIC("PMA,L1");
+    
     Peripherals::setRedLed(true);
 
     PowerManager::level = PS_LEVEL_1;
@@ -52,6 +51,10 @@ void PowerManager::enterL1()
 
 void PowerManager::enterL2()
 {
+    if(PowerManager::level == PS_LEVEL_2) {
+        return;
+    }
+
     DIAGNOSTIC("PMA,L2");
 
     if (millis() > 120000 && (Status::getMinute() % 10) != 0)

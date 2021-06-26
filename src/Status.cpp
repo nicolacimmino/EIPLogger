@@ -9,6 +9,7 @@ MinMaxVal<int> *Status::pm1 = new MinMaxVal<int>();
 MinMaxVal<int> *Status::pm2p5 = new MinMaxVal<int>();
 MinMaxVal<int> *Status::pm4 = new MinMaxVal<int>();
 MinMaxVal<int> *Status::pm10 = new MinMaxVal<int>();
+bool Status::serverMode = false;
 
 uint8_t Status::getBatteryLevel()
 {

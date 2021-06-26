@@ -62,7 +62,9 @@ void Peripherals::setup()
 
     Peripherals::setRedLed(true);
     Peripherals::setYellowLed(true);
-    Peripherals::setBlueLed(false);
+
+    Status::serverMode = digitalRead(PIN_SWITCH_SENSE);
+    Peripherals::setBlueLed(Status::serverMode);
 }
 
 void Peripherals::setRedLed(bool on)
@@ -116,6 +118,11 @@ void Peripherals::loop()
 
     Peripherals::rtc->refresh();
 
+    if (millis() < 60000 || (Status::getMinute() % 10) == 0)
+    {
+        sps30_start_measurement();
+    }
+
     uint16_t ready = false;
     sps30_read_data_ready(&ready);
 
@@ -140,6 +147,9 @@ void Peripherals::loop()
     }
 
     Status::batteryVoltage = analogRead(PIN_VBAT_SENSE) * 1.77;
+
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "BAT,%d", Status::batteryVoltage);
+    DIAGNOSTIC(Peripherals::buffer);
 
     if (Status::batteryVoltage != 0 && Status::batteryVoltage < 3000)
     {

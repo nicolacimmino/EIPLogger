@@ -70,7 +70,7 @@ void Display::printHeader()
              Status::getYear(),
              Status::getHour(),
              Status::getMinute(),
-             Status::isDST() ? "DST" : "   ",
+             Status::isDST() ? "DST" : "  ",
              Status::getBatteryLevel());
 
     this->printValue(Peripherals::buffer, 0, 0, MAIN_DISPLAY_MID_FONT);

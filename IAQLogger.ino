@@ -89,5 +89,8 @@ void loop()
 
     DataLog::instance()->loop();
 
-    PowerManager::enterL2();
+    if (!Status::serverMode)
+    {
+        PowerManager::enterL2();
+    }
 }

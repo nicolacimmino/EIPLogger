@@ -139,7 +139,7 @@ void Peripherals::loop()
         Status::pm10->set(m.mc_10p0);
     }
 
-    if (millis() > 120000 && (Status::getMinute() % 10) > 1)
+    if (millis() > 120000 && (Status::getMinute() % 10) > 0)
     {
         sps30_stop_measurement();
     }

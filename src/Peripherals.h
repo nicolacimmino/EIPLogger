@@ -15,6 +15,7 @@
 #include "EPD.h"
 #include "GUI_Paint.h"
 #include "PowerManager.h"
+#include "ApiServer.h"
 
 class Peripherals
 {
@@ -26,6 +27,7 @@ public:
     static Button *buttonD;
     static UBYTE *framebuffer;
     static char *buffer;
+    static ApiServer *apiServer;
 
     static void setup();
     static void loop();

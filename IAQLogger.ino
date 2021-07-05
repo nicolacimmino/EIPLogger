@@ -74,6 +74,11 @@ void setup()
 
         DataLog::instance()->showContent();
         DataLog::instance()->dump();
+
+        if (Status::serverMode)
+        {
+            PowerManager::enterL0();
+        }
     }
 
     // Peripherals::rtc->set(0, 55, 15, 7, 20, 6, 21);
@@ -81,7 +86,15 @@ void setup()
 
 void loop()
 {
-    PowerManager::enterL1();
+    if (Peripherals::apiServer)
+    {
+        Peripherals::apiServer->loop();
+    }
+
+    if (!Status::serverMode)
+    {
+        PowerManager::enterL1();
+    }
 
     PowerManager::loop();
     Peripherals::loop();

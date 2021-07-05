@@ -119,6 +119,7 @@
                 "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\sensirion-sps",
                 "C:\\Users\\nicola\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.6\\libraries\\WiFi\\src",
                 "C:\\Users\\nicola\\Documents\\Arduino\\libraries\\esp32-waveshare-epd\\src",
+                "C:\\Users\\nicola\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.6\\libraries\\ESPmDNS\\src",
                 "c:\\users\\nicola\\appdata\\local\\arduino15\\packages\\esp32\\tools\\xtensa-esp32-elf-gcc\\1.22.0-97-gc752ad5-5.2.0\\xtensa-esp32-elf\\include\\c++\\5.2.0",
                 "c:\\users\\nicola\\appdata\\local\\arduino15\\packages\\esp32\\tools\\xtensa-esp32-elf-gcc\\1.22.0-97-gc752ad5-5.2.0\\xtensa-esp32-elf\\include\\c++\\5.2.0\\xtensa-esp32-elf",
                 "c:\\users\\nicola\\appdata\\local\\arduino15\\packages\\esp32\\tools\\xtensa-esp32-elf-gcc\\1.22.0-97-gc752ad5-5.2.0\\xtensa-esp32-elf\\include\\c++\\5.2.0\\backward",

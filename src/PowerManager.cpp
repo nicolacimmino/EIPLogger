@@ -19,31 +19,46 @@ bool PowerManager::enterL0()
     while (!Peripherals::isWiFiConnected() && count < 40)
     {
         count++;
-        DIAGNOSTIC("PMA,L0,wait")
+        DIAGNOSTIC("PMA,L0,wifi,wait")
         ModeManager::currentDisplay->loop();
         delay(500);
     }
 
     if (!Peripherals::isWiFiConnected())
     {
-        DIAGNOSTIC("PMA,L0,failed")
+        DIAGNOSTIC("PMA,L0,wifi,failed")
 
         PowerManager::level = previousLevel;
 
         return false;
     }
 
+    WiFi.hostname("iaqm");
+
+    if (!MDNS.begin("iaqm"))
+    {
+        DIAGNOSTIC("PMA,L0,mdns,failed");
+
+        PowerManager::level = previousLevel;
+
+        return false;
+    }
+    DIAGNOSTIC("PMA,L0,mdns,ok");
+
+    Peripherals::apiServer = new ApiServer();
+    
     return true;
 }
 
 void PowerManager::enterL1()
 {
-    if(PowerManager::level == PS_LEVEL_1) {
+    if (PowerManager::level == PS_LEVEL_1)
+    {
         return;
     }
 
     DIAGNOSTIC("PMA,L1");
-    
+
     Peripherals::setRedLed(true);
 
     PowerManager::level = PS_LEVEL_1;
@@ -51,12 +66,13 @@ void PowerManager::enterL1()
 
 void PowerManager::enterL2()
 {
-    if(PowerManager::level == PS_LEVEL_2) {
+    if (PowerManager::level == PS_LEVEL_2)
+    {
         return;
     }
 
     DIAGNOSTIC("PMA,L2");
-   
+
     Peripherals::setRedLed(false);
 
     PowerManager::level = PS_LEVEL_2;

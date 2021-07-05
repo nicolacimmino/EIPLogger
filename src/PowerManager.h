@@ -2,8 +2,11 @@
 #define __TEMPERATURE_POWERMANAGER_H__
 
 #include <Arduino.h>
+#include <WiFi.h>
+#include <ESPmDNS.h>
 #include "config.h"
 #include "Peripherals.h"
+#include "ApiServer.h"
 
 // L0   Fully operational (as L1 but also WiFi connected)
 // L1   Operational (main loop running, display refresh)

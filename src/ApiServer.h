@@ -3,7 +3,10 @@
 
 #include <WiFiServer.h>
 #include <ESPmDNS.h>
+#include <SPIFFS.h>
 #include "config.h"
+#include "Status.h"
+#include "DataLog.h"
 
 class ApiServer
 {

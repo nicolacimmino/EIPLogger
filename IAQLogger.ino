@@ -7,6 +7,9 @@
 #include "src/Button.h"
 #include "src/Peripherals.h"
 #include "src/ModeManager.h"
+#include "src/ApiServer.h"
+
+ApiServer *apiServer;
 
 void onButtonPress()
 {
@@ -73,11 +76,11 @@ void setup()
         PowerManager::enterL1();
 
         DataLog::instance()->showContent();
-        DataLog::instance()->dump();
-
+        
         if (Status::serverMode)
         {
             PowerManager::enterL0();
+            apiServer = new ApiServer();
         }
     }
 
@@ -86,9 +89,9 @@ void setup()
 
 void loop()
 {
-    if (Peripherals::apiServer)
+    if (apiServer)
     {
-        Peripherals::apiServer->loop();
+        apiServer->loop();
     }
 
     if (!Status::serverMode)

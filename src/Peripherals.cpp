@@ -9,7 +9,6 @@ Button *Peripherals::buttonD = NULL;
 iAQCoreI2C *Peripherals::iaq = NULL;
 UBYTE *Peripherals::framebuffer = NULL;
 char *Peripherals::buffer = NULL;
-ApiServer *Peripherals::apiServer = NULL;
 
 void Peripherals::setup()
 {

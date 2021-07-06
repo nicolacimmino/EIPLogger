@@ -44,9 +44,7 @@ bool PowerManager::enterL0()
         return false;
     }
     DIAGNOSTIC("PMA,L0,mdns,ok");
-
-    Peripherals::apiServer = new ApiServer();
-    
+        
     return true;
 }
 

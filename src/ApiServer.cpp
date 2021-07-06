@@ -23,10 +23,21 @@ void ApiServer::loop()
     }
 
     client.readStringUntil('\r');
-    
-    client.print("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nOK\r\n\r\n");
- 
-    DIAGNOSTIC("APICLI,served")
 
+    client.print("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\n");
+
+    File file;
+
+    if (file = SPIFFS.open(DataLog::instance()->getLogFileNameForDay(Status::getDayOfYear()), "r"))
+    {
+        while (file.available())
+        {
+            client.print((char)file.read());
+        }
+        file.close();
+    }
+    client.print("\r\n\r\n");
     client.stop();
+
+    DIAGNOSTIC("APICLI,served")
 }

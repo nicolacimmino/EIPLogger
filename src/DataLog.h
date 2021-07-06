@@ -12,7 +12,6 @@
 class DataLog
 {
 private:
-    const char *getLogFileNameForDay(uint16_t day);
     File retrievalfile;
     static DataLog *dataLog;
 
@@ -26,6 +25,7 @@ public:
     void stopRetrieval();
     static DataLog *instance();
     void showContent();
+    const char *getLogFileNameForDay(uint16_t day);
 };
 
 #endif

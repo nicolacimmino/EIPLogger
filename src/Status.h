@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include "MinMaxVal.h"
 #include "Utilities.h"
-#include "DataLog.h"
+#include "Peripherals.h"
 
 struct Time
 {

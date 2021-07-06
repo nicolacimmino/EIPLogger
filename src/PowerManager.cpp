@@ -19,8 +19,7 @@ bool PowerManager::enterL0()
     while (!Peripherals::isWiFiConnected() && count < 40)
     {
         count++;
-        DIAGNOSTIC("PMA,L0,wifi,wait")
-        ModeManager::currentDisplay->loop();
+        DIAGNOSTIC("PMA,L0,wifi,wait")        
         delay(500);
     }
 

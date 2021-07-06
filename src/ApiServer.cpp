@@ -22,20 +22,29 @@ void ApiServer::loop()
         DIAGNOSTIC("APICLI,waiting")
     }
 
-    client.readStringUntil('\r');
+    String startLine = client.readStringUntil('\r');
+
+    startLine.toCharArray(Peripherals::buffer, TEXT_BUFFER_SIZE);
+
+    strtok(Peripherals::buffer, " ");
+    char *uri = strtok(NULL, " ");
 
     client.print("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\n");
 
-    File file;
-
-    if (file = SPIFFS.open(DataLog::instance()->getLogFileNameForDay(Status::getDayOfYear()), "r"))
+    if (strcmp(uri, "/info") == 0)
     {
-        while (file.available())
+        File file;
+
+        if (file = SPIFFS.open(DataLog::instance()->getLogFileNameForDay(Status::getDayOfYear()), "r"))
         {
-            client.print((char)file.read());
+            while (file.available())
+            {
+                client.print((char)file.read());
+            }
+            file.close();
         }
-        file.close();
     }
+
     client.print("\r\n\r\n");
     client.stop();
 

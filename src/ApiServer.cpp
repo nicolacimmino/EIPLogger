@@ -12,14 +12,12 @@ void ApiServer::loop()
     WiFiClient client = this->server->available();
     if (!client)
     {
-        DIAGNOSTIC("APICLI,no")
         return;
     }
 
     while (client.connected() && !client.available())
     {
         delay(1);
-        DIAGNOSTIC("APICLI,waiting")
     }
 
     String startLine = client.readStringUntil('\r');
@@ -39,14 +37,16 @@ void ApiServer::loop()
         {
             while (file.available())
             {
-                client.print((char)file.read());
+                memset(Peripherals::buffer, 0,TEXT_BUFFER_SIZE);
+
+                file.readBytesUntil('\n', Peripherals::buffer, TEXT_BUFFER_SIZE);
+                
+                client.println(Peripherals::buffer);
             }
             file.close();
         }
     }
 
     client.print("\r\n\r\n");
-    client.stop();
-
-    DIAGNOSTIC("APICLI,served")
+    client.stop(); 
 }

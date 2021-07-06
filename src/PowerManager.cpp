@@ -19,7 +19,7 @@ bool PowerManager::enterL0()
     while (!Peripherals::isWiFiConnected() && count < 40)
     {
         count++;
-        DIAGNOSTIC("PMA,L0,wifi,wait")        
+        DIAGNOSTIC("PMA,L0,wifi,wait")
         delay(500);
     }
 
@@ -43,7 +43,7 @@ bool PowerManager::enterL0()
         return false;
     }
     DIAGNOSTIC("PMA,L0,mdns,ok");
-        
+
     return true;
 }
 

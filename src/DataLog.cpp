@@ -139,23 +139,8 @@ float DataLog::getValue(uint32_t minutesBackSinceNow, uint8_t maxDelta, uint8_t 
             return NO_VALUE;
         }
 
-        while (this->retrievalfile.available())
-        {
-
-            if (this->retrievalfile.peek() == '\n')
-            {
-                this->retrievalfile.read();
-                break;
-            }
-
-            Peripherals::buffer[ix++] = this->retrievalfile.read();
-
-            if (ix == TEXT_BUFFER_SIZE)
-            {
-                return NO_VALUE;
-            }
-        }
-
+        this->retrievalfile.readBytesUntil('\n', Peripherals::buffer, TEXT_BUFFER_SIZE);
+       
         char line[TEXT_BUFFER_SIZE];
         memcpy(line, Peripherals::buffer, TEXT_BUFFER_SIZE);
 

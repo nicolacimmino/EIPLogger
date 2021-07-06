@@ -76,7 +76,7 @@ void setup()
         PowerManager::enterL1();
 
         DataLog::instance()->showContent();
-        
+
         if (Status::serverMode)
         {
             PowerManager::enterL0();
@@ -92,12 +92,11 @@ void loop()
     if (apiServer)
     {
         apiServer->loop();
+
+        return;
     }
 
-    if (!Status::serverMode)
-    {
-        PowerManager::enterL1();
-    }
+    PowerManager::enterL1();
 
     PowerManager::loop();
     Peripherals::loop();

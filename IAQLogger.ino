@@ -89,20 +89,21 @@ void appLoop()
 {
     PowerManager::loop();
     Peripherals::loop();
-    ModeManager::currentDisplay->loop();
-    DataLog::instance()->loop();
+
+    if (lastAppLoopTime == 0 || millis() - lastAppLoopTime > 60000)
+    {
+        lastAppLoopTime = millis();
+
+        ModeManager::currentDisplay->loop();
+        DataLog::instance()->loop();
+    }
 }
 
 void loop()
 {
     if (Status::serverMode)
     {
-        if (lastAppLoopTime == 0 || millis() - lastAppLoopTime > 60000)
-        {
-            lastAppLoopTime = millis();
-
-            appLoop();
-        }
+        appLoop();
 
         if (!apiServer)
         {

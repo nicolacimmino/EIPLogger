@@ -10,8 +10,9 @@ protected:
     void refreshDisplay();
 
 private:
-public:
+    uint16_t getLineY(uint8_t line);
 
+public:
 };
 
 #endif

@@ -25,6 +25,8 @@ void ModeManager::enterMode()
         currentDisplay = new StatusDisplay();
         break;
     }
+
+    currentDisplay->loop();
 }
 
 void ModeManager::changeMode()

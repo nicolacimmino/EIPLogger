@@ -17,6 +17,7 @@ public:
     ApiServer();
     void loop();
     void serveLog(WiFiClient *client, uint8_t daysOffset);
+    void serveInfo(WiFiClient *client);
 };
 
 #endif

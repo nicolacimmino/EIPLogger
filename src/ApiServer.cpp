@@ -32,6 +32,10 @@ void ApiServer::loop()
         uint8_t daysOffset = atoi(strtok(NULL, "/"));
         this->serveLog(&client, daysOffset);
     }
+    else if (strcmp("info", firstPathToken) == 0)
+    {
+        this->serveInfo(&client);
+    }
     else
     {
         client.print("HTTP/1.1 404 Not Found\r\n\r\n");
@@ -63,4 +67,37 @@ void ApiServer::serveLog(WiFiClient *client, uint8_t daysOffset)
     }
 
     client->print("HTTP/1.1 404 Not Found\r\n\r\n");
+}
+
+void ApiServer::serveInfo(WiFiClient *client)
+{
+    client->print("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n\r\n");
+
+    client->print("{");
+
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "\"ip\": \"%s\",", WiFi.localIP().toString().c_str());
+    client->print(Peripherals::buffer);
+
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "\"disk\" : { \"used\": \"%d\", \"total\": \"%d\" },",
+             SPIFFS.usedBytes(),
+             SPIFFS.totalBytes());
+    client->print(Peripherals::buffer);
+
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "\"battery\" : { \"level\": \"%d\", \"voltage\": \"%0.2f\" },",
+             Status::getBatteryLevel(),
+             Status::batteryVoltage / 1000.0);
+    client->print(Peripherals::buffer);
+
+    snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "\"iaq\" : { \"temperature\": \"%0.1f\", \"humidity\": \"%d\",\"co2\": \"%d\", \"tvoc\": \"%d\",\"pm1\": \"%d\", \"pm2p5\": \"%d\",\"pm4\": \"%d\", \"pm10\": \"%d\" }",
+             Status::temperature->get(),
+             Status::humidity->get(),
+             Status::co2->get(),
+             Status::tvoc->get(),
+             Status::pm1->get(),
+             Status::pm2p5->get(),
+             Status::pm4->get(),
+             Status::pm10->get());
+    client->print(Peripherals::buffer);
+
+    client->print("}");
 }

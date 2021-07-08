@@ -16,21 +16,27 @@ bool PowerManager::enterL0()
     Peripherals::connectWiFi();
 
     uint8_t count = 0;
+    bool blueLED = true;
     while (!Peripherals::isWiFiConnected() && count < 40)
     {
         count++;
         DIAGNOSTIC("PMA,L0,wifi,wait")
         delay(500);
+        Peripherals::setBlueLed(blueLED = !blueLED);
     }
 
     if (!Peripherals::isWiFiConnected())
     {
         DIAGNOSTIC("PMA,L0,wifi,failed")
 
+        Peripherals::setBlueLed(false);
+
         PowerManager::level = previousLevel;
 
         return false;
     }
+
+    Peripherals::setBlueLed(true);
 
     WiFi.hostname("iaqm");
 

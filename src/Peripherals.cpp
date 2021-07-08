@@ -64,7 +64,6 @@ void Peripherals::setup()
     Peripherals::setYellowLed(true);
 
     Status::serverMode = digitalRead(PIN_SWITCH_SENSE);
-    Peripherals::setBlueLed(Status::serverMode);
 }
 
 void Peripherals::setRedLed(bool on)

@@ -9,7 +9,7 @@
 #include "src/ModeManager.h"
 #include "src/ApiServer.h"
 
-ApiServer *apiServer;
+ApiServer *apiServer = NULL;
 
 void onButtonPress()
 {
@@ -76,21 +76,38 @@ void setup()
         PowerManager::enterL1();
 
         DataLog::instance()->showContent();
-
-        if (Status::serverMode)
-        {
-            PowerManager::enterL0();
-            apiServer = new ApiServer();
-        }
     }
 
     // Peripherals::rtc->set(0, 55, 15, 7, 20, 6, 21);
 }
 
+unsigned long lastAppLoopTime = 0;
+
+void appLoop()
+{
+    PowerManager::loop();
+    Peripherals::loop();
+    ModeManager::currentDisplay->loop();
+    DataLog::instance()->loop();
+}
+
 void loop()
 {
-    if (apiServer)
+    if (Status::serverMode)
     {
+        if (lastAppLoopTime == 0 || millis() - lastAppLoopTime > 60000)
+        {
+            lastAppLoopTime = millis();
+
+            appLoop();
+        }
+
+        if (!apiServer)
+        {
+            PowerManager::enterL0();
+            apiServer = new ApiServer();
+        }
+
         apiServer->loop();
 
         return;
@@ -98,14 +115,7 @@ void loop()
 
     PowerManager::enterL1();
 
-    PowerManager::loop();
-    Peripherals::loop();
-    ModeManager::currentDisplay->loop();
+    appLoop();
 
-    DataLog::instance()->loop();
-
-    if (!Status::serverMode)
-    {
-        PowerManager::enterL2();
-    }
+    PowerManager::enterL2();
 }

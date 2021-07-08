@@ -23,7 +23,7 @@ void ApiServer::loop()
     client.readStringUntil('\r').toCharArray(Peripherals::buffer, TEXT_BUFFER_SIZE);
 
     strtok(Peripherals::buffer, " ");
-    
+
     char *uri = strtok(NULL, " ");
     char *firstPathToken = strtok(uri, "/");
 

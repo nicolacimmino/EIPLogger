@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "8e469968-ea37-4eb5-aff0-400735214e43",
+		"name": "IAQM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Info (IP Not Known)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e499ea06-f91f-4c09-b1af-5f8d7d8d246b",
+						"exec": [
+							" const responseJson = pm.response.json();",
+							" pm.globals.set(\"iaqm_ip\", responseJson.ip);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://iaqm.local/info",
+					"protocol": "http",
+					"host": [
+						"iaqm",
+						"local"
+					],
+					"path": [
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e499ea06-f91f-4c09-b1af-5f8d7d8d246b",
+						"exec": [
+							" const responseJson = pm.response.json();",
+							" pm.globals.set(\"iaqm_ip\", responseJson.ip);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{iaqm_ip}}/info",
+					"protocol": "http",
+					"host": [
+						"{{iaqm_ip}}"
+					],
+					"path": [
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Log File",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e499ea06-f91f-4c09-b1af-5f8d7d8d246b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{iaqm_ip}}/log/0",
+					"protocol": "http",
+					"host": [
+						"{{iaqm_ip}}"
+					],
+					"path": [
+						"log",
+						"0"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -6,15 +6,15 @@
 
 class MainDisplay : public Display
 {
-    protected:
-        void refreshDisplay();
+protected:
+    void refreshDisplay();
+
 private:
+    unsigned long lastGraphPlotTime = 0;
     uint16_t getAreaX(uint8_t areaNumber);
     uint16_t getAreaY(uint8_t areaNumber);
 
 public:
-    void onBClick();
-    void onBLongPress();
 };
 
 #endif

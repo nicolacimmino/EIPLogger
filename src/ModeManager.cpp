@@ -20,7 +20,10 @@ void ModeManager::enterMode()
     {
     case 0:
         currentDisplay = new MainDisplay();
-        break;       
+        break;
+    case 1:
+        currentDisplay = new StatusDisplay();
+        break;
     }
 }
 

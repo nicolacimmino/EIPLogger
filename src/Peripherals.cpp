@@ -17,16 +17,18 @@ void Peripherals::setup()
     Peripherals::buffer = (char *)malloc(TEXT_BUFFER_SIZE);
     memset(Peripherals::buffer, 0, TEXT_BUFFER_SIZE);
 
-    DEV_Module_Init();
-    EPD_4IN2_Init();
-    EPD_4IN2_Clear();
-    DEV_Delay_ms(500);
-    EPD_4IN2_Sleep();
-
     Peripherals::framebuffer = (UBYTE *)malloc((EPD_4IN2_WIDTH / 8 + 1) * EPD_4IN2_HEIGHT);
     Paint_NewImage(Peripherals::framebuffer, EPD_4IN2_WIDTH, EPD_4IN2_HEIGHT, 90, WHITE);
     Paint_SelectImage(Peripherals::framebuffer);
     Paint_Clear(WHITE);
+
+    DEV_Module_Init();
+    EPD_4IN2_Init();
+    //EPD_4IN2_Clear();
+    DEV_Delay_ms(500);
+    Paint_DrawString_EN(30, 200, "Booting...", BOOT_DISPLAY_MID_FONT, WHITE, BLACK);
+    EPD_4IN2_Display(Peripherals::framebuffer);
+    EPD_4IN2_Sleep();
 
     Wire.begin(PIN_SDA, PIN_SCL);
 

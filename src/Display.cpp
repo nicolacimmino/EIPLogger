@@ -1,9 +1,5 @@
 #include "Display.h"
 
-void Display::onBLongPress()
-{
-}
-
 void Display::loop()
 {
     if (this->lastRefreshTime != 0 && millis() - this->lastRefreshTime < 58000)
@@ -64,7 +60,7 @@ void Display::printHeader()
     Paint_ClearWindows(0, 0, 300, 15, WHITE);
 
     snprintf(Peripherals::buffer, TEXT_BUFFER_SIZE, "%s %02i-%02i-%02i %02i:%02i %s %d%%",
-            "MON\0TUE\0WED\0THU\0FRI\0SAT\0SUN\0" + ((Status::getDayOfWeek() - 1) * 4),
+             "MON\0TUE\0WED\0THU\0FRI\0SAT\0SUN\0" + ((Status::getDayOfWeek() - 1) * 4),
              Status::getDay(),
              Status::getMonth(),
              Status::getYear(),

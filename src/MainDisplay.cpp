@@ -1,13 +1,5 @@
 #include "MainDisplay.h"
 
-void MainDisplay::onBClick()
-{
-}
-
-void MainDisplay::onBLongPress()
-{
-}
-
 void MainDisplay::refreshDisplay()
 {
     Paint_ClearWindows(0, 15, 150, 400, WHITE);
@@ -66,12 +58,10 @@ void MainDisplay::refreshDisplay()
                              "PM10:  ", Status::pm10->get(),
                              NULL, 0,
                              true);
-
-    static unsigned long lastGraphPlotTime = 0;
-
-    if (lastGraphPlotTime == 0 || millis() - lastGraphPlotTime > 10 * 60 * 1000)
+    
+    if (this->lastGraphPlotTime == 0 || millis() - this->lastGraphPlotTime > 10 * 60 * 1000)
     {
-        lastGraphPlotTime = millis();
+        this->lastGraphPlotTime = millis();
 
         Paint_ClearWindows(150, 15, 300, 319, WHITE);
 

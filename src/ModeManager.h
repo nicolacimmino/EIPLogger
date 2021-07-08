@@ -5,6 +5,7 @@
 #include "config.h"
 #include "Display.h"
 #include "MainDisplay.h"
+#include "StatusDisplay.h"
 
 class ModeManager
 {

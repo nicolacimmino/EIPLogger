@@ -21,6 +21,8 @@ void onButtonAClick()
     DIAGNOSTIC("BTN,A");
 
     onButtonPress();
+
+    ModeManager::changeMode();
 }
 
 void onButtonBClick()

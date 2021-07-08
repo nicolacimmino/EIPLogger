@@ -51,15 +51,17 @@ void ApiServer::serveLog(WiFiClient *client, uint8_t daysOffset)
 
     if (file = SPIFFS.open(DataLog::instance()->getLogFileNameForDay(Status::getDayOfYear() - daysOffset), "r"))
     {
-        client->print("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\n");
+        client->print("HTTP/1.1 200 OK\r\nContent-Type: text/csv\r\n\r\n");
 
         while (file.available())
         {
             memset(Peripherals::buffer, 0, TEXT_BUFFER_SIZE);
 
-            file.readBytesUntil('\n', Peripherals::buffer, TEXT_BUFFER_SIZE);
+            size_t bytesRead = file.readBytes(Peripherals::buffer, TEXT_BUFFER_SIZE - 1);
 
-            client->println(Peripherals::buffer);
+            Peripherals::buffer[bytesRead] = 0;
+
+            client->print(Peripherals::buffer);
         }
         file.close();
 

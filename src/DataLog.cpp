@@ -6,7 +6,7 @@ DataLog *DataLog::instance()
 {
     if (!DataLog::dataLog)
     {
-        DataLog::dataLog = new DataLog();
+        DataLog::dataLog = new DataLog();        
     }
 
     return DataLog::dataLog;

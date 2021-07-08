@@ -10,11 +10,13 @@
 
 class ApiServer
 {
-    private:
-        WiFiServer* server;
-    public:
-        ApiServer();
-        void loop();
+private:
+    WiFiServer *server;
+
+public:
+    ApiServer();
+    void loop();
+    void serveLog(WiFiClient *client, uint8_t daysOffset);
 };
 
 #endif

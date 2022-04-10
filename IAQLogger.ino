@@ -80,7 +80,7 @@ void setup()
         DataLog::instance()->showContent();
     }
 
-    // Peripherals::rtc->set(0, 55, 15, 7, 20, 6, 21);
+    //Peripherals::rtc->set(0, 38, 18, 2, 13, 7, 21);
 }
 
 unsigned long lastAppLoopTime = 0;

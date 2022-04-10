@@ -18,7 +18,7 @@ void Peripherals::setup()
     memset(Peripherals::buffer, 0, TEXT_BUFFER_SIZE);
 
     Peripherals::framebuffer = (UBYTE *)malloc((EPD_4IN2_WIDTH / 8 + 1) * EPD_4IN2_HEIGHT);
-    Paint_NewImage(Peripherals::framebuffer, EPD_4IN2_WIDTH, EPD_4IN2_HEIGHT, 90, WHITE);
+    Paint_NewImage(Peripherals::framebuffer, EPD_4IN2_WIDTH, EPD_4IN2_HEIGHT, 270, WHITE);
     Paint_SelectImage(Peripherals::framebuffer);
     Paint_Clear(WHITE);
 

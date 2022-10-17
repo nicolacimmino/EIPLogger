@@ -6,6 +6,8 @@ The device sports an ESP32, a SPS30 particulate matter sensor, an iAQ-Core CO2 a
 
 One of the requirements was also to expose both live and histyorical data through an API to drive a WEB frontend (not part of this project).
 
+All code has been released under the GNU General Public License V3, with permission of the client, as it doesn't represent their core business and allowed me to showcase my projects. 
+
 ## Hardware
 
 The assembled contraption, with a generous dose of hot glue to add extra sturdiness during trasportation (I know, I know, it's not production ready). At the bottom you can barely see the large (2500 mAh) battery that ensures at least a full day at the fair with WiFi and all sensors enabled.
